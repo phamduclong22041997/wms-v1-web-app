@@ -1,0 +1,219 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+@import '../palettes/dark.scss';
+
+
+// Foreground palette for dark themes.
+$mat-dark-theme-foreground: (base: white,
+    divider: $light-dividers,
+    dividers: $light-dividers,
+    disabled: $light-disabled-text,
+    disabled-button: rgba(white, 0.3),
+    disabled-text: $light-disabled-text,
+    elevation: black,
+    hint-text: $light-disabled-text,
+    secondary-text: $light-secondary-text,
+    icon: white,
+    icons: white,
+    text: white,
+    slider-min: white,
+    slider-off: rgba(white, 0.3),
+    slider-off-active: rgba(white, 0.3),
+);
+
+// Background palette for dark themes.
+$mat-dark-theme-background: (status-bar: black,
+    app-bar: map_get($mat-grey, 900),
+    background: #030303,
+    hover: rgba(white, 0.04),
+    card: map_get($ov-dark-primary, A100),
+    dialog: map_get($ov-dark-primary, A100),
+    disabled-button: rgba(white, 0.12),
+    raised-button: map-get($mat-grey, 800),
+    focused-button: $light-focused,
+    selected-button: map_get($mat-grey, 900),
+    selected-disabled-button: map_get($mat-grey, 800),
+    disabled-button-toggle: black,
+    unselected-chip: map_get($mat-grey, 700),
+    disabled-list-option: black,
+);
+
+// @function create-ov-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+//     @return (
+//       primary: $primary,
+//       accent: $accent,
+//       warn: $warn,
+//       is-dark: true,
+//       foreground: $mat-dark-theme-foreground,
+//       background: $mat-dark-theme-background,
+//     );
+//   }
+
+$dark-accent: mat-palette($ov-dark-accent, 500, 600, 700);
+$dark-warn: mat-palette($ov-dark-warn);
+$dark-theme: mat-dark-theme($ov-dark-primary, $dark-accent, $dark-warn);
+
+$themecolor:#f28022;
+$themecolor-alt: #E53935;
+$white:#fff;
+$sidebar-text: #8999a0;
+$sidebar-icons: #909394;
+$light: #505050;
+$inverse:green;
+$border:rgba(0, 0, 0, 0.12);
+
+/* For General */
+.link {
+    color: $themecolor;
+}
+
+.highlight {
+    background-color: #ff291a;
+    padding: 2px 14px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+hr {
+    margin: 30px 0 30px;
+    border-radius: 100px;
+}
+
+.mat-drawer-side {
+    border-right: solid 1px rgb(67 67 67 / 12%) !important;
+}
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: $themecolor !important;
+}
+
+/* For header */
+.mat-grid-tile {
+    min-height: 75px !important;
+}
+
+.mat-ink-bar {
+    background-color: unset !important; // $themecolor !important;
+}
+
+.mat-tab-label {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.mat-tab-label.mat-tab-label-active {
+    background-color: $themecolor !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    opacity: 1;
+}
+
+.mat-grid-list {
+    margin-bottom: 10px !important;
+}
+
+/* For table */
+.app-table-row-header {
+    background-color: #030303 !important;
+    padding: 5px 0 !important;
+}
+
+mat-row {
+    border-bottom-color: rgb(47 47 47) !important;
+}
+
+.mat-header-cell {
+    // font: Bold 15px/23px Roboto;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff !important;
+}
+
+.app-table {
+    mat-row:nth-child(even) {
+        background: #363636 0% 0% no-repeat padding-box;
+    }
+    mat-row:nth-child(odd) {
+        background: #424242 0% 0% no-repeat padding-box;
+    }
+    .mat-paginator {
+        font-size: 13px;
+        // font: 15px/23px Roboto;
+    }
+}
+
+
+/* This is for the navigation*/
+#snav {
+    .mat-nav-list .mat-list-item {
+        a {
+            color: $sidebar-text;
+
+            mat-icon {
+                color: $sidebar-icons;
+            }
+        }
+
+        &.selected .sub-item .mat-list-item-content a.selected {
+            color: $white;
+            .dd-icon {
+                -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+
+        }
+
+    }
+}
+
+/*This is for the chartis js*/
+.ct-label {
+    fill: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.bg-light,
+.email-sidebar .selected .d-flex,
+.email-right-panel,
+.cal-month-view .cal-cell-row .cal-cell:hover,
+.cal-month-view .cal-cell.cal-has-events.cal-open,
+.cal-month-view .cal-cell-row:hover,
+.chat-middle-box,
+.chat-footer,
+.mat-card[_ngcontent-c10],
+.ngx-datatable.material {
+    background-color: $light;
+}
+
+.chat-middle-box {
+    color: black;
+}
+
+.ql-snow .ql-stroke {
+    stroke: $white;
+
+}
+
+.ql-snow .ql-fill {
+    fill: $white;
+}
+
+.ql-snow .ql-picker {
+    color: $white;
+}
+
+.my-drop-zone {
+    background: $inverse;
+}
+
+.cal-month-view .cal-day-cell:not(:last-child),
+.cal-month-view .cal-days .cal-cell-row,
+.cal-header,
+.cal-month-view .cal-days {
+    border-color: $border;
+}
