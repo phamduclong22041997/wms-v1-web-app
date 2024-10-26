@@ -1,0 +1,93 @@
+
+    <mat-card class="app-model-card">
+      <mat-card-header>
+        <mat-card-subtitle *ngIf="!isView">
+          <div appTranslator>
+           {{configs.info}}
+          </div>
+          <div>(<span class="input-required">*</span>) <span> {{ configs.require }}</span></div>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form *ngIf="!isView">
+          	<div fxLayout="row" fxFlexAlign="center center">
+                <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+                  <mat-form-field>
+                    <input (blur)="inputValidator('RoomCode')" matInput appInputForm name="roomcode" [formControl]="formValidator.RoomCode" tabindex="1"
+                      placeholder={{configs.form.roomcode}} minlength="1" maxlength="1" required autoFocus autoUppercase autocomplete="off"/>
+                  </mat-form-field>
+            </div>
+          </div>
+
+      <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-xs="50" fxFlex class="align-center">
+            <div fxLayout="row" fxFlexAlign="center center">
+              <div fxFlex.lt-sm="100" fxFlex class="p-10">
+                <mat-form-field>
+                  <input (blur)="inputValidator('RoomName')" matInput appInputForm name="roomname" [formControl]="formValidator.RoomName" tabindex="2"
+                    placeholder={{configs.form.roomname}} required autocomplete="off"/>
+                </mat-form-field>
+              </div>
+              <div fxFlex.lt-sm="100" fxFlex class="p-10">		
+                <mat-form-field>
+                  <input matInput appInputForm name="roomname_en" tabindex="3"
+                    value={{data.roomname_en}} maxlength="50"
+                    (change)="onChange($event, 'roomname_en')"
+                    placeholder={{configs.form.roomname_en}} autocomplete="off"/>
+                </mat-form-field>
+              </div>
+              </div>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+              <app-combo #roomTypeCombo value={{data.roomtype.propertyname}} tabindex="4"
+                title={{configs.form.roomtype}} [configs]="roomTypeConfig" required=true>
+              </app-combo>
+          </div>
+        </div>
+          <div fxLayout="row wrap" fxFlexAlign="center">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+                <mat-checkbox name="status" [(ngModel)]="data.status" tabindex="5" (change)="statusHandle($event)">{{configs.form.status}} [{{statusText}}]</mat-checkbox>
+              </div>
+          </div>
+        </form>
+        <mat-list *ngIf="isView">
+          <mat-list-item>
+            <div class="app-room-view">{{configs.form.roomcode}}: </div>
+            <div>{{data.roomcode}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <div class="app-room-view">{{configs.form.roomname}}: </div>
+            <div>{{data.roomname}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <div class="app-room-view">{{configs.form.roomname_en}}: </div>
+            <div>{{data.roomname_en}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <div class="app-room-view">{{configs.form.roomtype}}: </div>
+            <div>{{data.roomtype}}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <div class="app-room-view">{{configs.form.status}}: </div>
+            <div>{{data.status?'Active':'Inactive'}}</div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions *ngIf="!isView">
+        	<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+                <div class="button-row">
+                  <button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="!formValid" cdkFocusInitial>{{configs.form.save}}</button>
+                </div>
+              </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  

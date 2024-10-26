@@ -1,0 +1,95 @@
+<app-page>
+	<div style="padding-top: 10px">
+		<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight [selectedIndex]="tabIndexActive">
+			<mat-tab label="{{'Print.TabCreate' | translate}}">
+				<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+				<mat-card-content>
+					<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+				</mat-card-content>
+			</mat-tab>
+			
+			<mat-tab label="{{'Print.TabPrint' | translate}}">
+				<ng-container *ngTemplateOutlet="headerPrint"></ng-container>
+				<mat-card-content>
+					<ng-container *ngTemplateOutlet="mainPrint"></ng-container>
+				</mat-card-content>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</app-page>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="3" rowHeight="60px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{ 'Print.CreateQty' | translate }}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #inputNumber name="inputNumber" tabindex="1" [(ngModel)]="filters.inputNumber"
+						placeholder="{{'Point.Numbers' | translate}}" matInput autocomplete="off" type="number" (keypress)="numberOnly($event)">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{'Print.TransportDevice' | translate}}:</span></label>
+				<app-combo #type class="app-combo" tabindex="3" title="{{'Print.TransportDeviceHolder' | translate}}"
+					[configs]="typeConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn" style="width: 100%;">
+					<button class="btn-lr" color="accent" (click)="onShowConfirm($event)" mat-raised-button tabindex="9">
+						<mat-icon>control_point</mat-icon>{{'btn_create' | translate}}
+					</button>
+					<button class="btn-lr" *ngIf="isShowPrint" color="accent" (click)="printCreate($event)" mat-raised-button tabindex="9">
+						<mat-icon>print</mat-icon>{{'btn_print' | translate}}
+					</button>
+					<button class="btn-lr" *ngIf="isShowPrint" style="margin-right: 10px;" type="button" color="accent" (click)="exportExcel($event)" mat-raised-button tabindex="5">
+						<mat-icon>file_download</mat-icon>{{'Print.Export' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+
+<ng-template #headerPrint>
+	<form #form layout="column">
+		<mat-grid-list cols="3" rowHeight="60px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{ 'Print.TransportCode' | translate }}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #loadInputCode name="loadInputCode" tabindex="1" [(ngModel)]="loadCodes"
+						placeholder="{{'Print.TransportCodeHolder' | translate}}" matInput autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{'Print.TransportDevice' | translate}}:</span></label>
+				<app-combo #loadtype class="app-combo" tabindex="3" title="{{'Print.TransportDeviceHolder' | translate}}"
+					[configs]="typeConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn" style="width: 100%;">
+					<button class="btn-lr" color="accent" (click)="loadPrint($event)" mat-raised-button tabindex="3">
+						<mat-icon>search</mat-icon>{{'btn_load' | translate}}
+					</button>
+					<button class="btn-lr" *ngIf="loadCodes&&isShowLoadPrint" color="accent" (click)="printCodes($event)" mat-raised-button tabindex="4">
+						<mat-icon>print</mat-icon>{{'btn_print' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>
+
+<ng-template #mainPrint>
+	<div>
+		<app-edit-table class="app-table" #appPrintTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

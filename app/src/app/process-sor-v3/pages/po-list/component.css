@@ -1,0 +1,32 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.app-label {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+.mat-card-content{
+    margin-bottom: 0;
+    padding-top: 25px;
+}
+.p-5-10{
+    padding:  5px 10px;
+}
+.green-color{
+    color: green;
+}
+.col50{
+    width: calc(1 * ((50% - 0.5px) * 1));
+    display: inline-block;
+    padding-right: 20px;
+    vertical-align: top;
+}
+.header-title {
+    padding-left: 10px;
+}
+.header-title h3{
+    margin: 0;
+padding-top: 10px;
+}

@@ -1,0 +1,51 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.app-label {
+    width: 130px;
+}
+
+.label-input-block{
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    display: block;
+    padding: 5px 10px 3px 10px;
+    margin-top: 5px;
+    width: 100%;
+    min-width: 120px;
+    height: 35px;
+    cursor: pointer;
+}
+.span-input-txt{
+    opacity: 0.5;
+    white-space: nowrap;
+    width: 66%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    position: absolute;
+}
+.span-input-upload{
+    float:right;
+    background-color: white; 
+    color: black;
+    padding: 1px;
+    border-radius: 5px;
+    min-width: 80px;
+    width: 22%;
+    text-align: center;
+    font-weight: 500;
+}
+.grid-data-upload{
+    float: left;
+    width: calc(100% - 2rem);
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    margin: 1rem 1rem;
+    padding: 20px;
+}
+::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline{
+  height: 35px;
+}
+  

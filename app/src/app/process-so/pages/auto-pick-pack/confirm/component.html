@@ -1,0 +1,26 @@
+<div mat-dialog-content>
+  <h2>{{ data.title | translate}}</h2>
+  <p><strong style="font-weight: bold;">Bạn có chắc chắn muốn tạo phiên lấy hàng?</strong></p>
+
+  <div #form layout="column">
+    <div>
+      <mat-grid-list cols="1" rowHeight="80px" gutterSize="15px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label-top p-14"><span>{{'AutoPickPack.Zone' | translate}}:</span></label>
+          <app-combo #zone class="app-combo" tabindex="1" title="{{'select' | translate}}" [configs]="zoneConfig">
+          </app-combo>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

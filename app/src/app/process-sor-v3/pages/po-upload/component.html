@@ -1,0 +1,65 @@
+
+<app-page-session>
+	<app-page-session-header title="{{ 'FinishPo.POInfo' | translate }}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<div>
+			<h3 class="header-grid">
+				<div style="display: inline-block;width: 50%;">
+					{{'FinishPo.SKUList' | translate}}
+				</div>
+			</h3>
+			<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<mat-grid-list cols="4" rowHeight="60px" gutterSize="15px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-10">{{'UploadSTO.WarehouseLabel' | translate}}:</label>
+			<app-combo #warehouseHandleCombo class="app-combo" tabindex="5"
+					title="{{'UploadSTO.WarehousePlaceholder' | translate}}" [configs]="warehouseHandleConfig"></app-combo>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-10">{{'FinishPo.BinCode' | translate}}</label>
+			<mat-form-field appearance="outline" class="app-input">
+				<input #code name="code" tabindex="4" [(ngModel)]="BinCode" placeholder="{{'FinishPo.BinCodeHoler' | translate}}" matInput
+					autocomplete="off" accept=".xlsx" >
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<input cla style="display:none" #inputFile id="inputFile" type="file"
+				(change)="checkUploadFile($event.target.files)">
+			<label class="label-input-block" for="inputFile">
+				<span class="span-input-txt">{{nameFileUpload}}</span>
+				<span class="span-input-upload">Brower</span>
+			</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<div class="app-btn-row-left" style="margin-left: 30px;">
+				<button class="button-upload-sto" color="accent" (click)="confirm()"
+				mat-raised-button>{{'FinishPo.Submit' | translate | uppercase}}</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<button style="width: 80px" (click)="cancel($event)" mat-flat-button color="accent">{{'cancel' |
+			translate}}</button>
+	</div>
+</ng-template>

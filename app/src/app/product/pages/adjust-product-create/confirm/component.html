@@ -1,0 +1,67 @@
+<div style="text-align: center;">
+  <h3>{{ 'AdjustProduct.EditExpired'| translate | uppercase }}</h3>
+</div>
+<div class="content" mat-dialog-content style="min-width: 650px;">
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="39px" gutterSize="5px" flex-gt-sm="100">
+      <mat-grid-tile>
+        <label class="app-label">SKU:</label>
+        <label style="width: 300px;">{{info.SKU}}</label>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <label class="app-label">{{ 'AdjustProduct.Uom' | translate}}:</label>
+        <label style="width: 300px;">{{info.Uom}}</label>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <label class="app-label">Barcode:</label>
+        <label style="width: 300px;">{{info.Barcode}}</label>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <label class="app-label">{{ 'AdjustProduct.LotNumber' | translate}}:</label>
+        <label style="width: 300px;">{{info.LotNumber}}</label>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <label class="app-label">{{'AdjustProduct.SKUName' | translate}}:</label>
+        <label style="width: 300px;">{{info.SKUName}}</label>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <label class="app-label">{{ 'AdjustProduct.Expired' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="expiredDate" placeholder="D/M/YYYY" tabindex="1" class="app-datepicker" [options]="expiredDateConfig" #expiredDate></app-datepicker>
+      </mat-grid-tile>
+      
+      <mat-grid-tile colspan="2">
+        <label class="app-label">{{ 'AdjustProduct.ManufactureDate' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="manufactureDate" placeholder="D/M/YYYY" tabindex="2" class="app-datepicker"  [options]="manufactureDateConfig" #manufactureDate></app-datepicker>
+      </mat-grid-tile>
+
+      <!-- <mat-grid-tile colspan="2">
+        <label class="app-label">{{ 'AdjustProduct.EffectiveDate' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="effectiveDate" placeholder="D/M/YYYY" tabindex="3" class="app-datepicker" [options]="effectiveDateConfig" #effectiveDate></app-datepicker>
+      </mat-grid-tile> -->
+
+      <mat-grid-tile colspan="2">
+        <label class="app-label">{{ 'AdjustProduct.ExpiredPercents' | translate}}:</label>
+        <div style="position: absolute;padding-left: 200px;color: white;width: 100%;z-index: 9999;"> {{expiredPercents}}% </div>
+        <mat-progress-bar mode="determinate" [value]="expiredPercents" bufferValue="50">
+        </mat-progress-bar>
+        <mat-icon 
+        class="icon-helper"
+        aria-hidden="false" 
+        matTooltip="%HSD = ((Ngày Hạn Sử Dụng - Ngày Hiện Tại)/(Ngày Hạn sử dụng - Ngày sản xuất))*100"
+        matTooltipClass="helper-tooltip"
+        aria-label="Example home icon">help</mat-icon>
+      </mat-grid-tile>      
+    </mat-grid-list>
+  </mat-card-content>
+  <div style="margin-top: 10px;" [hidden]="!isLotNumber">
+    <h5>{{ 'AdjustProduct.LocationOther'| translate | uppercase }}</h5>
+    <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

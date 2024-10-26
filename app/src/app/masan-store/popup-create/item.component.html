@@ -1,0 +1,182 @@
+<h4 style="margin: 0 0 10px 0;">{{ 'ImportStore.CreateCode' | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr>
+			<td><b>{{'ImportStore.StoreCode' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreCode maxlength="4" name="StoreCode" [(ngModel)]="dataCreateStore.StoreCode"
+						(keyup)="changedStoreCode()" matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 1 -->
+			<td class="pdl"><b>{{'ImportStore.Country' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Country class="app-combo" tabindex="5" title="{{'ImportStore.Country' | translate}}"
+						[configs]="CountryConfig"></app-combo>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.StoreName' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreName name="StoreName" [(ngModel)]="dataCreateStore.StoreName" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 2 -->
+			<td class="pdl"><b>{{'ImportStore.Region' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Region class="app-combo" tabindex="5" title="{{'ImportStore.SelectRegion' | translate}}"
+						[configs]="RegionConfig"></app-combo>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Type' | translate}}:</b></td>
+			<td>
+				<app-combo #StoreType class="app-combo" tabindex="3" title="{{'ImportStore.Type' | translate}}"
+					[configs]="StoreTypeConfig"></app-combo>
+
+			</td>
+			<!-- 3 -->
+			<td class="pdl"><b>{{'ImportStore.Province' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Province class="app-combo" tabindex="5"
+						title="{{'ImportStore.SelectProvince' | translate}}" [configs]="ProvinceConfig"></app-combo>
+					<button class="button-create-address" (click)='showPopupCreateAddress("Provinces")'>+</button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Status' | translate}}:</b></td>
+			<td>
+				<app-combo #Status class="app-combo" tabindex="5" title="{{'ImportStore.SelectStatus' | translate}}"
+					[configs]="StatusConfig"></app-combo>
+			</td>
+			<!-- 4 -->
+			<td  class="pdl"><b>{{'ImportStore.District' | translate}}<span class="app-require-icon">*</span>:</b>
+			</td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #District class="app-combo" tabindex="5"
+						title="{{'ImportStore.SelectDistrict' | translate}}" [configs]="DistrictConfig"></app-combo>
+					<button class="button-create-address" (click)='showPopupCreateAddress("Districts")'>+</button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Name' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Name name="Name" [(ngModel)]="dataCreateStore.Name" matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 5 -->
+			<td  class="pdl"><b>{{'ImportStore.Ward' | translate}}:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Ward class="app-combo" tabindex="5" title="{{'ImportStore.SelectWard' | translate}}"
+						[configs]="WardConfig"></app-combo>
+					<button class="button-create-address" (click)='showPopupCreateAddress("Wards")'>+</button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Phone' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Phone type="text" maxlength="11" (keyup)="changedPhone()" name="Phone" [(ngModel)]="dataCreateStore.Phone"
+						matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 6 -->
+			<td  class="pdl"><b>{{'ImportStore.FullAddress' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #FullAddress name="FullAddress" [(ngModel)]="dataCreateStore.FullAddress" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+	
+		<tr>
+			<td><b>{{'ImportStore.HotLine' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Hotline type="text" name="Hotline" [(ngModel)]="dataCreateStore.Hotline" matInput
+						autocomplete="off" 	placeholder="VD: {{'ImportStore.HotLinePlaceHolder' | translate}}">
+				</mat-form-field>
+			</td>
+			<!-- 7 -->
+			<td  class="pdl"><b>{{'ImportStore.Street' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Street name="Street" [(ngModel)]="dataCreateStore.Street" matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>{{'ImportStore.StaffName' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffName type="text" name="StaffName" [(ngModel)]="dataCreateStore.StaffName" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 8 -->
+			<td  class="pdl"><b>{{'ImportStore.Longitude' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Longitude type="number" name="Longitude" [(ngModel)]="dataCreateStore.Longitude" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.StaffPhone' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffPhone type="text" maxlength="11" (keyup)="changedPhone()" name="StaffPhone"
+						[(ngModel)]="dataCreateStore.StaffPhone" matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+			<!-- 9 -->
+			<td  class="pdl"><b>{{'ImportStore.Latitude' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Latitude type="number" name="Latitude" [(ngModel)]="dataCreateStore.Latitude" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.LeadTime' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #LeadTime type="number" name="LeadTime" [(ngModel)]="dataCreateStore.LeadTime" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+			<td  class="pdl"><b>SortCode<span class="app-require-icon"></span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #SortCode type="text" name="SortCode" [(ngModel)]="dataCreateStore.SortCode" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+	</table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 20px;">
+		<button style="width: 120px;" (click)="confirm($event)" [disabled]="isCreated" mat-raised-button
+			color="accent">{{'btn_confirm' |
+			translate}}</button>
+		<button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-content>

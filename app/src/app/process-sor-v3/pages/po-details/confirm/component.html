@@ -1,0 +1,17 @@
+<div style="text-align: center;">
+  <h3>{{ 'FinishPo.UpdatePromotion'| translate }}</h3>
+</div>
+<div class="content" mat-dialog-content style="min-width: 800px; min-height: 300px;">
+  <mat-card-content>
+    <div>
+      <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+    </div>
+  </mat-card-content>
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

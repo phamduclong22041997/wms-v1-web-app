@@ -1,0 +1,35 @@
+<ng-template #dialogTitle>
+  <span class="app-title">NHẬP MÃ QUÀY ĐÓNG GÓI</span>
+</ng-template>
+
+<ng-template #tableContent>
+  <div #form layout="column">
+		<div>
+			<mat-grid-list cols="1" rowHeight="80px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+          <mat-form-field appearance="outline" class="app-input">
+						<input #code style="text-transform: uppercase;" name="code" tabindex="1" placeholder="{{ inputPlaceholder | translate}}" matInput
+							(keyup.enter)="onEnter($event)" (change)="onChange($event)" on autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+		</div>
+	</div>
+</ng-template>
+
+<div mat-dialog-content>
+  <div class="container">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onEnter()" cdkFocusInitial
+      [disabled]="!allowSave">{{
+      'btn_confirm' |
+      translate:{Default: "Yes"} }}</button>
+  </div>
+</div>

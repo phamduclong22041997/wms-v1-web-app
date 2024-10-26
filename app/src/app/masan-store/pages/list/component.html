@@ -1,0 +1,83 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'MasanStore.Filter' | translate }}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<div>
+			<h3 class="header-grid">
+				<div style="display: inline-block;width: 50%;">
+					{{'MasanStore.Title' | translate}}
+				</div>
+				<!-- <div class="app-btn-row-right" style="display: inline-block; width: 50%;">
+					<button color="accent" (click)="showPopupCreate($event)"
+						mat-raised-button>{{'ImportStore.CreateCode' |translate}}</button>
+					<button color="accent" (click)="showPopupImport($event)"
+						mat-raised-button>{{'ImportStore.ImportStore' |translate}}</button>
+				</div> -->
+			</h3>
+
+			<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<!-- <form #form layout="column"> -->
+	<mat-grid-list cols="3" rowHeight="60px" gutterSize="15px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label-top p-14">{{'client' | translate}}:</label>
+			<app-combo #client class="app-combo" tabindex="2" title="{{'client' | translate}}" [configs]="clientConfig">
+			</app-combo>
+		</mat-grid-tile>
+
+
+		<mat-grid-tile>
+			<label class="app-label-top p-14">{{'MasanStore.Status' | translate}}:</label>
+			<app-combo #status class="app-combo" tabindex="3" title="{{'MasanStore.SelectStatus' | translate}}"
+				[configs]="statusConfig">
+			</app-combo>
+		</mat-grid-tile>
+
+
+		<mat-grid-tile>
+			<label class="app-label-top p-14">{{'AutoDOGR' | translate}}:</label>
+			<app-combo #doGR class="app-combo" [configs]="doGRConfig" tabindex="4" title="{{'AutoDOGR' | translate}}" [configs]="doGRCombo">
+			</app-combo>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label-top p-14">{{'MasanStore.Keyword' | translate}}:</label>
+			<mat-form-field appearance="outline" class="app-input">
+				<input #code name="code" [(ngModel)]="filters.Content"
+					placeholder="{{'MasanStore.KeyWordPlaceHolder' | translate}}" matInput
+					(keyup.enter)="search($event)" autocomplete="off">
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label-top p-14"><span>Priority:</span></label>
+			<app-combo #storepriority class="app-combo" tabindex="9" title="Priority"
+				[configs]="storePriorityConfig">
+			</app-combo>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<div class="app-btn-row-right" style="width: 100%;">
+				<button color="accent" (click)="search($event)" mat-raised-button>
+					<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+				</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+	<!-- </form> -->
+</ng-template>

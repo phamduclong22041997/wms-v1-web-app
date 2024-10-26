@@ -1,0 +1,52 @@
+<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+
+<ng-template #mainImportContent>
+	<div>
+		<app-page-session>
+			<app-page-session-header title="{{'TransportDevice.DetailTitle' | translate | uppercase}}"></app-page-session-header>
+			<mat-card-content>
+				<table class="app-table app-table-p">
+					<tr>
+						<td style="width: 180px;"><span>{{'TransportDevice.Code' | translate}}:</span></td>
+						<td style="width: 120px;"><label>{{data.Code}}</label></td>
+						<td style="width: 90px;"><span>{{'TransportDevice.Type' | translate}}:</span></td>
+						<td style="width: 180px;"><label>{{data.Type}}</label></td>
+						<td style="width: 90px;"><span>{{'TransportDevice.LocationCode' | translate}}:</span></td>
+						<td><label>{{data.LocationCode}}</label></td>
+					</tr>
+					<tr>
+						<!-- <td style="width: 180px;"><span>{{'LotNumber' | translate}}:</span></td>
+						<td style="width: 120px;">
+							<label style="padding-right: 10px;">{{data.LotNumber?data.LotNumber:'N/A'}}</label>
+						</td> -->
+
+						<td style="width: 180px;"><span>{{'TransportDevice.NumOfItems' | translate}}:</span></td>
+						<td style="width: 120px;">
+							<label style="padding-right: 10px;">{{data.NumOfItems}}</label>
+						</td>
+						<td style="width: 90px;"><span>{{'TransportDevice.Status' | translate}}:</span></td>
+						<td><label>{{(data.Type?("DeviceStatus."+data.Status):"") | translate}}</label></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td style="width: 180px;"><span>{{'client' | translate}}:</span></td>
+						<td style="width: 120px;"><label>{{data.ClientCode}}</label></td>
+						<td style="width: 90px;"><span>{{'DCSite' | translate}}:</span></td>
+						<td style="width: 180px;"><label>{{data.DCName}}</label></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<div>
+					<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+				</div>
+				<div class="p-10 bt-button">
+					<button style="width: 80px" (click)="goToBackList($event)" mat-stroked-button
+						color="primary">{{'cancel' |
+						translate}}</button>
+				</div>
+			</mat-card-content>
+		</app-page-session>
+
+	</div>
+</ng-template>

@@ -1,0 +1,45 @@
+<app-page-session>
+	<app-page-session-header title="{{'Export.ReportDelivery' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="3" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label-top p-14"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="6" [(ngModel)]="filters.Content"
+							placeholder="{{ 'Export.KeywordPlaceholder' | translate}}" matInput
+							(keyup.enter)="search($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+
+				<mat-grid-tile [colspan]="3">
+					<div class="app-btn-row-right" style="width: 100%;">	
+						<button color="accent" (click)="download($event)" mat-raised-button tabindex="9" [disabled]="!enableDownload">
+							<mat-icon>download</mat-icon>{{'btn_export' | translate}}
+						</button>
+						<button color="accent" (click)="search($event)" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div style="padding-top: 24px;">
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

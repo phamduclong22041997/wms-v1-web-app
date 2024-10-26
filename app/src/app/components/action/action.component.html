@@ -1,0 +1,10 @@
+<div class="app-action-tool">
+  <span *ngFor="let tool of tools">
+    <button *ngIf="tool.visible" mat-stroked-button class="app-action-btn" (click)="onClick(tool)">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{tool.icon}}
+      </mat-icon>
+      {{ tool.title | translate }}
+    </button>
+  </span>
+</div>

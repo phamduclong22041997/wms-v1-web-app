@@ -1,0 +1,102 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'SOReturns.SORInfo' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+
+<ng-template #headerContent>
+	<mat-grid-list cols="3" rowHeight="35px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.SORCode' | translate}}:</label>
+			<label class="p-10">{{ data.SORCode }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'store' | translate}}:</label>
+			<label class="p-10">{{ data.SiteId }} - {{ data.SiteName }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.BranchWH' | translate}}:</span></label>
+			<label class="p-10">{{ data.WarehouseSite }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.SOCode' | translate}}:</label>
+			<label class="p-10">{{ data.SOCode }}</label>
+		</mat-grid-tile>		
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.Status' | translate}}:</label>
+			<label class="p-10">{{ data.Status }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.Type' | translate}}:</label>
+			<label class="p-10">{{ data.Type }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.SOExternalCode' | translate}}:</span></label>
+			<label class="p-10">{{ data.SOExternalCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.CanceledBy' | translate}}:</span></label>
+			<label class="p-10" style="width: 100px;">{{ data.CanceledBy }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.CreatedDate' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedDate }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.TotalSKU' | translate}}:</label>
+			<label class="p-10">{{ data.TotalSKU }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.ReturnQtyOnPackedQty' | translate}}:</span></label>
+			<label class="p-10">{{ data.TotalReturnQty }} / {{ data.TotalPackedQty }} (units)</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.Note' | translate}}:</span></label>
+			<label class="p-10">{{ data.Note }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'client' | translate}}:</label>
+			<label class="p-10">{{ data.ClientCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SOReturns.WeightVolume' | translate}}:</span></label>
+			<label class="p-10">{{ data.TotalWeight }} / {{ data.TotalVolume }} (kg/m3)</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SOReturns.CompletedDate' | translate}}:</label>
+			<label class="p-10">{{ data.CompletedDate }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile [colspan]="3">
+			<div class="app-btn-row-right" style="width: 100%;">
+				<button type="button" color="accent" tabindex="10" (click)="exportExcel()" mat-raised-button>
+					<mat-icon>file_download</mat-icon>{{'SOReturns.ExportExcel' | translate}}
+				</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<button style="width: 80px" (click)="backToList()" mat-stroked-button color="primary">{{'btn_back' |
+			translate}}</button>
+	</div>
+</ng-template>

@@ -1,0 +1,127 @@
+<app-page-session>
+  <!-- <app-page-session-header subTitle="{{pickListCode}}" title="{{'AutoPickPack.TitleDetail' | translate | uppercase}}: "> -->
+  <!-- </app-page-session-header> -->
+  <mat-card-content style="padding-top: 15px;">
+    <ng-container *ngTemplateOutlet="infoImportContent"></ng-container>
+  </mat-card-content>
+  <mat-card-content style="padding-top: 15px;">
+    <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+    <ng-container *ngTemplateOutlet="actionContain"></ng-container>
+  </mat-card-content>
+</app-page-session>
+
+<!-- <app-page-session>
+  <mat-card-content>
+    <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+    <ng-container *ngTemplateOutlet="actionContain"></ng-container>
+  </mat-card-content>
+</app-page-session> -->
+
+<ng-template #mainContent>
+  <div class="tab-container">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight
+      [selectedIndex]="tabIndexActive">
+      <mat-tab label="{{'AutoPickPack.Tabs.SummaryPickList' | translate}}">
+        <ng-container *ngTemplateOutlet="tablePickDetail"></ng-container>
+      </mat-tab>
+      <mat-tab label="{{'AutoPickPack.Tabs.SummaryConfirmPickList' | translate}}">
+        <ng-container *ngTemplateOutlet="tableHistoryPickingDetail"></ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</ng-template>
+
+<ng-template #tablePickDetail>
+  <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+</ng-template>
+
+<ng-template #tableHistoryPickingDetail>
+  <app-edit-table class="app-table" #appHistoryPickingTable [configs]="tableHistoryPickingConfig"></app-edit-table>
+</ng-template>
+
+<ng-template #infoImportContent>
+  <mat-grid-list cols="3" rowHeight="35px" gutterSize="10px" flex-gt-sm="100">
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.Employee' | translate}}:</label>
+      <label class="p-10">{{ data.Employee }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.SOCode' | translate}}:</label>
+      <label class="p-10">{{ data.SOCode }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.PickupMethod' | translate}}:</label>
+      <label class="p-10">{{ data.PickupMethod }}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.CreatedDate' | translate}}:</label>
+      <label class="p-10">{{ data.CreatedDate }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.Status' | translate}}:</label>
+      <label class="p-10">{{data.Status ? ('PickListStatus.' + data.Status | translate) : ''}}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.ConfirmPickingDate' | translate}}:</label>
+      <label class="p-10">{{ data.ConfirmPickingDate }}</label>
+    </mat-grid-tile> 
+
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.Store' | translate}}:</label>
+      <label class="p-10">{{ data.SiteId }} - {{ data.StoreName }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.PackedLocationPoint' | translate}}:</label>
+      <label class="p-10">
+        <span [hidden]="data.PackedLocationPoint">
+          <span>{{'AutoPickPack.SelectPoint' | translate}}</span>
+        </span><span [hidden]="!data.PackedLocationPoint">{{data.PackedLocationPoint}}</span>
+      </label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.ConfirmPicking' | translate}}:</label>
+      <label class="p-10">{{ data.StatusConfirm }}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.CreatedBy' | translate}}:</label>
+      <label class="p-10">{{ data.CreatedBy }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.TotalSKUPicking' | translate}}:</label>
+      <label class="p-10">{{data.TotalSKUPicked}} / {{ data.TotalSKU }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.ConfirmPickingBy' | translate}}:</label>
+      <label class="p-10">{{ data.ConfirmPickingBy }}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.TotalLocationPicking' | translate}}:</label>
+      <label class="p-10">{{ data.TotalPickedLocation }} / {{ data.TotalPickingLocation }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.TotalMinutePicking' | translate}}:</label>
+      <label class="p-10">{{ data.TotalMinutePicking }} / {{ data.TotalExpectSpendTimePicking }}</label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <label class="app-label p-5-10">{{'AutoPickPack.TotalQtyPicking' | translate}}:</label>
+      <label class="p-10">{{ data.TotalPickedQty }} / {{ data.TotalQty}}</label>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+  <div class="app-btn-row" style="margin-top: 10px;">
+    <span [hidden]="!allowCancelPicklist">
+      <button (click)="showConfirmCancel($event)" mat-flat-button color="accent"
+        style="color: white;">{{'AutoPickPack.Cancel' | translate}}</button>
+    </span>
+    <button (click)="exportExcel($event)" mat-flat-button color="accent" style="color: white;">{{'btn_export' | translate }}</button>
+    <button (click)="printPickingList($event)" mat-flat-button color="accent" style="color: white;">In PickingList</button>
+    <button (click)="exportPickingList($event)" mat-flat-button color="accent" style="color: white;">Xuất PickingList</button>
+    <button (click)="printPickingListEven($event)" mat-flat-button color="accent" style="color: white;">In Tem SO Chẳn</button>
+    <button (click)="goToBack($event)" mat-flat-button style="color: white;">{{'btn_back' | translate }}</button>
+  </div>
+</ng-template>

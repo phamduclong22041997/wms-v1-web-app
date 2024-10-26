@@ -1,0 +1,93 @@
+.label-input-block {
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    display: block;
+    padding: 5px 10px 3px 10px;
+    margin-top: 5px;
+    width: 100%;
+    min-width: 120px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.label-input-block:hover {
+    border: 2px solid #fff
+}
+
+.span-input-txt {
+    opacity: 0.5;
+    white-space: nowrap;
+    width: 66%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    position: absolute;
+}
+
+.span-input-upload {
+    float: right;
+    background-color: white;
+    color: black;
+    padding: 1px;
+    border-radius: 5px;
+    min-width: 80px;
+    padding: 0 7px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.grid-data-upload {
+    float: left;
+    width: calc(100% - 2rem);
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    margin: 1rem 1rem;
+    padding: 20px;
+}
+
+::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline {
+    height: 35px;
+}
+
+::ng-deep .mat-form-field-wrapper .mat-form-field-infix input {
+    padding-bottom: 0 !important;
+    padding-top: 2px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: 0.4em !important;
+}
+
+.header-summary {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.header-summary .summary-item {
+    padding-left: 10px;
+    min-width: 14%;
+}
+
+.app-input {
+    min-width: 100px;
+}
+
+.tab-container {
+    padding-top: 15px;
+}
+
+.width-80 {
+    width: 80px !important;
+}
+
+.download-template-btn {
+    color: green;
+    cursor: pointer;
+    text-decoration: underline;
+    float: right;
+}
+.hiden {
+    display: none;
+}

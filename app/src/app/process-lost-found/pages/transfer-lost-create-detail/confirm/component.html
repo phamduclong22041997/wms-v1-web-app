@@ -1,0 +1,67 @@
+<div style="text-align: center;">
+  <h3>{{ 'TransferLost.TransferLostPhysical'| translate | uppercase }}</h3>
+</div>
+<div class="content" mat-dialog-content style="min-width: 800px; min-height: 500px;">
+  <table class="app-table app-table-p">
+    <tr>
+      <td colspan="5">
+        <span style="font-size: medium; font-weight: bold; margin-top: 10px;">{{'TransferLost.InfoDetailTitle' |
+          translate}}</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 100px; color: #040404;"><span>{{'TransferLost.LostCode' | translate}}:</span>
+      </td>
+      <td style="width: 200px;"><label>{{data.Code}}</label></td>
+
+      <td style="width: 100px; color: #040404;"><span>{{'TransferLost.CreatedDate' | translate}}:</span></td>
+      <td style="width: 200px;"><label>{{data.CreatedDate}}</label></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="color: #040404;"><span>{{'TransferLost.Status' | translate}}:</span>
+      </td>
+      <td><label>{{data.Status}}</label></td>
+
+      <td style="color: #040404;"><span>{{'TransferLost.CreatedBy' | translate}}:</span></td>
+      <td><label>{{data.CreatedBy}}</label></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="color: #040404;"><span>{{'TransferLost.LocationLabel' | translate}}:</span>
+      </td>
+      <td><label>{{data.LocationLabel}}</label></td>
+
+      <td style="color: #040404;"><span>{{'TransferLost.LostType' | translate}}:</span></td>
+      <td><label>{{data.LostType}}</label></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="color: #040404;"><span>{{'TransferLost.SubLocationLabel' | translate}}:</span>
+      </td>
+      <td><label>{{data.SubLocationLabel}}</label></td>
+
+      <td style="color: #040404;"><span>{{'TransferLost.Note' | translate}}:</span></td>
+      <td colspan="2"><label>{{data.Note}}</label></td>
+      
+    </tr>
+    <tr>
+      <td colspan="5">
+        <span style="font-size: medium; font-weight: bold; margin-top: 10px;">{{'TransferLost.ListSKU' |
+          translate}}</span>
+      </td>
+    </tr>
+    <tr style="margin-top: 20px;">
+      <td colspan="5">
+        <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

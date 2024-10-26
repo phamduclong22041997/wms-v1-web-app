@@ -1,0 +1,177 @@
+<app-page>
+	<mat-card-content style="padding-top: 15px;">
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<div *ngIf="!isOnlyDC">
+			<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10">{{'POR.Keyword' | translate}}:</label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="1" [(ngModel)]="filters.Content"
+							(keyup.enter)="onEnter($event)" placeholder="{{'POR.KeywordPlaceholder' | translate}}" matInput
+							autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+					<label class="app-label p-5-10"><span>{{'POR.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6" title="{{'POR.Client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>		
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.SOStatus' | translate}}:</span></label>
+					<app-combo-multiple #status class="app-combo" tabindex="2"
+						title="{{'POR.STOStatus' | translate}}" [configs]="soStatusConfig">
+					</app-combo-multiple>
+				</mat-grid-tile>
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'STO.WarehouseCode' | translate}}:</span></label>
+					<app-combo #cbbWarehouseCode class="app-combo" tabindex="2" title="{{'STO.WarehouseCode' | translate}}"
+						[configs]="warehouseCodeConfig" [readonly]="isReadOnly">
+					</app-combo>
+				</mat-grid-tile>
+	 -->
+
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.StoreType' | translate}}:</span></label>
+					<app-combo #storetype class="app-combo" tabindex="7" title="{{'POR.StoreType' | translate}}"
+						[configs]="storeTypeConfig">
+					</app-combo>
+				</mat-grid-tile>
+				 -->
+
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>Priority:</span></label>
+					<app-combo #storepriority class="app-combo" tabindex="9" title="Priority"
+						[configs]="storePriorityConfig">
+					</app-combo>
+				</mat-grid-tile> -->
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.BranchWH' | translate}}:</span></label>
+					<app-combo #whBranchCombo class="app-combo" tabindex="6" title="{{'POR.BranchWH' | translate}}"
+						[configs]="warehouseBrachConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Vendor' | translate}}:</span></label>
+					<app-combo #vendor class="app-combo" tabindex="7" title="{{'POR.Vendor' | translate}}"
+						[configs]="vendorConfig">
+					</app-combo>
+				</mat-grid-tile>
+				
+				<mat-grid-tile colspan="2">
+					<div class="app-btn-row-right" style="width: 100%;">
+						<button type="button" color="accent" tabindex="8" (click)="search($event)" mat-raised-button
+							tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<button type="button" color="accent" tabindex="10" (click)="exportExcel($event)" mat-raised-button>
+							<mat-icon>file_download</mat-icon>{{'POR.ExportExcel' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+		<div *ngIf="isOnlyDC">
+			<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10">{{'POR.Keyword' | translate}}:</label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #Content name="Content" tabindex="1" [(ngModel)]="filters.Content"
+							(keyup.enter)="onEnter($event)" placeholder="{{'POR.KeywordPlaceholder' | translate}}" matInput
+							autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+					<label class="app-label-min p-5-10"><span>{{'POR.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6" title="{{'POR.Client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>			
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.SOStatus' | translate}}:</span></label>
+					<app-combo-multiple #status class="app-combo" tabindex="2"
+						title="{{'POR.STOStatus' | translate}}" [configs]="soStatusConfig">
+					</app-combo-multiple>
+				</mat-grid-tile>
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'STO.WarehouseCode' | translate}}:</span></label>
+					<app-combo #cbbWarehouseCode class="app-combo" tabindex="2" title="{{'STO.WarehouseCode' | translate}}"
+						[configs]="warehouseHandleConfig">
+					</app-combo>
+				</mat-grid-tile>
+	 -->
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Vendor' | translate}}:</span></label>
+					<app-combo #store class="app-combo" tabindex="7" title="{{'POR.Vendor' | translate}}"
+						[configs]="vendorConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Store' | translate}}:</span></label>
+					<app-combo #store class="app-combo" tabindex="7" title="{{'POR.Store' | translate}}"
+						[configs]="storeConfig">
+					</app-combo>
+				</mat-grid-tile> -->
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.StoreType' | translate}}:</span></label>
+					<app-combo #storetype class="app-combo" tabindex="7" title="{{'POR.StoreType' | translate}}"
+						[configs]="storeTypeConfig">
+					</app-combo>
+				</mat-grid-tile> -->
+	
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>Priority:</span></label>
+					<app-combo #storepriority class="app-combo" tabindex="9" title="Priority"
+						[configs]="storePriorityConfig">
+					</app-combo>
+				</mat-grid-tile> -->
+				
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.BranchWH' | translate}}:</span></label>
+					<app-combo #whBranchCombo class="app-combo" tabindex="6" title="{{'POR.BranchWH' | translate}}"
+						[configs]="warehouseBrachConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile colspan="2">
+					<div class="app-btn-row-right" style="width: 100%;">
+						<button type="button" color="accent" tabindex="8" (click)="search($event)" mat-raised-button
+							tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<button type="button" color="accent" tabindex="10" (click)="exportExcel($event)" mat-raised-button>
+							<mat-icon>file_download</mat-icon> {{'POR.ExportExcel' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</form>
+</ng-template>

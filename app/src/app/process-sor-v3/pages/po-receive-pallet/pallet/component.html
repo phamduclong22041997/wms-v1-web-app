@@ -1,0 +1,25 @@
+<div mat-dialog-content>
+  <div #form layout="column">
+    <div>
+      <mat-grid-list cols="1" rowHeight="100px" gutterSize="15px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label-top p-20">{{"Loại hàng của Pallet"}}:</label>
+          <app-combo #labels class="app-combo" tabindex="1" title="{{'select' | translate}}"
+            [configs]="specificationConfig"></app-combo>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </div>
+  </div>
+
+  <div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_confirm'
+      | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

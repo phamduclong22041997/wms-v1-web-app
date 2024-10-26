@@ -1,0 +1,20 @@
+.app-table-header-tool {
+  display: inline-flex;
+  width: 100%;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+.app-table-header-search {
+  height: 34px;
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-left: 10px;
+}
+@media(max-width:768px) {
+  .app-table-header-tool {
+      display: block;
+    }
+    .app-table-header-search {
+      margin-bottom: 5px;
+    }
+}

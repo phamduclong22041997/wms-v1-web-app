@@ -1,0 +1,13 @@
+<div [style.height]="modalStyle.height">
+<mat-toolbar color="accent">
+      <mat-toolbar-row>
+        <!-- <mat-icon aria-hidden="false">{{icons[action || "view"]}}</mat-icon> -->
+        <span style="margin-left: 10px;">{{ title | translate:{Default: title} }}</span>
+        <span class="app-model-header-spacer"></span>
+        <button (click)="close()" mat-icon-button aria-label="Close">
+          <mat-icon class="app-model-header-icon" aria-hidden="false" aria-label="Close">close</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+     <ng-container *ngComponentOutlet="component; injector: injector"></ng-container>
+</div>

@@ -1,0 +1,413 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<div>
+			<h4 class="header-grid">
+				<div style="display:block;">
+					<span>{{'Product.Title' | translate}}</span><span>: {{data.SKU}}</span>
+				</div>				
+			</h4>
+			<mat-grid-list cols="2" rowHeight="35px" gutterSize="5px" flex-gt-sm="100" style="margin-bottom: 20px !important;">
+				<mat-grid-tile>
+					<label class="app-info p-5-10"><span>{{'client' | translate}}:</span></label>
+					<label><b>{{data.ClientName}}</b></label>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-info p-5-10">{{'DCSite' | translate}}:</label>
+					<label><b>{{data.DCSite}}</b></label>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-info p-5-10">{{'Product.ProductName' | translate}}:</label>
+					<label><b>{{data.Name}}</b></label>
+				</mat-grid-tile>
+				<mat-grid-tile></mat-grid-tile>
+			</mat-grid-list>
+			<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight [selectedIndex]="tabIndexActive" (selectedTabChange)="onTabClick($event)">
+				<mat-tab label="{{'Product.Tabs.Summary' | translate}}">
+					<ng-container *ngTemplateOutlet="summaryContent"></ng-container>
+				</mat-tab>
+				<mat-tab label="{{'Product.Tabs.Unit' | translate}}">
+					<ng-container *ngTemplateOutlet="unitContent"></ng-container>
+				</mat-tab>
+				<mat-tab label="{{'Product.Tabs.Barcodes' | translate}}">
+					<ng-container *ngTemplateOutlet="barcodeContent"></ng-container>
+				</mat-tab>
+				<mat-tab label="{{'Product.Tabs.Manufacturer' | translate}}">
+					<ng-container *ngTemplateOutlet="manufactureContent"></ng-container>
+				</mat-tab>
+				<mat-tab label="{{'Lịch sử cập nhật đơn vị Thùng' | translate}}">
+					<ng-container *ngTemplateOutlet="productUnitTrackingContent"></ng-container>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #summaryContent>
+	<form #form layout="column">
+		<mat-grid-list cols="2"  rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>SKU</span><span style="color: red;">
+						*</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #sku name="sku" tabindex="1" disabled placeholder="SKU" [ngModel]="data.SKU" matInput autocomplete="off" required maxlength="30">
+				</mat-form-field>
+			</mat-grid-tile>	
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}</span><span style="color: red;">
+						*</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #client name="clientCode" disabled tabindex="1" placeholder="{{'client' | translate}}" [ngModel]="data.ClientName" matInput autocomplete="off" required maxlength="3">
+				</mat-form-field>
+			</mat-grid-tile>	
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.ProductName' | translate}}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #productname name="productname" [ngModel]="data.Name" tabindex="2" maxlength="1000"
+						placeholder="{{'Product.ProductNamePlaceholder' | translate}}" matInput
+						autocomplete="off" required disabled>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}</span><span style="color: red;">
+						*</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="DCSite" disabled tabindex="12" placeholder="{{'DCSite' | translate}}" [ngModel]="data.DCSite" matInput autocomplete="off" required maxlength="3">
+				</mat-form-field>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.Description' | translate}}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="description" [ngModel]="data.Desc" tabindex="3" maxlength="2000"
+						placeholder="{{'Product.DescriptionPlaceholder' | translate}}" matInput
+						autocomplete="off" required disabled>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.ProductType' | translate}}</span><span
+						style="color: red;"> *</span>:</label>
+				<app-combo #producttype class="app-combo app-combo-mid" tabindex="12" readonly
+					title="{{'Product.ProductType' | translate}}" [required]="isRequiredProductType"
+					[configs]="productTypeConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>MHU:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #MHU name="MHU" tabindex="5" maxlength="50" disabled
+						matInput autocomplete="off" required [ngModel]="data.MHU">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.StorageType' | translate}}</span><span
+						style="color: red;"> *</span>:</label>
+				<app-combo #storagetype class="app-combo app-combo-mid" tabindex="13"
+					title="{{'Product.StorageTypePlaceholder' | translate}}" readonly
+					[required]="isRequiredStorageType" [configs]="storageTypeConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>PCB:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #PCB name="PCB" tabindex="5" maxlength="50" disabled
+						matInput autocomplete="off" required [ngModel]="data.PCB">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.StorageCondition' | translate}}</span><span
+						style="color: red;"> *</span>:</label>
+				<app-combo #storagecondition class="app-combo app-combo-mid" tabindex="14"
+					title="{{'Product.StorageConditionPlaceholder' | translate}}" readonly
+					[required]="isRequiredStorageCondition" [configs]="storageConditionConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.Supplier' | translate}} :</span></label>
+				<!-- <app-combo #vendorCombo class="app-combo" tabindex="6"
+					title="{{'Product.SupplierPlaceholder' | translate}}" disabled
+					[required]="isRequiredSupplier" [configs]="vendorConfig">
+				</app-combo> -->
+				<mat-form-field appearance="outline" class="app-input">
+					<input [ngModel]="data.VendorId" tabindex="6" name="vendorid" maxlength="50" disabled
+						placeholder="{{'Product.SupplierPlaceholder' | translate}}" matInput autocomplete="off" required>
+				</mat-form-field>
+			</mat-grid-tile>	
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.InventoryMethod' | translate}}</span><span
+						style="color: red;"> *</span>:</label>
+				<app-combo #inventorymethodCombo class="app-combo app-combo-mid" tabindex="16"
+					title="{{'Product.InventoryMethodPlaceholder' | translate}}" disabled
+					[configs]="inventoryMethodConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.Manufacturer' | translate}} :</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input [ngModel]="data.Manufacturer" name="manufacturer" tabindex="7" maxlength="50" disabled
+						placeholder="{{'Product.ManufacturerPlaceholder' | translate}}" matInput autocomplete="off" required>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.ExpiryDate' | translate}}</span><span
+						style="color: red;"> *</span>:</label>
+				<app-combo #expirydateCombo class="app-combo app-combo-mid" tabindex="15"
+					title="{{'Product.ExpiryDatePlaceholder' | translate}}"
+					[configs]="expiryConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.ApplyDate' | translate}}:</span></label>
+				<app-datepicker class="app-datepicker app-datepicker-small" [options]="applyDate" #effectiveDate tabindex="8" disabled></app-datepicker>
+			</mat-grid-tile>	
+			<mat-grid-tile [colspan]="1"></mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'Product.ProductStatus' | translate}}:</span></label>
+				<app-combo #productStatus class="app-combo app-combo-small" tabindex="9"
+					title="{{'Product.ProductStatus' | translate}}" disabled
+					[required]="isRequiredProductStatus" [configs]="statusConfig">
+				</app-combo>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>
+<ng-template #unitContent>
+	<div class="tab-container">
+		<div>
+			<div #form layout="column">
+				<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+					<mat-grid-tile>
+						<label class="app-label p-5-10">{{'Product.Unit' | translate}}:</label>
+						<app-combo #combounit class="app-combo" tabindex="1"
+							title="{{'Product.Unit' | translate}}"
+							[configs]="comboUnitConfig">
+						</app-combo>
+					</mat-grid-tile>
+					<mat-grid-tile>
+						<label class="app-label p-5-10">{{'Product.IsAllowInbound' | translate}}:</label>
+						<input type="checkbox" [checked]="unitEntity.IsAllowInbound" [(ngModel)]="unitEntity.IsAllowInbound" name="IsAllowInbound" tabindex="3" disabled>
+					</mat-grid-tile>
+
+					<mat-grid-tile>
+						<label class="app-label p-5-10"><span>{{'Product.Uom' | translate}}:</span></label>
+						<mat-form-field appearance="outline" class="app-input">
+							<input [ngModel]="data.Uom" name="unitUom" disabled matInput>
+						</mat-form-field>
+					</mat-grid-tile>				
+					<mat-grid-tile>
+						<label class="app-label p-5-10">{{'Product.IsAllowStorage' | translate}}:</label>
+						<input type="checkbox" [checked]="unitEntity.IsAllowStorage" [(ngModel)]="unitEntity.IsAllowStorage" name="IsAllowStorage" tabindex="4" disabled>
+					</mat-grid-tile>
+
+					<mat-grid-tile>
+						<label class="app-label p-5-10"><span>{{'Product.Numerator' | translate}}:</span></label>
+						<mat-form-field appearance="outline" class="app-input">
+							<input #unitnumerator [(ngModel)]="unitEntity.Numerator" name="Numerator" tabindex="2" 
+								type="number" ng-pattern="/^\-?[0-9]+(\.[0-9])?$/" step="0" (change)="onChangeConversion($event)"
+								placeholder="{{'Product.Numerator' | translate}}" matInput autocomplete="off" required>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile>
+						<label class="app-label p-5-10">{{'Product.IsAllowOutbound' | translate}}:</label>
+						<input type="checkbox" [checked]="unitEntity.IsAllowOutbound" [(ngModel)]="unitEntity.IsAllowOutbound" name="IsAllowOutbound" tabindex="5" disabled>
+					</mat-grid-tile>
+
+					<mat-grid-tile>
+						<label class="app-label p-5-10"><span>{{'Product.Denominator' | translate}}:</span></label>
+						<mat-form-field appearance="outline" class="app-input">
+							<input #unitDenominator [(ngModel)]="unitEntity.Denominator" name="Denominator" tabindex="3" 
+								type="number" ng-pattern="/^\-?[0-9]+(\.[0-9])?$/" step="0" (change)="onChangeConversion($event)"
+								placeholder="{{'Product.Denominator' | translate}}" matInput autocomplete="off" required>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile></mat-grid-tile>
+					<mat-grid-tile>
+						<label class="app-label p-5-10"><span>{{'Product.ConversionFactor' | translate}}:</span></label>
+						<mat-form-field appearance="outline" class="app-input">
+							<input [ngModel]="unitEntity.ConversionFactor" name="ConversionFactor" disabled matInput>
+						</mat-form-field>
+					</mat-grid-tile>				
+					<mat-grid-tile></mat-grid-tile>
+
+					<mat-grid-tile colspan="2">
+						<label class="app-label p-5-10"></label>
+						<label>
+							<i>{{ 'Product.UnitNote' | translate }}</i>
+						</label>
+					</mat-grid-tile>
+
+					<mat-grid-tile>
+						<div class="app-btn-row-right" style="width: 100%">
+							<button tabindex="6" [disabled]="!isCreateUnit()" color="accent" (click)="confirmCreateUnit($event)" mat-raised-button >{{'Product.Save' | translate}}</button>
+							<button tabindex="7" (click)="clearUnit($event)" mat-raised-button >{{'Product.Clear' | translate}}</button>
+						</div>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</div>
+			<app-edit-table class="app-table" #unitTable [configs]="unitConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+<ng-template #barcodeContent>
+	<div class="tab-container">
+		<div #form layout="column">
+			<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>Barcode:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcode maxlength="30" minlength="6" required tabindex="1" name="Barcode" (change)="onChangeBarcode($event)"
+							placeholder="Barcode" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Barcode"
+							(keyup.enter)="onEnter($event)">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.BarcodeType' | translate}}:</span></label>
+					<app-combo #barcodetype class="app-combo" tabindex="2"
+							title="{{'Product.BarcodeType' | translate}}"
+							[configs]="barcodeTypeConfig">
+						</app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10">{{'Product.Unit' | translate}}:</label>
+					<app-combo #barcodeunit class="app-combo" tabindex="3"
+						title="{{'Product.Unit' | translate}}"
+						[configs]="barcodeUnitConfig">
+					</app-combo>
+					<button type="button" style="width:260px;margin-top: 4px;" tabindex="12" (click)="linkCreateUnit($event)" mat-raised-button >{{'Product.CreateUnit' | translate}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile></mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.Length' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeLength name="Length" tabindex="4" type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+							step="0.1" required (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.Length' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Length">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.Width' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeWidth name="Width" tabindex="5" type="number" ng-pattern="/^\-?[0-9]+(\.[0-9]{1,2})?$/"
+							step="0.1" required (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.Width' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Width">
+					</mat-form-field>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.Height' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeHeight name="Height" tabindex="6" type="number"ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+							step="0.1" required (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.Height' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Height">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.Volume' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeVolume name="Volume" tabindex="7" type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+							step="0.1" required (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.Volume' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Volume">
+					</mat-form-field>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.GrossWeight' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeGrossWeight name="GrossWeight" tabindex="8" type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+							step="0.1" required (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.GrossWeight' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.GrossWeight">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Product.Capacity' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #barcodeCapacity name="Capacity" tabindex="9" type="number" (change)="onChangeBarcode($event)"
+							placeholder="{{'Product.Capacity' | translate}}" matInput autocomplete="off" [(ngModel)]="barcodeEntity.Capacity">
+					</mat-form-field>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<div class="app-btn-row-right" style="width: 100%">
+						<button tabindex="10" [disabled]="!isCreateBarcode()" color="accent" (click)="confirmCreateBarcode($event)" mat-raised-button >{{'Product.Save' | translate}}</button>
+						<button tabindex="11" (click)="clearBarcode($event)" mat-raised-button >{{'Product.Clear' | translate}}</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+		<app-edit-table class="app-table" #barcodeTable [configs]="barcodeConfig"></app-edit-table>
+	</div>
+</ng-template>
+<ng-template #manufactureContent>
+	<form #form layout="column">
+		<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>SKU</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #sku name="sku" tabindex="1" disabled placeholder="SKU" [ngModel]="data.SKU" matInput autocomplete="off" required maxlength="30">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>	
+
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>{{'Product.VendorId' | translate}}</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #vendorId name="vendorId" disabled tabindex="2" placeholder="{{'Product.VendorId' | translate}}" [ngModel]="vendorEntity.VendorId" matInput autocomplete="off" required maxlength="3">
+				</mat-form-field>
+			</mat-grid-tile>	
+			<mat-grid-tile></mat-grid-tile>	
+
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>{{'Product.VendorName' | translate}}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #vendorName name="vendorName" [ngModel]="vendorEntity.VendorName" tabindex="3" maxlength="1000"
+						placeholder="{{'Product.VendorName' | translate}}" matInput
+						autocomplete="off" required disabled>
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>	
+			
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>VSR</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #vendorVSR name="vendorVSR" tabindex="1" disabled placeholder="VSR" [ngModel]="vendorEntity.VSR" matInput autocomplete="off" required maxlength="30">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>	
+			
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>{{'Product.OrderUnit' | translate}}</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #vendorUom name="vendorUom" tabindex="1" disabled placeholder="{{'Product.OrderUnit' | translate}}" [ngModel]="vendorEntity.Uom" matInput autocomplete="off" required maxlength="30">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>	
+
+			<mat-grid-tile colspan="2">
+				<label class="app-label p-5-10"><span>{{'Product.LeadTimePO' | translate}}</span>:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #leadTimePO name="leadTimePO" tabindex="1" disabled placeholder="{{'Product.LeadTimePO' | translate}}" [ngModel]="vendorEntity.LeadTimeByDays" matInput autocomplete="off" required maxlength="30">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>	
+		</mat-grid-list>
+	</form>
+</ng-template>
+<ng-template #productUnitTrackingContent>
+	<div class="tab-container">
+		<app-edit-table class="app-table" #productUnitTrackingTable [configs]="productUnitTrackingConfig"></app-edit-table>
+	</div>
+</ng-template>

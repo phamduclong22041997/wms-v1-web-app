@@ -1,0 +1,17 @@
+# Smart cart - purpose
+eft_smartcart_purpose_list:
+    path: /api/smartcartpurpose/list
+    defaults: { _controller: EFTSmartcartBundle:SmartcartPurpose:getList }
+
+eft_smartcart_purpose_getone:
+    path: /api/smartcartpurpose/getone
+    defaults: { _controller: EFTSmartcartBundle:SmartcartPurpose:getOne }
+
+eft_smartcart_purpose_combo:
+    path: /api/smartcartpurpose/combo
+    defaults: { _controller: EFTSmartcartBundle:SmartcartPurpose:getSmartcartPurposeCombo }
+
+eft_smartcart_purpose_save:
+    path: /api/smartcartpurpose/save
+    defaults: { _controller: EFTSmartcartBundle:SmartcartPurpose:save }
+# Smart cart - purpose

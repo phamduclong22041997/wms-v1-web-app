@@ -1,0 +1,75 @@
+<app-page>
+	<app-page-header title="{{ 'LostFound.ImportLostFoundTitle' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page>
+<app-page>
+	<app-page-header title="{{ 'LostFound.CreateTitleDetail' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div #form layout="column" style="margin-left: 6px;">
+		<div>
+			<mat-grid-list cols="1" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<div class="app-btn-row-right" style="width: 100%;">
+						<button class="button-upload-sto" color="accent" (click)="ReviewErrors($event)" mat-raised-button>
+							{{'LostFound.ListErrors' | translate}}
+						</button>
+						<button type="button" color="accent" (click)="onClickClearImport($event)" mat-raised-button tabindex="9">
+							{{'LostFound.ClearImport' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+
+		<div class="app-btn-row" style="width: 100%; padding-top: 20px;">
+			<button type="button" color="accent" (click)="saveIssue($event)" mat-raised-button tabindex="5" [disabled]="!IsShowSaveButton">
+				{{'btn_save' | translate}}
+			</button>
+			<button type="button" (click)="onClickExit($event)" mat-raised-button tabindex="6">
+				{{'btn_exit' | translate}}
+			</button>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column" style="height: 100px;">
+		<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="1" title="{{'client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+				<app-combo #whBranch class="app-combo" tabindex="3" title="{{'DCSite' | translate}}"
+					[configs]="whBranchConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile rowspan="2">
+				<label class="app-label p-5-10">{{'LostFound.InputFile' | translate}}:</label>
+				<input style="display:none" #inputFile id="inputFile" type="file"
+					(change)="checkUploadFile($event.target.files)">
+				<label class="label-input-block" for="inputFile">
+					<span class="span-input-txt">{{nameFileUpload}}</span>
+					<span class="span-input-upload">{{'LostFound.SelectFile' | translate}}</span>
+				</label>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-left" style="width: 100%;margin-top: 5px;">
+					<span class="download-template-btn" (click)="downloadTemplate()">{{'btn_download_template' |
+						translate}}</span>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

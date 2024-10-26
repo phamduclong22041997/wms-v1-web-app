@@ -1,0 +1,289 @@
+<mat-card class="app-model-card">
+  <!-- START - Create/Update -->
+  <mat-tab-group *ngIf="!isView" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+    <!-- TAB [Thông tin chung] -->
+    <mat-tab label="Thông tin chung">
+      <!-- <mat-card class="app-model-card"> -->
+      <mat-card-header>
+        <mat-card-subtitle>
+          <div appTranslator>Điền thông tin vào form bên dưới để hoàn thành việc tạo mới Xe đẩy.</div>
+          <div>(<span class="input-required">*</span>) <span appTranslator> Là thông tin bắt buộc.</span></div>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="smartcartcode"
+                [(ngModel)]="data.smartcartcode" tabindex="1" readonly placeholder="Mã Smart cart"
+                autoFocus autoUppercase autocomplete="off" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <smartcart-config-combo (onChange)="configHandle($event)" [disableField]="data.ismapping" [(configValue)]="data.configinfo.configuration" value={{data.configinfo.configuration}}
+              title="Cấu hình xe" tabindex="2"></smartcart-config-combo>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm [disabled]="data.ismapping" name="configdescription" [(ngModel)]="data.configinfo.configdescription"
+                tabindex="3" readonly placeholder="Mô tả cấu hình xe" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm [disabled]="data.ismapping" name="length" [(ngModel)]="data.configinfo.length" tabindex="4"
+                placeholder="Chiều dài (m)" readonly minlength="1" maxlength="20" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm [disabled]="data.ismapping" name="configdescription_en"
+                [(ngModel)]="data.configinfo.configdescription_en" tabindex="5" readonly
+                placeholder="Mô tả cấu hình xe (English)" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="width" [disabled]="data.ismapping" [(ngModel)]="data.configinfo.width" tabindex="6"
+                placeholder="Chiều rộng (m)" readonly minlength="1" maxlength="20" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm [disabled]="data.ismapping" name="numoflevel" [(ngModel)]="data.configinfo.numoflevel" tabindex="7"
+                placeholder="Số tầng trên Smart Cart" readonly minlength="1" maxlength="20" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm [disabled]="data.ismapping" name="height" [(ngModel)]="data.configinfo.height" tabindex="8"
+                placeholder="Chiều cao (m)" readonly minlength="1" maxlength="20" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="naminglevel" [disabled]="data.ismapping" [(ngModel)]="data.configinfo.naminglevel" tabindex="9"
+                placeholder="Cách đặt mã tầng trên Smart cart" readonly />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput [disabled]="data.ismapping" appInputForm name="levelheight" [(ngModel)]="data.configinfo.levelheight" tabindex="10"
+                placeholder="Chiều cao của từng tầng (m)" readonly minlength="1" maxlength="20" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <smartcart-purpose-combo (onChange)="purposeHandle($event)" [disableField]="data.ismapping"
+             value={{data.purposeusing}} [(purposeValue)]="data.purposeusing"
+              title="Mục đích sử dụng" tabindex="12"></smartcart-purpose-combo>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-checkbox name="status" tabindex="13" [(ngModel)]="data.status" (change)="statusHandle($event)">
+              Trạng thái [{{statusText}}]</mat-checkbox>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="currentpoint" [disabled]="data.ismapping"
+                [(ngModel)]="data.currentpoint" tabindex="14" readonly placeholder="Vị Trí Hiện Tại" minlength="1"
+                maxlength="20" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="usagestatus" [disabled]="data.ismapping" required
+                [(ngModel)]="data.usagestatus" tabindex="15" readonly placeholder="Tình trạng sử dụng" minlength="1"
+                maxlength="20" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center" *ngIf="!isEdit && !isView">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input [disabled]="data.ismapping" (mousewheel)="scroll($event)" matInput appInputForm name="numofsmartcart" [(ngModel)]="data.numofsmartcart" tabindex="16"
+                placeholder="Số lượng Smart cart cần tạo" min="1" type="number" required />
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <!-- </mat-card> -->
+    </mat-tab>
+
+    <!-- TAB [Thông tin Bin] -->
+    <mat-tab label="Thông tin Bin">
+      <!-- <mat-card class="app-model-card"> -->
+      <mat-card-content>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="numofbinperlevel" (input)="numOfBinHandle($event.target.value)" 
+              [formControl]="formValidator.Numofbinperlevel" (blur)="inputValidator('Numofbinperlevel')" (keydown)="handleKeydown($event, 'Numofbinperlevel')" required (mousewheel)="scroll($event)"
+                [(ngModel)]="data.bininfo.numofbinperlevel" tabindex="1" placeholder="Số lượng bin của 1 tầng"
+                type="number" min="1" max="99" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <b>Kích thước Bin:</b>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="binlength" [disabled]="data.ismapping" required [formControl]="formValidator.Binlength"
+                [(ngModel)]="data.bininfo.binlength" (blur)="inputValidator('Binlength')" tabindex="3" placeholder="Chiều dài(m)" type="number" min="0.1" autoFocus
+                autocomplete="off" (keydown)="handleKeydown($event, '')" (mousewheel)="scroll($event)" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="binwidth" [disabled]="data.ismapping" required [formControl]="formValidator.Binwidth"
+                [(ngModel)]="data.bininfo.binwidth" (blur)="inputValidator('Binwidth')" tabindex="3" placeholder="Chiều rộng(m)" type="number" min="0.1" autoFocus
+                autocomplete="off" (keydown)="handleKeydown($event, '')" (mousewheel)="scroll($event)" />
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+            <mat-form-field>
+              <input matInput appInputForm name="binheight" [disabled]="data.ismapping" required [formControl]="formValidator.Binheight"
+                [(ngModel)]="data.bininfo.binheight" (blur)="inputValidator('Binheight')" tabindex="3" placeholder="Chiều cao(m)" type="number" min="0.1" autoFocus
+                autocomplete="off" (keydown)="handleKeydown($event, '')" (mousewheel)="scroll($event)" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="left left">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <smartcart-productsize-combo (onChange)="productSizeHandle($event)" [(productSize)]="data.bininfo.productsize" [disableField]="data.ismapping" value={{data.bininfo.productsize}}
+              title="Kích cỡ hàng hóa" tabindex="3"></smartcart-productsize-combo>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="left left">
+          <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+            <app-page-header title="Danh Sách Bin">
+            </app-page-header>
+            <app-table #binListTable [header]="tableheader" [configs]="binTableConfigs"></app-table>
+            <div #container></div>
+          </div>
+        </div>
+      </mat-card-content>
+      <!-- </mat-card> -->
+    </mat-tab>
+
+    <!-- TAB [Thông tin thiết bị vận chuyển trên bin] -->
+    <mat-tab label="Thông tin thiết bị vận chuyển trên bin">
+      <div fxFlex.gt-sm="100" fxFlex class="p-10 align-center">
+        <app-page-header title="Danh sách thiết bị vận chuyển trên bin:">
+        </app-page-header>
+        <app-table #transportTable [header]="tableheader" [configs]="transportTableConfigs"></app-table>
+        <div #container></div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-card-actions *ngIf="!isView">
+    <div fxLayout="row" fxFlexAlign="center center">
+      <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+        <div class="button-row">
+          <button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="!formValid"
+            appTranslator>Lưu</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-actions>
+  <!-- END - Create/Update -->
+
+  <!------------------------------------SEPERATOR------------------------------------->
+
+  <!-- START - View Only -->
+  <mat-card-content *ngIf="isView">
+    <mat-list>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Mã Smart cart: </div>
+        <div> {{ data.smartcartcode}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Cấu hình xe: </div>
+        <div> {{ data['configinfo']['configuration']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Mô tả cấu hình xe: </div>
+        <div> {{ data['configinfo']['configdescription']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Mô tả cấu hình xe (English): </div>
+        <div> {{ data['configinfo']['configdescription_en']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Chiều dài (m): </div>
+        <div> {{ data['configinfo']['length']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Chiều rộng (m): </div>
+        <div> {{ data['configinfo']['width']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Chiều cao (m): </div>
+        <div> {{ data['configinfo']['height']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Số tầng trên Smart Cart: </div>
+        <div> {{ data['configinfo']['numoflevel']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Cách đặt mã tầng trên Smart cart: </div>
+        <div> {{ data['configinfo']['naminglevel']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Chiều cao của từng tầng (m): </div>
+        <div> {{ data['configinfo']['levelheight']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Mục đích sử dụng: </div>
+        <div> {{ data['purposeusing']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Trạng thái: </div>
+        <div> {{ data.status ? "Active" : "Inactive"}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Vị Trí Hiện Tại: </div>
+        <div> {{ data['currentpoint']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Tình trạng sử dụng: </div>
+        <div> {{ data['usagestatus']}}</div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="app-transportdevice-view" appTranslator>Số lượng Smart cart cần tạo: </div>
+        <div> {{ data['numofsmartcart']}}</div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <!-- END - View Only -->
+</mat-card>

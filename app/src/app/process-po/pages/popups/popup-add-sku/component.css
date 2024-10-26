@@ -1,0 +1,70 @@
+::ng-deep .popup-add-sku .app-input .mat-form-field-flex{
+    height: 40px;
+}
+::ng-deep .popup-add-sku .mat-form-field-appearance-outline .mat-form-field-infix input{
+    padding-bottom: 0px;
+}
+::ng-deep .popup-add-sku .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding-top: 0.25rem;
+}
+::ng-deep .popup-add-sku.mat-dialog-content {
+    max-height: 70vh !important;
+}
+.popup-title{
+    text-align: center;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding: 0;
+}
+.label-input-block{
+    background: #fff 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    display: block;
+    padding: 5px 0px 3px 10px;
+    margin-top: 5px;
+    width: 100%;
+    min-width: 120px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.span-input-txt{
+    opacity: 0.5;
+    white-space: nowrap;
+    width: 66%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    position: absolute;
+}
+.span-input-upload{
+    float:right;
+    background-color: white; 
+    color: black;
+    padding: 1px;
+    border-radius: 5px;
+    min-width: 80px;
+    width: 22%;
+    text-align: center;
+    font-weight: 500;
+}
+table td.td-label{
+    width: 120px;
+}
+.btn-upload-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #f3c74c;
+    border-radius: 5px;
+    padding: 2px 10px;
+   
+}
+
+.btn-upload-image:hover{
+    color: #249AFF;
+    border: 1px solid #249AFF;
+}

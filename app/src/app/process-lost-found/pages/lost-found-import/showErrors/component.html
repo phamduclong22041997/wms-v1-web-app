@@ -1,0 +1,9 @@
+<div mat-dialog-content style="width: 450px;">
+  <h2 style="text-align: center;">{{ data.title | translate }}</h2>
+  <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_close' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div mat-dialog-content style="width: 450px;">
+  <h2 style="text-align: center;">{{ data.title | translate }}</h2>
+  <div>
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="45px" gutterSize="15px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">Barcode:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label style="width: 300px; font-weight: bold;">{{data.Barcode}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'LostFound.Unit' | translate}}:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label style="width: 300px; font-weight: bold;">{{data.Uom}} - {{data.UomName}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'LostFound.FoundQty' | translate}} <span style="font-weight: bold; color: black;">({{data.Uom}})</span>:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="outline" class="app-input">
+            <input #barcodeqty tabindex="1" type="number" name="barcodeqty" [(ngModel)]="qty" ng-pattern="/^[0-9]+$/" (change)="onChange($event)"
+            oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+            step="1" (keyup.enter)="onQtyEnter($event)" placeholder="{{'LostFound.FoundQty' | translate}}" matInput autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'LostFound.Grid.FoundBaseQty' | translate}}:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label style="width: 300px; font-weight: bold;">{{data.BaseQty}} ({{data.BaseUom}} - {{data.BaseUomName}})</label>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+  <div [hidden]="!isGotExpiredDate">
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="45px" gutterSize="15px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">{{ 'LostFound.Expired' | translate}}:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div [hidden]="isUpdateDate" style="width: 100%;">
+            <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="expiredDate" placeholder="D/M/YYYY" tabindex="1" class="app-datepicker" [options]="expiredDateConfig" #expiredDate></app-datepicker>
+          </div>
+          <div [hidden]="!isUpdateDate" style="width: 100%;">
+            <label style="width: 300px; font-weight: bold;">{{data.ExpiredDate}}</label>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'LostFound.ManufactureDate' | translate}}:</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div [hidden]="isUpdateDate" style="width: 100%;">
+            <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="manufactureDate" placeholder="D/M/YYYY" tabindex="2" class="app-datepicker"  [options]="manufactureDateConfig" #manufactureDate></app-datepicker>
+          </div>
+          <div  [hidden]="!isUpdateDate" style="width: 100%;">
+            <label style="width: 300px; font-weight: bold;">{{data.ManufactureDate}}</label>
+          </div>
+        </mat-grid-tile>
+      <mat-grid-tile>
+        <label class="app-label">{{ 'LostFound.ExpiredPercents' | translate}}:</label>
+      </mat-grid-tile>
+        <mat-grid-tile>
+          <div style="position: absolute; font-weight: bold;padding-left: 50px;color: white;width: 100%;z-index: 9999;"> {{expiredPercents}}% </div>
+          <mat-progress-bar mode="determinate" [value]="expiredPercents" bufferValue="50">
+          </mat-progress-bar>
+          <mat-icon 
+          class="icon-helper"
+          aria-hidden="false" 
+          matTooltip="%HSD = ((Ngày Hạn Sử Dụng - Ngày Hiện Tại)/(Ngày Hạn sử dụng - Ngày sản xuất))*100"
+          matTooltipClass="helper-tooltip"
+          aria-label="Example home icon">help</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

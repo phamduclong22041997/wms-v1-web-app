@@ -1,0 +1,49 @@
+<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+
+<ng-template #mainImportContent>
+	<div>
+		<app-page-session>
+			<mat-card-content>
+				<table class="app-table app-table-p">
+					<tr>
+						<td style="width: 90px;"><span>{{'BIN.Code' | translate}}:</span></td>
+						<td style="width: 100px;"><b>{{data.Code}}</b></td>
+						<td style="width: 90px;"><span>{{'BIN.Type' | translate}}:</span></td>
+						<td><b>{{(data.Type?("BINType."+data.Type):"") | translate}}</b></td>
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'BIN.MaxSlot' | translate}}:</span></td>
+						<td><b>{{data.MaxSlot}}</b></td>
+						<td style="width: 90px;"><span>{{'BIN.MaxSKUPerSlot' | translate}}:</span></td>
+						<td><b>{{data.MaxSKUPerSlot*data.MaxSlot}}</b></td>
+						
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'BIN.NumOfItems' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<b style="padding-right: 10px;">{{data.NumOfItems}}</b>
+						</td>
+						<td style="width: 90px;"><span>{{'BIN.LWH' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<b style="padding-right: 10px;">{{data.LWH}}</b>
+						</td>
+					</tr>
+					<tr>
+						<td><span>{{'client' | translate}}:</span></td>
+						<td><b>{{data.ClientCode}}</b></td>
+						<td><span>{{'DCSite' | translate}}:</span></td>
+						<td><b>{{data.DCName}}</b></td>
+					</tr>
+				</table>
+				<div>
+					<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+				</div>
+				<div class="p-10 bt-button">
+					<button style="width: 80px" (click)="goToBackList($event)" mat-stroked-button color="primary">{{'cancel' |
+						translate}}</button>
+				</div>
+			</mat-card-content>
+		</app-page-session>
+		
+	</div>
+</ng-template>

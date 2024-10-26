@@ -1,0 +1,96 @@
+<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+
+<ng-template #mainImportContent>
+	<div *ngIf="tableConfig && type != 'PackagingStorage'">
+		<app-page-session>
+			<app-page-session-header title="{{'Point.DetailTitle' | translate | uppercase}}"></app-page-session-header>
+			<mat-card-content>
+				<table class="app-table app-table-p">
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.Code' | translate}}:</span></td>
+						<td style="width: 100px;"><b>{{data.Code}}</b></td>
+						<td style="width: 90px;"><span>{{'Point.Type' | translate}}:</span></td>
+						<td><b>{{(data.Type?("PointType."+data.Type):"") | translate}}</b></td>
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.MaxSlot' | translate}}:</span></td>
+						<td><b>{{data.MaxSlot}}</b></td>
+						<td style="width: 90px;"><span>{{'Point.MaxSKUPerSlot' | translate}}:</span></td>
+						<td><b>{{data.MaxSKUPerSlot*data.MaxSlot}}</b></td>
+						
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.NumOfItems' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<b style="padding-right: 10px;">{{data.NumOfItems}}</b>
+						</td>
+						<td style="width: 90px;"><span>{{'Point.LW' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<b style="padding-right: 10px;">{{data.LW}}</b>
+						</td>
+					</tr>
+					<tr>
+						<td><span>{{'client' | translate}}:</span></td>
+						<td><b>{{data.ClientCode}}</b></td>
+						<td><span>{{'DCSite' | translate}}:</span></td>
+						<td><b>{{data.DCName}}</b></td>
+					</tr>
+				</table>
+				<div>
+					<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+				</div>
+				<div class="p-10 bt-button">
+					<button style="width: 80px" (click)="goToBackList($event)" mat-stroked-button color="primary">{{'cancel' |
+						translate}}</button>
+				</div>
+			</mat-card-content>
+		</app-page-session>
+		
+	</div>
+	<div *ngIf="tableConfig && type == 'PackagingStorage'">
+		<app-page-session>
+			<app-page-session-header title="{{'Point.DetailTitle' | translate | uppercase}}"></app-page-session-header>
+			<mat-card-content>
+				<table class="app-table app-table-p">
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.Code' | translate}}:</span></td>
+						<td style="width: 100px;"><label>{{data.Code}}</label></td>
+						<td style="width: 90px;"><span>{{'Point.Type' | translate}}:</span></td>
+						<td><label>{{(data.Type?("PointType."+data.Type):"") | translate}}</label></td>
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.MaxSlotOfSO' | translate}}:</span></td>
+						<td><label>{{data.MaxSlot}}</label></td>
+						<td style="width: 90px;"><span>{{'Point.MaxSKUPerSlot' | translate}}:</span></td>
+						<td><label>{{data.MaxSKUPerSlot*data.MaxSlot}}</label></td>
+						
+					</tr>
+					<tr>
+						<td style="width: 90px;"><span>{{'Point.NumOfItems' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<label style="padding-right: 10px;">{{data.NumOfItems}}</label>
+						</td>
+						<td style="width: 90px;"><span>{{'Point.LW' | translate}}:</span></td>
+						<td style="width: 100px;">
+							<label style="padding-right: 10px;">{{data.LW}}</label>
+						</td>
+					</tr>
+				</table>
+				<div>
+					<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+				</div>
+				<div class="app-btn-row" style="width: 100%; padding-top: 20px;">
+					<button *ngIf="data.NumOfItems" style="width: 200px" (click)="printPointDetails($event)" mat-raised-button color="accent">{{'Point.CheckedAndUpdatePackage' |
+						translate}}</button>
+					<button *ngIf="enablePrint" style="width: 200px" (click)="doPrintPointDetails()" mat-raised-button color="accent">{{'Point.PrintPointDetail' |
+						translate}}</button>
+					<button *ngIf="enablePrint" style="width: 200px" (click)="doPrintAllLabel()" mat-raised-button color="accent">{{'Point.PrintListLabel' |
+						translate}}</button>
+					<button style="width: 80px" (click)="goToBackList($event)" mat-stroked-button color="primary">{{'cancel' |
+						translate}}</button>
+				</div>
+			</mat-card-content>
+		</app-page-session>
+		
+	</div>
+</ng-template>

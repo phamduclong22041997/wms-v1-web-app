@@ -1,0 +1,107 @@
+<app-page-session>
+    <app-page-session-header title="{{'RocketPlanning.POFilter' | translate}}"></app-page-session-header>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    </mat-card-content>
+</app-page-session>
+
+<app-page-session>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+    </mat-card-content>
+</app-page-session>
+
+
+<ng-template #headerContent>
+    <div class="tab-container">
+        <form #form layout="column">
+            <mat-grid-list cols="4" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+                <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'RocketPlanning.Warehouse' | translate}}:</label>
+                    <app-combo #warehouseCombo class="app-combo" tabindex="1"
+                        title="{{'RocketPlanning.Warehouse' | translate}}" [configs]="warehouseConfig"></app-combo>
+                </mat-grid-tile>
+
+                <!-- <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+                    <app-combo #typeCombo class="app-combo" title="{{'RocketPlanning.StoreType' | translate}}"
+                        [configs]="typeConfig"></app-combo>
+                </mat-grid-tile> -->
+                <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'ViewRocketPlanning.Code' | translate}}:</label>
+                    <app-combo #rocketCombo class="app-combo" title="{{'RocketPlanning.Code' | translate}}"
+                        (focusout)="onFocusOutEvent($event)" (keyup.enter)="search()" [configs]="rocketConfig">
+                    </app-combo>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'ViewRocketPlanning.StatusCombo' | translate}}:</label>
+                    <app-combo #statusCombo class="app-combo" title="{{'RocketPlanning.Status' | translate}}"
+                        (focusout)="onFocusOutEvent($event)"  [configs]="statusConfig">
+                    </app-combo>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <label class="app-label-top p-14" >{{'ViewRocketPlanning.StatusSyncSAP' | translate}}:</label>
+                    <app-combo #statusSAPCombo class="app-combo" title="{{'RocketPlanning.Status' | translate}}"
+                        [configs]="statusSAPConfig" [disabled]="disabledCombo" >
+                        <!-- [disabled]="disabledCombo" -->
+                    </app-combo>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <label class="app-label-top p-14"><span>{{'STO.FromDate' | translate}}:</span></label>
+                    <app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #fromDate>
+                    </app-datepicker>
+                </mat-grid-tile>
+
+
+                <mat-grid-tile>
+                    <label class="app-label-top p-14"><span>{{'STO.ToDate' | translate}}:</span></label>
+                    <app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #mainContent>
+    <div class="tab-container">
+        <div class="header-summary">
+            <!-- <div class="summary-item" style="padding-left: 0px;">
+                <label class="app-label p-10 " style="padding-left: 0px; margin-left: 0px;">{{'RocketPlanning.Code' |
+                    translate}}:</label><span>{{summary.Code}}</span>
+            </div> -->
+            <!-- <div class="summary-item">
+                <label class="app-label p-10">Tổng PO:</label><span>1</span>
+            </div>
+            <div class="summary-item">
+                <label class="app-label p-10 ">PO Hoàn Thành:</label><span>0</span>
+            </div>
+            <div class="summary-item">
+                <label class="app-label p-10 ">PO Lỗi:</label><span>1</span>
+            </div> -->
+
+            <!-- <div class="summary-item-button app-btn-row-right">
+                <button class="button-po btn-upper" color="accent" style="width: 200px;" (click)="exportExcel($event)"
+                    mat-stroked-button>{{'RocketPlanningSO.ExportExcel' | translate}}</button>
+            </div> -->
+            <div class="summary-item-button app-btn-row-right">
+                <button color="accent" mat-raised-button (click)="exportExcel($event)"
+                    style="width: 150px;"  [class.hiden]="isExportHidden" >
+                    <mat-icon>import_export</mat-icon>{{'RocketPlanningSO.ExportExcel' | translate}}
+                </button>
+            </div>
+            <div class="summary-item-button app-btn-row-right">
+                <button class="flex-box" color="accent" (click)="search()" mat-raised-button style="width: 150px;">
+                    <mat-icon>search</mat-icon>{{'btn_search' | translate}}
+                </button>
+            </div>
+
+        </div>
+
+        <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+    </div>
+
+</ng-template>

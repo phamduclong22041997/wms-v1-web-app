@@ -1,0 +1,17 @@
+<mat-form-field>
+    <input type="text" (blur)="onBlur($event)" disabled (focus)="onFocus($event)" placeholder={{title}} tabindex={{tabindex}} aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off" required>
+		<mat-icon class="header-down-icon" matSuffix>keyboard_arrow_down</mat-icon>
+    <mat-autocomplete (optionSelected) = "optionSelected($event)" (closed)="closed($event)" autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.type">
+        {{option.type}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <mat-select [(value)]="_value" [disabled]="disableField" (selectionChange)="optionSelected($event)"
+    placeholder={{title}} (closed)="closed($event)" required>
+      <mat-option *ngFor="let option of justASimpleArray" [value]="option">
+        {{option.type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->

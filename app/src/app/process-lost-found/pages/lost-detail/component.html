@@ -1,0 +1,103 @@
+<app-page-session>
+	<mat-card-content>
+		<app-page-header title="{{'LostFound.LostTitleDetail' | translate }}"></app-page-header>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<div class="app-btn-row" style="width: 100%; padding-top: 20px">
+			<button type="button" color="accent" (click)="goToFoundList($event)" mat-raised-button tabindex="9">
+				{{'LostFound.GoToFound' | translate}}
+			</button>
+			<button type="button" *ngIf="isEnableCancel" color="accent" (click)="cancelIssue($event)" mat-raised-button tabindex="9">
+				{{'btn_cancel' | translate}}
+			</button>
+			<button type="button" (click)="onClickExit($event)" mat-raised-button tabindex="9">
+				{{'btn_exit' | translate}}
+			</button>
+		</div>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div #form layout="column">
+		<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.LostCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Code}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.Status' | translate}}:</span></label>
+				<label class="app-label-content">{{'LostFoundStatus.' + data.Status | translate}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CreatedDate' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CreatedDate}}</label>
+			</mat-grid-tile>
+			<!-----ENDROW-->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.ParentIssueCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.ParentIssueCode}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.SubLocationLabel' | translate}}:</span></label>
+				<label class="app-label-content">{{data.IssueSubLocLabel}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CreatedBy' | translate}}:</span></label>
+				<label class="app-label-content">{{data.RefEmployee}}</label>
+			</mat-grid-tile>
+			<!-----ENDROW-->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.LostLocation' | translate}}:</span></label>
+				<label class="app-label-content">{{data.IssueLocationLabel}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CompletedDate' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CompletedDate}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CanceledDate' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CanceledDate}}</label>
+			</mat-grid-tile>
+			<!-----ENDROW-->
+			
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.LostSaveLocation' | translate}}:</span></label>
+				<label class="app-label-content">{{data.LocationLabel}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CompletedBy' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CompletedBy}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CanceledBy' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CanceledBy}}</label>
+				
+			</mat-grid-tile>
+			<!-----ENDROW-->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.IssueType' | translate}}:</span></label>
+				<label class="app-label-content">{{'IssueType.' + data.IssueType | translate}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.Note' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Note}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.CanceledNote' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CanceledNote}}</label>
+			</mat-grid-tile>
+			<!-----ENDROW-->
+		</mat-grid-list>
+	</div>
+	<app-edit-table class="app-table" #lostIssueTable [configs]="lostIssueConfig"></app-edit-table>
+</ng-template>

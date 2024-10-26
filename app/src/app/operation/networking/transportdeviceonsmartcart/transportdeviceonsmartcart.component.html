@@ -1,0 +1,9 @@
+<app-page>
+	<app-page-header title="Thiết bị vận chuyển trên xe đẩy">
+		<app-action #appAction></app-action>
+		<app-filter #appFilter [config]="filterConfigs"></app-filter>
+	</app-page-header>
+	<div>
+		<app-table #appTable [configs]="tableConfigs"></app-table>
+	</div>
+</app-page>

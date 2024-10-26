@@ -1,0 +1,54 @@
+<!-- <div mat-dialog-content *ngIf="data.type===1"> 
+  <h2>{{data.message | translate}}</h2>
+  <p><strong>{{'Handover.MessageNote' | translate}}</strong></p>
+  <form>
+    <mat-form-field class="text-full-width" appearance="fill">
+      <textarea matInput class="app-input" name="noteContent" [(ngModel)]="noteContent"></textarea>
+    </mat-form-field>
+  </form>
+</div> -->
+<!-- <div mat-dialog-content *ngIf="data.type===0"> 
+  <h2>{{data.message}}</h2>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div> -->
+
+<div *ngIf="data.type===1">
+  <div mat-dialog-title ngClass="{{data.type === 1 ? 'title-confirm':'title-notify'}}">
+    <div>{{ (data.title || 'Thông báo') | translate}}</div>
+  </div>
+  <div mat-dialog-content>
+    <p>{{ data.message | translate:{Default: data.message, Ref: data.ref} }}</p>
+  </div>
+  <div>
+    <form>
+      <mat-form-field class="text-full-width" appearance="fill">
+        <textarea  placeholder="Nhập ghi chú hủy" matInput class="app-input" name="noteContent" [(ngModel)]="noteContent"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="data.type===0">
+  <div mat-dialog-title ngClass="{{data.type===0 ? 'title-confirm':'title-notify'}}">
+    <div>{{ (data.title || 'Thông báo') | translate}}</div>
+  </div>
+  <div mat-dialog-content>
+    <p>{{ data.message | translate:{Default: data.message, Ref: data.ref} }}</p>
+
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

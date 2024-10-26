@@ -1,0 +1,41 @@
+<app-page-session>
+	<app-page-header title="{{ 'Point.ZoneTitle' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'Point.ZoneName' | translate}}:</span></label>
+			<label>{{data.Code}}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'Point.ZoneType' | translate}}:</span></label>
+			<label>{{'PointType.' + data.Type  | translate}}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'Point.ZoneDescription' | translate}}:</span></label>
+			<label>{{data.Name}}</label>
+		</mat-grid-tile>
+		<mat-grid-tile></mat-grid-tile>
+		<mat-grid-tile>
+			<div class="app-btn-row-left" style="width: 100%">
+				<button color="accent" (click)="exportDetail($event)" mat-raised-button tabindex="9">
+					<mat-icon>file_download</mat-icon>{{'btn_export' | translate}}
+				</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+</ng-template>

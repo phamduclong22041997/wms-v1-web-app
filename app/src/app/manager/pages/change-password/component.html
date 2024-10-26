@@ -1,0 +1,50 @@
+<app-page>
+	<div style="padding-top: 10px">
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</div>
+</app-page>
+
+<ng-template #headerContent>
+	<div #form layout="column" class="changepass-container">
+		<mat-grid-list rowHeight="45px" cols="1" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<mat-form-field>
+					<input tabindex="1" matInput placeholder="Mật khẩu cũ" [type]="hideOld ? 'password' : 'text'" [(ngModel)]="data.oldPass" required (focusout)="onFocusOut(0)">
+					<button mat-icon-button matSuffix (click)="hideOld = !hideOld" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
+					<mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+					</button>
+				  </mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<mat-form-field>
+					<input tabindex="2" matInput placeholder="Mật khẩu mới" [type]="hideNew ? 'password' : 'text'" [(ngModel)]="data.newPass" required (focusout)="onFocusOut(1)">
+					<button mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew">
+					<mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
+					</button>
+				  </mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<mat-form-field>
+					<input tabindex="3" matInput placeholder="Xác nhận Mật khẩu mới" [type]="hideCfg ? 'password' : 'text'" [(ngModel)]="data.confirmPwd" required (focusout)="onFocusOut(0)">
+					<button mat-icon-button matSuffix (click)="hideCfg = !hideCfg" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCfg">
+					<mat-icon>{{hideCfg ? 'visibility_off' : 'visibility'}}</mat-icon>
+					</button>
+				  </mat-form-field>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<div class="app-btn-row" style="width: 100%;">	
+					<button color="accent" [disabled]="disableConfirm" (click)="confirm($event)" mat-raised-button tabindex="9">
+						{{'btn_confirm' | translate}}
+					</button>
+					<button color="accent" (click)="clear($event)" mat-raised-button tabindex="9">
+						{{'btn_cancel' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="note-info">{{data.errorMsg}}</label>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</div>
+</ng-template>

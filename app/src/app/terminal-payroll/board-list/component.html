@@ -1,0 +1,48 @@
+<div class="wrapper-board">
+    <div class="board-head">
+        <div class="logo"><a href="#"><img class="light-logo" src="assets/images/logo/logo.png" /></a></div>
+        <div class="head-title">
+            <h1><span>KHO {{filters.WarehouseCode}}</span><span> - </span> {{textType}}</h1>
+        </div>
+        <div class="date-time">{{dateTime}}</div>
+    </div>
+    <div [ngClass]="style_class">
+        <div class="board-content-slide" id="board-content-slide">
+            <!-- <div class="item-list" *ngFor="let data of dataSource; index as y" [style.width]="gridCol" id="page-{{y}}"> -->
+
+            <div class="item-list" [style.width]="gridCol">
+                <table id="table_fixed" class="table">
+                    <thead>
+                        <tr class="line-head">
+                            <th class="th-text">Nhân viên</th>
+                            <th *ngIf="isShowDiviceId" class="th-pack">Bàn pack</th>
+                            <th class="th-unit">Sản lượng (pcs)</th>
+                            <th class="th-unit">Ước tính (vnđ)</th>
+                            <th class="text-center th-index">Rank</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="item-block" id="contain-table">
+                    <table id="table_scroll" class="table">                        
+                        <tbody>
+                            <tr *ngFor="let item of dataSource; index as i" class="line-item">
+                                <td class="th-text"><span>{{item.Employee}}</span></td>
+                                <td *ngIf="isShowDiviceId" class="th-pack"><span>{{item.DeviceId}}</span></td>
+                                <td class="th-unit"><span [ngClass]="getStatusCss(item.Level)">{{item.Quantity | number:'1.0-0':'en-US'}}</span></td>
+                                <td class="th-unit"><span [ngClass]="getStatusCss(item.Level)">{{item.TotalUnits | number:'1.0-0':'en-US'}}</span></td>
+                                <td class="text-center th-index"><span [ngClass]="getStatusCss(item.Level)">{{item.Index}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-page">
+        <span> © 2023 - Powered by
+          <span style="color: darkgoldenrod; font-weight: 500;">ThangLam</span>
+          <span class="version-copyright"> Version 1.0.7</span>
+        </span>
+      </div>
+</div>

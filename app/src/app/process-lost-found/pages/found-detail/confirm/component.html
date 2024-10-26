@@ -1,0 +1,31 @@
+<div class="content" mat-dialog-content>
+  <h2>{{ data.title | translate }}</h2>
+    <mat-card-content>
+      <mat-grid-list cols="1" rowHeight="30px" gutterSize="5px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">{{'LostFound.FoundCode' | translate}}:</label>
+          <label>{{data.Code}} {{data.Data.Code}}</label>
+        </mat-grid-tile>
+        
+        <!-- <mat-grid-tile>
+          <label class="app-label">{{'LostFound.CanceledReason' | translate}}:</label>
+          <label style="width: 300px;">{{data.CanceledReason}}</label>
+        </mat-grid-tile> -->
+
+        <mat-grid-tile>
+          <label class="app-label">{{'LostFound.CanceledNote' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input">
+            <input #content tabindex="1" (change)="onChange($event)" (keyup.enter)="onEnter($event)" [(ngModel)]="cancelNote" 
+              matInput autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+        
+      </mat-grid-list>
+    </mat-card-content>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_confirm' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

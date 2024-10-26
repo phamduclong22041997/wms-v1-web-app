@@ -1,0 +1,79 @@
+<app-page-session>
+	<app-page-session-header title="BÁO CÁO CÔNG VIỆC"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight
+		[selectedIndex]="tabIndexActive" (selectedTabChange)="onTabClick($event)">
+			<mat-tab label="DANH SÁCH">
+				<ng-container *ngTemplateOutlet="jobContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="PDA">
+				<ng-container *ngTemplateOutlet="jobPDA"></ng-container>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</ng-template>
+
+<ng-template #jobContent>
+	<div #form layout="column">
+		<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'TaskProcess.EmployeeCode' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #content tabindex="1" (change)="onChange($event)" (keyup.enter)="onEnter($event)" 
+					placeholder="{{'TaskProcess.EmployeeCode' | translate}}" matInput autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TaskProcess.Status' | translate}}:</span></label>
+				<app-combo #status class="app-combo" tabindex="6"
+					title="{{'TaskProcess.Status' | translate}}"
+					[configs]="statusConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'FinishPo.FromDate' | translate}}:</span></label>
+				<app-datepicker tabindex="2" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'FinishPo.ToDate' | translate}}:</span></label>
+				<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>
+
+			<mat-grid-tile colspan="3">
+				<div class="app-btn-row-right" style="width: 100%">
+					<button type="button" tabindex="7" color="accent" (click)="findJob($event)" mat-raised-button>
+						<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</div>
+
+	<app-edit-table class="app-table" #jobTable [configs]="jobConfig"></app-edit-table>
+</ng-template>
+<ng-template #jobPDA>
+	<form #form layout="column">
+		<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'STO.Keyword' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #employeePDA name="EmployeePDA" tabindex="1" [(ngModel)]="pda.Employee" placeholder="Mã nhân viên" matInput autocomplete="off">
+				</mat-form-field>
+				<div class="app-btn-row-right" style="width: 100%;">
+					<button type="button" color="accent" tabindex="10" (click)="removeAccessToken($event)" mat-raised-button tabindex="9">
+						{{'HUỶ PHIÊN TRÊN PDA' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

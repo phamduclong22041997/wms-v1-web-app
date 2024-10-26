@@ -1,0 +1,21 @@
+parameters:
+    wms_host: 'https://ccpre-prod.eton.vn/opspre'
+    authen: 'https://ovauth-sanbox.eton.vn'
+    cache_redis: 'tcp://10.233.6.150:6379?database=2'
+    connections:
+        default:
+            server: mongodb01
+            options:
+                port: 27017
+                username: wms_prod
+                password: n$TXrxc4qpxhLoqa
+                authSource: admin
+            default_database: ovwft_preprod
+        authen:
+            server: 10.0.19.109
+            options:
+                port: 27017
+                username: ovwft_preprod
+                password: n$TXrxc4qpxhLoqa
+                authSource: admin
+            default_database: ovwft_preprod_authen

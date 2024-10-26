@@ -1,0 +1,42 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.app-label {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+.mat-grid-tile{
+    min-height: 40px !important;
+}
+.mat-card-content{
+    margin-bottom: 0;
+}
+.p-5-10{
+    padding:  5px 10px;
+}
+.f700{
+    font-weight: 700;
+}
+.green-color{
+    color: green;
+}
+.col50{
+    width: calc(1 * ((50% - 0.5px) * 1));
+    display: inline-block;
+    padding-right: 20px;
+    vertical-align: top;
+}  
+@media screen and (max-width:1200px) {
+    ::ng-deep .app-label{
+        min-width: 120px;
+    }
+    ::ng-deep .mat-form-field-infix{
+        width: auto !important;
+    }
+    ::ng-deep .app-input{
+        max-width: 180px;
+        width: 180px;
+    }
+}

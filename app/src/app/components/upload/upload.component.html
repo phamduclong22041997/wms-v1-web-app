@@ -1,0 +1,19 @@
+<div class="app-upload-form">
+  
+  <div *ngIf="fileId && showImage=='on'" class="app-upload-result">
+    <img src="/api/file/image?file={{fileId}}" alt="{{ selectedFile | translate }}">
+  </div>
+
+
+  <button *ngIf="!readOnly" [disabled]="disabled || showProgress" mat-flat-button color="accent" (click)="onClick()">
+    <mat-icon>file_upload</mat-icon>
+    {{ 'btn_upload' | translate }}
+  </button>
+  
+  <span *ngIf="!readOnly" style="margin-left: 10px;">{{ selectedFile | translate }}</span>
+  <div *ngIf="!readOnly && showProgress">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="!readOnly && description != ''">{{ description | translate }}</div>
+</div>
+<input *ngIf="!readOnly" type="file" id="fileUpload" name="fileUpload" multiple="multiple" accept="{{accept}}" style="display:none;" />

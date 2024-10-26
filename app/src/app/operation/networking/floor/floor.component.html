@@ -1,0 +1,9 @@
+<app-page>
+	<app-page-header title={{configs.title}}>
+		<app-table-header #theader [placeholder]="configs.searchTitle" [headerInputs]="headerInputs"></app-table-header>
+	</app-page-header>
+	<div>
+		<app-table (onActionHandle)="onActionHandle($event)" (onFirstChange)="onFirstChange($event)" [header]="tableheader" [configs]="tableConfigs"></app-table>
+		<div #container></div>
+	</div>
+</app-page>

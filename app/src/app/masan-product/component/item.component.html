@@ -1,0 +1,313 @@
+<mat-card>
+    <mat-card-content *ngIf="!isView">
+        <ng-container *ngTemplateOutlet="generalContent"></ng-container>
+        <ng-container *ngTemplateOutlet="productsContent"></ng-container>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="isView">
+        <ng-container *ngTemplateOutlet="generalViewContent"></ng-container>
+        <ng-container *ngTemplateOutlet="productsViewContent"></ng-container>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="!isView">
+        <div fxLayout="row" fxFlexAlign="center center">
+            <div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+                <div class="button-row">                  
+                    <button [disabled]="!formValid" mat-flat-button  color="accent"
+                        (click)="onSaveClick()">{{ 'save' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>
+
+<ng-template #productsContent>
+    <h3>{{ 'purchaseorder.products' | translate }}</h3>
+    <mat-tab-group mat-align-tabs="start" [animationDuration]="'0ms'" class="mat-elevation-z4">
+        <mat-tab label="{{ 'purchaseorder.tab.incoming' | translate }}">
+            <div fxLayout="row" fxFlexAlign="center center">
+                <div fxFlex.gt-sm="50" fxFlex class="p-10 column-item">
+                    <mat-form-field class="p-5">
+                        <input matInput name="sku" maxlength="100" tabindex="3"
+                            placeholder="{{ 'purchaseorder.sku' | translate }}" autocomplete="off" (change)="selectProduct($event)" />
+                        <!--<button mat-icon-button matSuffix>
+                            <mat-icon>close</mat-icon>
+                        </button>-->
+                    </mat-form-field>
+                </div>
+                <button (click)="searchProductHandle()" mat-raised-button color="primary" class="app-sku-search">
+                    {{ 'purchaseorder.search' | translate }}
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      search
+                    </mat-icon>
+                  </button>
+
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100" class="coloredContainerX box">
+                <div style="margin-right: 5px;" fxFlex="70" class="left-column">
+                    <div fxLayout="column">
+                        <app-edit-table [configs]="tableConfig" #productTable></app-edit-table>
+                    </div>
+                </div>
+                <div style="margin-left: 5px;" fxFlex="30" class="right-column">
+                    <div fxLayout="column">
+                        <app-edit-table [configs]="tableAttachedServiceConfig" #attachedServiceConfigTable></app-edit-table>
+                    </div>
+                </div>
+            </div>
+            
+        </mat-tab>
+    </mat-tab-group>
+</ng-template>
+
+
+<ng-template #generalContent>
+
+    <form #form>
+        <!--<div fxLayout="row" fxFlexAlign="center center">
+            <div fxFlex.gt-sm="100" fxFlex class="p-10 column-item">
+                <app-combo #poTypeCombo value={{potype}} tabindex="1" title="{{ 'purchaseorder.potype' | translate }}"
+                    [configs]="poTypeConfig">
+                </app-combo>
+            </div>
+        </div>-->
+        <div class="containerX">
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100" class="coloredContainerX box">
+                <div fxFlex="50" class="left-column">
+                    <div fxLayout="column">
+                        <div fxFlex="100%" class="column-item">
+                            <app-combo #transactionTypeCombo value={{data.producttype?.name}} tabindex="1" title="{{ 'purchaseorder.producttype' | translate }}"
+                                [configs]="transactionTypeConfig">
+                            </app-combo>      
+                        </div>
+
+                        <!--<div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput appInputForm autoUppercase name="originalpo" [(ngModel)]="data.originalpo"
+                                    tabindex="2" placeholder="{{ 'purchaseorder.originalpo' | translate }}" maxlength="20"
+                                    autocomplete="off" />
+                            </mat-form-field>
+                        </div>-->
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput appInputForm name="contact" [(ngModel)]="data.contact" maxlength="100"
+                                    [formControl]="formValidator.Contact"
+                                    (blur)="inputValidator('Contact')"
+                                    tabindex="3" placeholder="{{ 'purchaseorder.contact' | translate }}" autocomplete="off" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput appInputForm name="originaldocumentcode"
+                                    [(ngModel)]="data.originaldocumentcode" maxlength="100" tabindex="3"
+                                    placeholder="{{ 'purchaseorder.originaldocumentcode' | translate }}" autocomplete="off" />
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <app-combo #sourceWarehouseCombo value={{data.sourcewarehouse?.warehousename}} tabindex="1"                                                             
+                                title="{{ 'purchaseorder.sourcewarehouse' | translate }}" [configs]="warehouseConfig" [required]=true>
+                            </app-combo>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field>
+                                <input matInput name="shippingdate" [(ngModel)]="data.shippingdate"
+                                    [min]="minDate"
+                                    readonly
+                                    (dateChange)="shippingDateChange($event)"                                  
+                                    [formControl]="formValidator.Shippingdate"                                                               
+                                    [matDatepicker]="shippingdate" placeholder="{{ 'purchaseorder.shippingdate' | translate }}">
+                                <mat-datepicker-toggle matSuffix [for]="shippingdate"></mat-datepicker-toggle>
+                                <mat-datepicker #shippingdate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div fxFlex="50" class="right-column">
+                    <div fxLayout="column">
+                        <div fxFlex="100%" class="column-item">
+                            <!--<mat-form-field class="p-5">
+                                <input matInput appInputForm type="number" [(ngModel)]="data.clientbranch"
+                                    name="clientbranch" tabindex="10" placeholder="{{ 'purchaseorder.clientbranch' | translate }}"
+                                    maxlength="6" autocomplete="off" />
+                            </mat-form-field>-->
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput appInputForm name="phonenumber" [(ngModel)]="data.phonenumber"
+                                    [formControl]="formValidator.Phonenumber"
+                                    (blur)="inputValidator('Phonenumber')"
+                                    tabindex="11" placeholder="{{ 'purchaseorder.phonenumber' | translate }}" autocomplete="off"
+                                    required />
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput appInputForm name="refcode" [(ngModel)]="data.refcode" maxlength="20"
+                                    tabindex="12" placeholder="{{ 'purchaseorder.refcode' | translate }}" autocomplete="off" />
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <app-combo #destinationWarehouseCombo value={{data.destinationwarehouse?.warehousename}} tabindex="1"                                                             
+                                title="{{ 'purchaseorder.destinationwarehouse' | translate }}" [configs]="warehouseConfig" [required]=true>
+                            </app-combo>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+
+                            <mat-form-field>
+                                <input matInput parseDatePicker name="arrivaldate" [(ngModel)]="data.arrivaldate"
+                                    [min]="minDate"
+                                    (dateChange)="arrivalDateChange($event)"
+                                    [formControl]="formValidator.Arrivaldate" 
+                                    [matDatepicker]="arrivaldate" placeholder="{{ 'purchaseorder.arrivaldate' | translate }}"
+                                    autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="arrivaldate"></mat-datepicker-toggle>
+                                <mat-datepicker #arrivaldate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+            <div fxFlex.gt-sm="100" fxFlex class="p-10 column-item">
+                <mat-form-field class="p-5">
+                    <textarea rows="2" name="note" [(ngModel)]="data.note" matInput matAutosize={true}
+                    minRows={2} maxlength="100" tabindex="2"
+                    placeholder="{{ 'purchaseorder.note' | translate }}"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #productsViewContent>
+    <h3>{{ 'purchaseorder.products' | translate }}</h3>
+    <mat-tab-group mat-align-tabs="start" [animationDuration]="'0ms'" class="mat-elevation-z4">
+        <mat-tab label="{{ 'purchaseorder.tab.incoming' | translate }}">
+            
+            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100" class="coloredContainerX box">
+                <div style="margin-right: 5px;" fxFlex="70" class="left-column">
+                    <div fxLayout="column">
+                        <app-edit-table #productTable [configs]="tableConfig"></app-edit-table>
+                    </div>
+                </div>
+                <div style="margin-left: 5px;" fxFlex="30" class="right-column">
+                    <div fxLayout="column">
+                        <app-edit-table [configs]="tableAttachedServiceConfig" #attachedServiceConfigTable></app-edit-table>
+                    </div>
+                </div>
+            </div>
+            
+        </mat-tab>
+    </mat-tab-group>
+</ng-template>
+
+<ng-template #generalViewContent>
+
+    <form #form>       
+        <div class="containerX">
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100" class="coloredContainerX box">
+                <div fxFlex="50" class="left-column">
+                    <div fxLayout="column">
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="potype" placeholder="{{'purchaseorder.producttype' | translate}}"
+                                    [(ngModel)]="data.potype" disabled /> 
+                            </mat-form-field>                             
+                        </div>                      
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="contact" placeholder="{{'purchaseorder.contact' | translate}}"
+                                [(ngModel)]="data.contact" disabled />                              
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="originaldocumentcode" placeholder="{{'purchaseorder.originaldocumentcode' | translate}}"
+                                [(ngModel)]="data.originaldocumentcode" disabled />                              
+                            </mat-form-field>                           
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="sourcewarehouse" placeholder="{{'purchaseorder.sourcewarehouse' | translate}}"
+                                [(ngModel)]="data.sourcewarehouse.warehousename" disabled />                          
+                            </mat-form-field>                           
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="shippingdate" placeholder="{{'purchaseorder.shippingdate' | translate}}"
+                                [(ngModel)]="data.shippingdate" disabled />                              
+                            </mat-form-field>                          
+                        </div>                       
+
+                    </div>
+
+                </div>
+
+                <div fxFlex="50" class="right-column">
+                    <div fxLayout="column">
+                        <div fxFlex="100%" class="column-item">                          
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="phonenumber" placeholder="{{'purchaseorder.phonenumber' | translate}}"
+                                [(ngModel)]="data.phonenumber" disabled />                                
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="refcode" placeholder="{{'purchaseorder.refcode' | translate}}"
+                                [(ngModel)]="data.refcode" disabled />                                
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="destinationwarehouse" placeholder="{{'purchaseorder.destinationwarehouse' | translate}}"
+                                [(ngModel)]="data.sourcewarehouse.warehousename" disabled />                                
+                            </mat-form-field>                         
+                        </div>
+
+                        <div fxFlex="100%" class="column-item">
+                            <mat-form-field class="p-5">
+                                <input matInput name="arrivaldate" placeholder="{{'purchaseorder.arrivaldate' | translate}}"
+                                [(ngModel)]="data.arrivaldate" disabled />                              
+                            </mat-form-field>                          
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxFlexAlign="center center">
+            <div fxFlex.gt-sm="100" fxFlex class="p-10 column-item">
+                <mat-form-field class="p-5">
+                    <textarea rows="2" name="note" [(ngModel)]="data.note" matInput matAutosize={true}
+                    minRows={2} maxlength="100" tabindex="2"
+                    placeholder="{{ 'purchaseorder.note' | translate }}" disabled></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</ng-template>

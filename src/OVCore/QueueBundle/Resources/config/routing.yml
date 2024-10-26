@@ -1,0 +1,3 @@
+# ccicore_action_queue_getlist:
+#     path: /api/actionqueue/getlist
+#     defaults: { _controller: OVCoreQueueBundle:ActionQueue:getList }

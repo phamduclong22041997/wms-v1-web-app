@@ -1,0 +1,189 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="tabContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #tabContent>
+	<mat-tab-group mat-align-tabs="start" [animationDuration]="'0ms'">
+		<mat-tab label="{{'RocketPlanning.POList' | translate | uppercase}}">
+			<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		</mat-tab>
+		<mat-tab label="{{'RocketPlanning.PODetail' | translate}}">
+			<ng-container *ngTemplateOutlet="PODetialContent"></ng-container>
+		</mat-tab>
+	</mat-tab-group>
+</ng-template>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<form #form layout="column">
+			<mat-grid-list cols="6" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.Client' | translate}}:</label>
+					<app-combo #clientCombo class="app-combo" tabindex="1"
+						title="{{'RocketPlanning.Client' | translate}}" [configs]="clientConfig"></app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+					<app-combo #typeCombo class="app-combo" title="{{'RocketPlanning.StoreType' | translate}}"
+						[configs]="typeConfig"></app-combo>
+				</mat-grid-tile>
+				
+				<mat-grid-tile colspan='2'>
+					<label class="app-label-top p-14">{{'RocketPlanning.PromotionCode' | translate}}:</label>
+					<app-combo #ctkmCombo class="app-combo" title="{{'RocketPlanning.PromotionCode' | translate}}"
+						[configs]="ctkmConfig"></app-combo>
+				</mat-grid-tile>
+				<!-- <mat-grid-tile colspan='2'>
+					<label class="app-label-top p-14">{{'RocketPlanning.FileCTKM' | translate}}:</label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #inputCTKM name="inputCTKM" [(ngModel)]="filters.CTKM"
+							placeholder="{{'RocketPlanning.FileCTKM' | translate}}" matInput (keyup.enter)="search($event)"
+							(focusout)="onFocusOutEvent($event)"
+							autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile> -->
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'UploadSTO.WarehouseLabel' | translate}}:</label>
+					<app-combo #warehouseCombo class="app-combo" tabindex="1"
+						title="{{'UploadSTO.WarehousePlaceholder' | translate}}" [configs]="warehouseConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<!-- <mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.Status' | translate}}:</label>
+					<app-combo #statusCombo class="app-combo" title="{{'RocketPlanning.Status' | translate}}"
+						[configs]="statusConfig"></app-combo>
+				</mat-grid-tile> -->
+
+				<mat-grid-tile>
+					<div class="app-btn-row-left" style="width: 100%;">
+						<button class="button-po" color="accent" (click)="search($event)" mat-raised-button>
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<!-- <button class="button-po-promotion" color="accent" (click)="exportFilePO()"
+							mat-raised-button><mat-icon>loop</mat-icon>{{'RocketPlanning.Export' | translate}}</button> -->
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+		</form>
+		<hr />
+		<div class="header-summary">
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.NumberPO' | translate}}:</label><span>{{summary.TotalPO
+					| number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.New' | translate}}:</label><span>{{summary.New |
+					number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.Finished' |
+					translate}}:</label><span>{{summary.Finished | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.Processing' |
+					translate}}:</label><span>{{summary.Processing | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.POAvailable' |
+					translate}}:</label><span>{{summary.CountIsSTO | number:'1.0-0':'en-US'}}</span>
+			</div>
+		</div>
+		<div class="header-summary">
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalUnits' |
+					translate}}:</label><span>{{summary.TotalReq | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalUnitSAP' |
+					translate}}:</label><span>{{summary.TotalRes | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalActual' |
+					translate}}:</label><span>{{summary.TotalActual | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalDamaged' |
+					translate}}:</label><span>{{summary.TotalDamaged | number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalAvailable' |
+					translate}}:</label><span>{{summary.TotalAvailable | number:'1.0-0':'en-US'}}</span>
+			</div>
+			
+		</div>
+
+		<hr />
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+
+<ng-template #PODetialContent>
+	<div class="tab-container">
+		<form #form layout="column">
+			<mat-grid-list cols="6" rowHeight="40px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.Client' | translate}}:</label>
+					<app-combo #clientComboDetail class="app-combo" tabindex="1"
+						title="{{'RocketPlanning.Client' | translate}}" [configs]="clientConfigDetail"></app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+					<app-combo #typeComboDetail class="app-combo" title="{{'RocketPlanning.StoreType' | translate}}"
+						[configs]="typeConfigDetail"></app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile colspan='2'>
+					<label class="app-label-top p-14">{{'RocketPlanning.POCode' | translate}}:</label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input matInput #inputPOCode name="inputPOCode" maxlength="100" tabindex="3"
+							placeholder="{{ 'RocketPlanning.POCodeInput' | translate }}" autocomplete="off" />
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<div class="app-btn-row-left" style="width: 100%;">
+						<button class="button-po" color="accent" (click)="onSearchPO($event)" mat-raised-button>
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<!-- <button class="button-po-promotion" color="accent" (click)="exportFilePO()"
+							mat-raised-button>{{'RocketPlanning.Export' | translate}}</button> -->
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+		</form>
+		<hr>
+		<div class="header-summary">
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalUnits' |
+					translate}}:</label><span>{{summaryDetail.TotalQty |
+					number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalUnitSAP' |
+					translate}}:</label><span>{{summaryDetail.TotalSAPQty |
+					number:'1.0-0':'en-US'}}</span>
+			</div>			
+			<div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalActual' |
+					translate}}:</label><span>{{summaryDetail.TotalActualQty |
+					number:'1.0-0':'en-US'}}</span>
+			</div>
+			<!-- <div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalAvailable' |
+					translate}}:</label><span>{{summaryDetail.TotalAvailable | number:'1.0-0':'en-US'}}</span>
+			</div> -->
+			<!-- <div class="summary-item">
+				<label class="app-label p-10 ">{{'RocketPlanning.TotalDamaged' |
+					translate}}:</label><span>{{summaryDetail.TotalDemand |
+					number:'1.0-0':'en-US'}}</span>
+			</div> -->
+		</div>
+		<hr />
+		<app-edit-table class="app-table" #appTableDetail [configs]="tableConfigDetail"></app-edit-table>
+
+	</div>
+</ng-template>

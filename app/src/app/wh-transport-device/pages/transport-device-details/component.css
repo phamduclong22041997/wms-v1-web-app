@@ -1,0 +1,18 @@
+.app-table {
+    width: 100%;
+    padding: 15px 0;
+}
+::ng-deep .dark .mat-grid-tile {
+    min-height: 70px !important;
+}
+.app-table-p td{
+    line-height: 30px;
+}
+.bt-button{
+    display: inline-block;
+    text-align: center;
+    width: 100%
+}
+.bt-button .app-btn-row{
+    display: inline-block
+}

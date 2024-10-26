@@ -1,0 +1,84 @@
+<app-page>
+	<app-page-header class="head-title" title="{{ 'SOReturns.Filter' | translate |uppercase}}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'SOReturns.Keyword' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #inputContent name="Content" tabindex="1" [(ngModel)]="filters.Content"
+						(keyup.enter)="onEnter($event)" placeholder="{{'SOReturns.KeywordPlaceholder' | translate}}" matInput
+						autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.FromDate' | translate}}:</span></label>
+				<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.Client' | translate}}:</span></label>
+				<app-combo #cbbClient class="app-combo" tabindex="3" title="{{'SOReturns.Client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.ToDate' | translate}}:</span></label>
+				<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+			</mat-grid-tile>			
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.BranchWH' | translate}}:</span></label>
+				<app-combo #cbbWHBranch class="app-combo" tabindex="2" title="{{'SOReturns.BranchWH' | translate}}"
+					[configs]="warehouseBrachConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.Status' | translate}}:</span></label>
+				<app-combo #cbbStatus class="app-combo" tabindex="5" title="{{'SOReturns.Status' | translate}}"
+					[configs]="statusConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.Store' | translate}}:</span></label>
+				<app-combo #ccbStore class="app-combo" tabindex="7" title="{{'SOReturns.Store' | translate}}"
+					[configs]="storeConfig">
+				</app-combo>
+			</mat-grid-tile>
+			
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'SOReturns.Type' | translate}}:</span></label>
+				<app-combo #ccbType class="app-combo" tabindex="4" title="{{'SOReturns.Type' | translate}}"
+					[configs]="typeConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="2">
+				<div class="app-btn-row-right" style="width: 100%;">
+					<button type="button" color="accent" tabindex="8" (click)="search()" mat-raised-button
+						tabindex="9">
+						<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+					</button>
+					<button type="button" color="accent" tabindex="10" (click)="exportExcel()" mat-raised-button>
+						<mat-icon>file_download</mat-icon>{{'SOReturns.ExportExcel' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

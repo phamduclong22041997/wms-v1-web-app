@@ -1,0 +1,74 @@
+<app-page>
+	<app-page-header title="{{ 'filter_title' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'AutoPickPack.Zone' | translate}}:</span></label>
+				<app-combo #zone class="app-combo" tabindex="1" title="{{'select' | translate}}" [configs]="zoneConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'BIN.Status' | translate}}:</span></label>
+				<app-combo #status class="app-combo" tabindex="2"
+					title="{{'BIN.Status' | translate}}"
+					[configs]="statusConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="3"
+					title="{{'client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'BIN.Type' | translate}}:</span></label>
+				<app-combo #type class="app-combo" tabindex="4"
+					title="{{'BIN.Type' | translate}}"
+					[configs]="typeConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+				<app-combo #dcCombo class="app-combo" tabindex="5" title="{{'DCSite' | translate}}"
+					[configs]="dcConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'filter_keyword' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #content name="Content" tabindex="6" [(ngModel)]="filters.Content"
+						placeholder="{{'BIN.KeywordPlaceholder' | translate}}" matInput autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-right" style="width: 100%">
+					<button color="accent" (click)="search()" mat-raised-button tabindex="9">
+						<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+					</button>
+					<button color="accent" (click)="ExportExcel($event)" mat-raised-button tabindex="9">
+						<mat-icon>file_download</mat-icon>{{'btn_export' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

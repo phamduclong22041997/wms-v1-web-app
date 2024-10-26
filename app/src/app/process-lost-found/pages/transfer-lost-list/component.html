@@ -1,0 +1,89 @@
+<app-page-session>
+	<!-- <app-page-session-header title="{{'TransferLost.Title' | translate}}"></app-page-session-header> -->
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<!-- <app-page-session-header title="{{'TransferLost.TitleList' | translate | uppercase}}"></app-page-session-header> -->
+	
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="2" rowHeight="20px" flex-gt-sm="100">
+				<mat-grid-tile style="margin-top: 30px;">
+					<div class="app-btn-row-left"  style="width: 100%; margin-bottom: 20px;">
+						<h3>{{'TransferLost.Title' | translate}}</h3>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>	
+			<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100" style="margin-top: 50px;">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6" title="{{'client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'TransferLost.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #fromDate>
+					</app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'TransferLost.BranchWH' | translate}}:</span></label>
+					<app-combo #whBranchCombo class="app-combo" tabindex="6" title="{{'TransferLost.BranchWH' | translate}}"
+						[configs]="warehouseBrachConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'TransferLost.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'TransferLost.LostBinPhycical' | translate}}:</span></label>
+					<app-combo #lostBin class="app-combo" tabindex="2"
+						title="{{'TransferLost.ChooseLostBinPhycical' | translate}}"
+						[configs]="lostBinConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="6" [(ngModel)]="filters.Content"
+							placeholder="{{ 'TransferLost.KeywordTransferPlaceholder' | translate}}" matInput
+							(keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<div class="app-btn-row-right" style="width: 100%;">	
+						<button color="accent" (click)="search($event)" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<button color="accent" (click)="addNew($event)" mat-raised-button tabindex="9">
+							<mat-icon>addnew</mat-icon>{{'btn_add' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+				
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<mat-grid-list cols="2" rowHeight="20px" flex-gt-sm="100">
+		<mat-grid-tile style="margin-top: 30px;">
+			<div class="app-btn-row-left"  style="width: 100%; margin-bottom: 20px;">
+				<h3>{{'TransferLost.TitleList' | translate}}</h3>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>	
+	<div style="margin-top: 50px;">
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

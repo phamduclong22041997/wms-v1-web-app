@@ -1,0 +1,34 @@
+<ng-template #dialogTitle>
+  <span class="app-title">TẠO STO TỪ DEMAND</span>
+</ng-template>
+
+<ng-template #headerContent>
+  <div class="header-container" style="display:inline-flex;">
+    <span style="width: 100%;margin-bottom: auto;margin-top: auto;">{{'RocketPlanning.Warehouse' | translate}}: {{warehouseName}}</span>
+    <!-- <app-combo #whCombo class="app-combo" title="{{'RocketPlanning.Warehouse' | translate}}" [configs]="whConfig"></app-combo> -->
+  </div>
+</ng-template>
+
+<ng-template #tableContent>
+  <div class="app-table">
+    <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+  </div>
+</ng-template>
+
+<div mat-dialog-content>
+  <div class="container">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="createPO()" cdkFocusInitial [disabled]="!allowCreatePO">{{
+      'RocketPlanning.CreatePOBtn' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="warn" (click)="onOkClick()">{{ 'btn_close' |
+      translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

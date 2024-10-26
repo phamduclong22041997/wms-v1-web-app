@@ -1,0 +1,16 @@
+<mat-form-field appearance="outline" class="app-combo app-input">
+  <input #inputElement type="text" (blur)="onBlur($event)" (keydown)="onKeydown($event)" (focus)="onFocus($event)"
+    placeholder={{title}} tabindex={{tabindex}} matInput [formControl]="myControl" [readonly]="readonly"
+    [matAutocomplete]="auto" appInputForm autocomplete="off" [required]="required">
+  <span matSuffix style="display: inline-flex;top:0;">
+    <mat-icon *ngIf="selectedValue && !disabled && !readonly && !clearValue" (click)="clearInput()"
+      class="header-close-icon combo-close-icon">clear</mat-icon>
+    <mat-icon *ngIf="!readonly" class="header-down-icon">keyboard_arrow_down</mat-icon>
+  </span>
+  <mat-autocomplete #autocomplete [displayWith]="name" (optionSelected)="optionSelected($event)" (closed)="closed($event)"
+    autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" id="{{generateId(option)}}" [ngStyle]="renderOptionStyle(option)" [value]="render(option)">
+      {{ render(option) }} <i *ngIf="this.configs['labelStatus']" [ngStyle]="renderLabelStyle(option)">{{labelStatus(option)}}</i>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

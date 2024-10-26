@@ -1,0 +1,195 @@
+<h4 style="margin: 0 0 10px 0;">{{ 'ImportStore.EditStore' | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr>
+			<td><b>{{'ImportStore.StoreCode' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreCode maxlength="4" name="StoreCode" [(ngModel)]="dataCreateStore.StoreCode" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 1 -->
+			<td class="pdl"><b>Priority:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StorePriority maxlength="4" name="StoreCode" [(ngModel)]="dataCreateStore.StorePriority" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.StoreName' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreName name="StoreName" [(ngModel)]="dataCreateStore.StoreName" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 2 -->
+			<td class="pdl"><b>{{'ImportStore.Country' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Country maxlength="4" name="StoreCode" [(ngModel)]="dataCreateStore.Country" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Type' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="StoreName" [(ngModel)]="dataCreateStore.Type" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 3 -->
+			<td class="pdl"><b>{{'ImportStore.Region' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreName name="StoreName" [(ngModel)]="dataCreateStore.Region" matInput autocomplete="off"
+						readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Status' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="StoreName" [(ngModel)]="dataCreateStore.Status" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 4 -->
+			<td class="pdl"><b>{{'ImportStore.Province' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="StoreName" [(ngModel)]="dataCreateStore.Province" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>{{'AutoDOGR' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="Name" [(ngModel)]="dataCreateStore.AutoDOGR" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 5 -->
+			<td class="pdl"><b>{{'ImportStore.District' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="StoreName" [(ngModel)]="dataCreateStore.District" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>{{'ImportStore.Name' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="Name" [(ngModel)]="dataCreateStore.ContactName" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 5 -->
+			<td class="pdl"><b>{{'ImportStore.Ward' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input name="StoreName" [(ngModel)]="dataCreateStore.Ward" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.Phone' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Phone type="text" maxlength="11" name="Phone" [(ngModel)]="dataCreateStore.ContactPhone"
+						matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 6 -->
+			<td class="pdl"><b>{{'ImportStore.FullAddress' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #FullAddress name="FullAddress" [(ngModel)]="dataCreateStore.FullAddress" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>{{'ImportStore.HotLine' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Hotline type="text" name="Hotline" [(ngModel)]="dataCreateStore.Hotline" matInput
+						autocomplete="off" placeholder="VD: {{'ImportStore.HotLinePlaceHolder' | translate}}" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 7 -->
+			<td class="pdl"><b>{{'ImportStore.Street' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #Street name="Street" [(ngModel)]="dataCreateStore.Street" matInput autocomplete="off"
+						readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>{{'ImportStore.StaffName' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffName type="text" name="StaffName" [(ngModel)]="dataCreateStore.ReceivingStaffName"
+						matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 8 -->
+			<td class="pdl"><b>{{'ImportStore.Longitude' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffName type="text" name="StaffName" [(ngModel)]="dataCreateStore.Long" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.StaffPhone' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffPhone type="text" maxlength="11" name="StaffPhone"
+						[(ngModel)]="dataCreateStore.ReceivingStaffPhone" matInput autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<!-- 9 -->
+			<td class="pdl"><b>{{'ImportStore.Latitude' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffName type="text" name="StaffName" [(ngModel)]="dataCreateStore.Lat" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td><b>{{'ImportStore.LeadTime' | translate}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StaffName type="text" name="StaffName" [(ngModel)]="dataCreateStore.LeadTime" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+			<td class="pdl"><b>SortCode<span class="app-require-icon"></span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #SortCode type="text" name="SortCode" [(ngModel)]="dataCreateStore.SortCode" matInput
+						autocomplete="off" readonly>
+				</mat-form-field>
+			</td>
+		</tr>
+	</table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<div class="app-btn-row" style="text-align: center;margin-top: 20px;">
+		<button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-actions>

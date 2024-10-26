@@ -1,0 +1,53 @@
+<h4 style="margin: 0 0 10px 0;">{{ data.Title | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr>
+			<td>
+				<div>
+					<label for="type">
+						{{"TaskProcess.TaskType" | translate}}
+					</label>
+					<app-combo #type class="app-combo type-combo" tabindex="2" title="{{'TaskProcess.TaskType' | translate}}" [configs]="typeConfig">
+					</app-combo>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="import-file">
+					<input style="display:none" #uploadfile id="uploadfile" type="file" (change)="uploadFile($event)"/>
+					<input type="text" style="padding-left: 5px;" readonly matInput [value]="nameFile"/>
+					<label for="uploadfile">
+						<span class="span-input-upload">Import File</span>
+					</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="text-align: right;">
+					<a (click)='downloadTemplate()' style="color: #249AFF;cursor: pointer;">
+					<mat-icon style="position: relative;top: 9px;transform: scale(0.9);">file_download</mat-icon>
+					{{'Tải mẫu' | translate}}
+				</a>
+				</p>
+			</td>
+		</tr>
+		<tr [hidden]="!isConfirm">
+			<td>
+				<div class="note">
+					<label for="note">
+						{{"TaskProcess.Note" | translate}}
+					</label>
+					<textarea class="note-input" id="node" name="note" #note type="text" style="padding-left: 5px;" matInput [value]="Note" placeholder="Ghi chú thêm về tập tin" rows="5">
+
+					</textarea>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 10px;">
+		<button style="width: 120px;" color="accent" (click)="confirm($event)" [disabled]="!isConfirm" mat-raised-button>{{'TaskProcess.Create' | translate}}</button>
+		<button style="width: 120px;" color="accent" mat-dialog-close mat-raised-button>{{'btn_close' | translate}}</button>
+	</div>
+</mat-dialog-content>

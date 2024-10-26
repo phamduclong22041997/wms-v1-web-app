@@ -1,0 +1,76 @@
+<app-page-session>
+	<app-page-session-header title="{{'RocketPlanning.UploadSO' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<ng-template #headerImportContent>
+	<form #form layout="column">
+		<mat-grid-list cols="4" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+			<mat-grid-tile colspan='2'>
+				<input style="display:none" #inputFile id="inputFile" type="file"
+					(change)="checkUploadFile($event.target.files)">
+				<label class="label-input-block" for="inputFile">
+					<span class="span-input-txt">{{nameFileUpload}}</span>
+					<span class="span-input-upload">{{'RocketPlanning.SelectFile' | translate}}</span>
+				</label>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-left" style="width: 100%;margin-top: 5px;">
+					<button [disabled]='!checkFileExcel' class="button-upload-sto" color="accent" (click)="confirm()"
+						mat-raised-button>
+						<mat-icon>upload</mat-icon>{{'RocketPlanning.Upload' | translate}}
+					</button>
+					<button  class="button-upload-sto" color="accent"  [class.hiden]="isExportHidden"
+					(click)="exportDataList()" mat-raised-button>
+					<mat-icon>import_export</mat-icon>{{'RocketPlanning.ExportError' | translate}}
+				</button>
+				</div>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-left" style="width: 100%;margin-top: 5px;">
+					<span class="download-template-btn" (click)="downloadTemplate()">{{'btn_download_template' |
+						translate}}</span>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div class="tab-container">
+		<div class="header-summary">
+			<div class="summary-item" style="padding-left: 0px;">
+				<label class="app-label p-5" style="padding-left: 0px; margin-left: 0px;">Mã CTKM:
+				</label><span>{{summaryImport.PromotionCode}}</span>
+			</div>
+			<div class="summary-item width-80">
+				<label class="app-label p-5">Tổng cửa hàng: </label><span>{{summaryImport.TotalStore}}</span>
+			</div>
+			<div class="summary-item width-80">
+				<label class="app-label p-5">Tổng sản phẩm: </label><span>{{summaryImport.TotalSKU}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-5">Tổng số Units: </label><span>{{summaryImport.TotalQty |
+					number:'1.0-0':'en-US'}}</span>
+			</div>
+		</div>
+
+		<div>
+			<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+
+<div class="app-btn-row" style="margin-top: 15px;">
+	<button (click)="goToBackList($event)" mat-flat-button color="accent"
+		style="color: white; margin-bottom: 40px;">{{'btn_back' | translate}}</button>
+		
+</div>

@@ -1,0 +1,27 @@
+<ng-template #dialogTitle>
+  <span class="app-title">
+    {{title | uppercase}}
+  </span>
+</ng-template>
+
+<ng-template #tableContent>
+  <div class="app-table">
+    <div style="margin-top: 20px;">
+      {{content}}
+    </div>
+  </div>
+</ng-template>
+<div mat-dialog-content style="min-width: 500px;">
+  <div class="container">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onConfirmClick()">{{ 'btn_confirm' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="warn" (click)="onCancelClick()">{{ 'btn_close' |
+      translate:{Default: "No"} }}</button>
+  </div>
+</div>

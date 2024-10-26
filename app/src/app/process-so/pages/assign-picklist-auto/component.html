@@ -1,0 +1,58 @@
+<app-page-session>
+	<app-page-session-header title="{{'AssignPickList.AutoTitle' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="3" rowHeight="40px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<div class="import-file">
+						<input style="display:none" #uploadfile id="uploadfile" type="file" (change)="validateFileUpload($event)" />
+						<input type="text" style="padding-left: 10px;" readonly matInput [value]="nameFile" />
+						<label for="uploadfile">
+							<span class="span-input-upload" tabindex="1">Chọn File</span>
+						</label>
+					</div>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<div style="float: left; width: 100%;">
+						<button color="accent" tabindex="2" [disabled]="!enableUpload" (click)="uploadFile($event)" mat-raised-button>{{'Upload' | translate}}</button>
+						<!-- <button style="margin-left: 15px;" color="accent" (click)="downloadPicker($event)" mat-raised-button tabindex="3">
+							<mat-icon>file_download</mat-icon>{{'AutoPickPack.DownloadPicker' | translate}}
+						</button> -->
+					</div>
+				</mat-grid-tile>
+				<div style="float: right;">
+					<a (click)='downloadTemplate()' style="color: #d0333a;cursor: pointer;">
+						<mat-icon style="position: relative;top: 9px;transform: scale(0.9);">file_download</mat-icon>
+						{{'Tải file mẫu' | translate}}
+					</a>
+				</div>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div class="app-btn-row-right" style="width: 100%; padding: 15px 0 0">
+		<button color="accent" [disabled]="!enableAssign" (click)="confirmAssignEmployee($event)" mat-raised-button tabindex="5">
+			{{ 'AssignPickList.AutoTitle' | translate}}
+		</button>
+		<button (click)="getAutoAssignEmployee($event)" mat-raised-button tabindex="6" style="margin-left: 15px;">Load NV theo ca</button>
+		<button (click)="clearEmployee($event)" mat-raised-button tabindex="6" style="margin-left: 15px;">
+			{{ 'btn_refresh' | translate}}
+		</button>
+	</div>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

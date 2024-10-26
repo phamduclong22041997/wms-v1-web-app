@@ -1,0 +1,17 @@
+<div>
+  <div mat-dialog-title class="title-confirm">
+    <div>{{ (data.title || 'Thông báo') | translate}}</div>
+  </div>
+  <div mat-dialog-content>
+    <p>{{ data.message | translate:{Default: data.message, Ref: data.ref} }}</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+  
+</div>

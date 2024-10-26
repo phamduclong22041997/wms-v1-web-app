@@ -1,0 +1,91 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.app-label {
+    width: 130px;
+}
+.label-detail{
+    color: #ADADAD;
+    width: 40%;
+    min-width: 100px;
+}
+::ng-deep .mat-grid-tile .mat-figure {
+    justify-content: left !important;
+}
+
+::ng-deep .mat-tab-header {
+    padding-left: 15px !important;
+}
+
+::ng-deep .mat-tab-header div div div div {
+    background-color: #1F1F1F;
+    border-radius: 5px 5px 0 0;
+}
+
+::ng-deep .mat-tab-header div div div div:first-child {
+    margin: 0 5px 0 15px;
+}
+
+::ng-deep .mat-tab-header div div div div div {
+    background-color: transparent;
+}
+
+::ng-deep .mat-tab-body .mat-tab-body-content .ng-star-inserted .mat-card {
+    margin-top: 0px!important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+  }
+  
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+  }
+  
+  .label-input-block{
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+    display: block;
+    padding: 5px 10px 3px 10px;
+    margin-top: 5px;
+    width: 100%;
+    min-width: 120px;
+    height: 35px;
+    cursor: pointer;
+  }
+  .span-input-txt{
+    position: inherit;
+      margin-left: 5px;
+    opacity: 0.5;
+    white-space: nowrap;
+    width: 66%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+  }
+  .span-input-upload{
+    float:left;
+    background-color: white; 
+    color: black;
+    padding: 1px;
+    border-radius: 5px;
+    min-width: 80px;
+    width: 22%;
+    text-align: center;
+    font-weight: 500;
+  }
+  .grid-data-upload{
+    float: left;
+    width: calc(100% - 2rem);
+    background: #1F1F1F 0% 0% no-repeat padding-box;
+    margin: 1rem 1rem;
+    padding: 20px;
+  }
+  ::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline{
+  height: 35px;
+  }
+  
+  

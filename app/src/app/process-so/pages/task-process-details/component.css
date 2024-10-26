@@ -1,0 +1,12 @@
+.app-table {
+    width: 100%;
+    display: inline-grid;
+}
+.app-label {
+    width: 100px;
+    min-width: 100px;
+    max-width: 120px;
+}
+::ng-deep .mat-grid-tile .mat-figure{
+    justify-content: left !important;
+}

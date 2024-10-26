@@ -1,0 +1,49 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.app-label {
+    min-width: 80px;
+}
+
+.width-td{
+    min-width: 80px;
+}
+
+.header-table{
+    line-height: 45px;
+    font-size: 14px;
+}
+td {
+    font-weight: bold;
+}
+
+.p-10{
+    color: #fff;
+}
+
+.button-po-promotion{
+    width: 120px;
+    margin-right: 10px;
+}
+ 
+.header-summary{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom :10px;
+}
+.header-summary .summary-item{
+    padding-left: 10px;
+   min-width:18%;
+   margin-top: 3px;
+   margin-bottom: 3px;
+}
+.header-summary .summary-item:first-child,.header-summary .summary-item:first-child  label{
+    padding-left: 1px;
+    margin-left: 0;
+}
+.tab-container{padding-top: 12px;}
+::ng-deep .dark hr {
+    margin: 15px 0 15px !important;
+}

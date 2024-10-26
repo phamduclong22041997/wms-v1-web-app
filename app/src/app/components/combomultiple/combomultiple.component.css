@@ -1,0 +1,15 @@
+.header-down-icon, .header-close-icon {
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field .mat-form-field-label {
+    margin-top: -15px !important;
+  }
+
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}

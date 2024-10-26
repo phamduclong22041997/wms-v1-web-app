@@ -1,0 +1,83 @@
+<app-page>
+	<app-page-header title="{{ 'LostFound.LostTitle' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="lostContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<app-page>
+	<app-page-header title="{{ 'LostFound.FoundTitle' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="foundContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<app-page>
+	<app-page-header title="{{ 'LostFound.MatchingTitle' | translate }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="matchingContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+
+
+<ng-template #lostContent>
+	<div>
+		<div>
+			<table style="width: 100%;">
+				<tr>
+					<td style="width: 20%;">{{'LostFound.LostCode' | translate}}: <span>{{ data.LostCode }}</span></td>
+					<td style="width: 20%;">{{'status' | translate}}: <span>{{ data.LostStatus }}</span></td>
+					<td style="width: 20%;">{{'LostFound.LostType' | translate}}: <span>{{ data.LostType }}</span></td>
+					<td style="width: 20%;">{{'LostFound.CreatedBy' | translate}}: <span>{{ data.LostCreatedBy }}</span></td>
+					<td style="width: 20%;">{{'LostFound.CreatedDate' | translate}}: <span>{{ data.LostCreatedDate }}</span></td>
+				</tr>
+			</table>
+		</div>
+		<div style="padding-top: 10px">
+			<app-edit-table class="app-table" #lostTable [configs]="lostTableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #foundContent>
+	<div>
+		<div>
+			<table style="width: 100%;">
+				<tr>
+					<td style="width: 20%;">{{'LostFound.FoundCode' | translate}}: <span>{{ data.FoundCode }}</span></td>
+					<td style="width: 20%;">{{'status' | translate}}: <span>{{ data.FoundStatus }}</span></td>
+					<td style="width: 20%;">{{'LostFound.FoundType' | translate}}: <span>{{ data.FoundType }}</span></td>
+					<td style="width: 20%;">{{'LostFound.CreatedBy' | translate}}: <span>{{ data.FoundCreatedBy }}</span></td>
+					<td style="width: 20%;">{{'LostFound.CreatedDate' | translate}}: <span>{{ data.FoundCreatedDate }}</span></td>
+				</tr>
+			</table>
+		</div>
+		<div style="padding-top: 10px">
+			<app-edit-table class="app-table" #foundTable [configs]="foundTableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #matchingContent>
+	<span style="display: inline-flex;">
+		<label class="app-label"><span>{{'LostFound.MatchingLabel' | translate}}:</span></label>
+		<mat-form-field appearance="outline" class="app-input">
+			<input #content name="Content" tabindex="1" type="number" [(ngModel)]="data.MatchQty" matInput
+			oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+				(keyup.enter)="onEnter($event)" autocomplete="off">
+		</mat-form-field>
+	</span>
+</ng-template>
+
+<ng-template #actionContain>
+	<div style="text-align: center; padding-top: 20px; padding-bottom: 25px;">
+		<button [disabled]="!allowCreate" style="width: 80px" color="accent" (click)="showConfirmCreateSession($event)" mat-raised-button>{{'btn_save' |
+			translate}}</button>
+
+		<button style="width: 80px" style="margin-left: 10px;" (click)="goToBack($event)"
+			mat-raised-button>{{'cancel' |
+			translate}}</button>
+	</div>
+</ng-template>

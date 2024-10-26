@@ -1,0 +1,45 @@
+<div mat-dialog-content>
+  <h2 style="min-width: 435px;" class="text-center">{{ data.title | translate }}</h2>
+  <div #form layout="column">
+    <mat-card-content>
+      <mat-grid-list cols="1" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">{{ 'Print.SOCode' | translate}}:</label>
+          <label style="width: 300px;font-weight: bold;">{{info.SOCode}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'Print.SiteId' | translate}}:</label>
+          <label style="width: 300px;font-weight: bold;">{{info.SiteId}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'Print.TotalPackageEven' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input" style="width: 300px;">
+            <input #totalPackageEven tabindex="1" type="number" name="totalPackageEven" [(ngModel)]="info.TotalPackageEven"
+                ng-pattern="/^[0-9]+$/" (change)="onChangeEven($event)" step="1" (keyup.enter)="onQtyEnter($event)"
+                placeholder="{{'POPallet.Qty' | translate}}" matInput autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile>
+          <label class="app-label">{{ 'Print.TotalPackageOdd' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input" style="width: 300px;">
+            <input #totalPackageOdd tabindex="2" type="number" name="totalPackageOdd" [(ngModel)]="info.TotalPackageOdd"
+              ng-pattern="/^[0-9]+$/" (change)="onChangeOdd($event)" step="1" (keyup.enter)="onQtyEnter($event)"
+              placeholder="{{'POPallet.Qty' | translate}}" matInput autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile> -->
+        <mat-grid-tile>
+          <label class="app-label">{{ 'Print.TotalPackage' | translate}}:</label>
+          <label style="width: 300px;font-weight: bold;">{{info.TotalPackage}}</label>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" type="button" index="4" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_update' |
+      translate:{Default: "Update"} }}</button>
+    <button class="custom-button" type="button" index="3" mat-flat-button (click)="onCancelClick()">{{ 'btn_exit' | translate:{Default: "Exit"}
+      }}</button>
+  </div>
+</div>

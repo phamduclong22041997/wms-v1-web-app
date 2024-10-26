@@ -1,0 +1,238 @@
+# Networking - Address - ward
+eft_networking_address_ward_combo:
+    path: /api/addressward/combo
+    defaults: { _controller: EFTNetworkingBundle:AddressWard:getWardCombo }
+# Networking - Address - Ward
+
+# Networking - Address - district
+eft_networking_address_district_combo:
+    path: /api/addressdistrict/combo
+    defaults: { _controller: EFTNetworkingBundle:AddressDistrict:getDistrictCombo }
+# Networking - Address - District
+
+# Networking - Address - City
+eft_networking_address_city_combo:
+    path: /api/addresscity/combo
+    defaults: { _controller: EFTNetworkingBundle:AddressCity:getCityCombo }
+# Networking - Address - City
+
+# Networking - Address - Province
+eft_networking_address_province_combo:
+    path: /api/addressprovince/combo
+    defaults: { _controller: EFTNetworkingBundle:AddressProvince:getProvinceCombo }
+# Networking - Address - Province
+
+# Networking - Address - Region
+eft_networking_address_region_list:
+    path: /api/addressregion/list
+    defaults: { _controller: EFTNetworkingBundle:AddressRegion:getList }
+
+eft_networking_address_region:
+    path: /api/addressregion/getone
+    defaults: { _controller: EFTNetworkingBundle:AddressRegion:getOne }
+
+eft_networking_address_region_save:
+    path: /api/addressregion/save
+    defaults: { _controller: EFTNetworkingBundle:AddressRegion:save }
+
+eft_networking_address_region_combo:
+    path: /api/addressregion/combo
+    defaults: { _controller: EFTNetworkingBundle:AddressRegion:getRegionCombo }
+# Networking - Address - Region
+
+# Networking - Address - Country
+# eft_networking_address_country_list:
+#     path: /api/addresscountry/list
+#     defaults: { _controller: EFTNetworkingBundle:AddressCountry:getList }
+
+# eft_networking_address_country_countrycombo:
+#     path: /api/addresscountry/combo
+#     defaults: { _controller: EFTNetworkingBundle:AddressCountry:getCountryCombo }
+
+# eft_networking_address_country_getone:
+#     path: /api/addresscountry/getone
+#     defaults: { _controller: EFTNetworkingBundle:AddressCountry:getOne }
+
+# eft_networking_address_country_save:
+#     path: /api/addresscountry/save
+#     methods: POST
+#     defaults: { _controller: EFTNetworkingBundle:AddressCountry:save }
+# Networking - Address - Country
+
+# # Networking - Address - Area
+# eft_networking_address_area_list:
+#     path: /api/addressarea/list
+#     defaults: { _controller: EFTNetworkingBundle:AddressArea:getList }
+
+# eft_networking_address_area_getone:
+#     path: /api/addressarea/getone
+#     defaults: { _controller: EFTNetworkingBundle:AddressArea:getOne }
+
+# eft_networking_address_area_save:
+#     path: /api/addressarea/save
+#     methods: POST
+#     defaults: { _controller: EFTNetworkingBundle:AddressArea:save }
+# # Networking - Address -  Area
+
+# Networking - Floor
+eft_networking_floor_getlist:
+    path: /api/floor/getlist
+    defaults: { _controller: EFTNetworkingBundle:Floor:getList }
+
+eft_networking_floor_floorcombo:
+    path: /api/floor/getfloorcombo
+    defaults: { _controller: EFTNetworkingBundle:Floor:getFloorCombo }
+
+eft_networking_floor_getone:
+    path: /api/floor/getone
+    defaults: { _controller: EFTNetworkingBundle:Floor:getOne }
+
+eft_networking_floor_save:
+    path: /api/floor/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:Floor:save }
+# Networking - Floor
+
+# Networking - Room
+eft_networking_room_getlist:
+    path: /api/room/getlist
+    defaults: { _controller: EFTNetworkingBundle:Room:getList }
+eft_networking_room_roomcombo:
+    path: /api/room/getroombombo
+    defaults: { _controller: EFTNetworkingBundle:Room:getRoomCombo }
+
+eft_networking_room_roomtype:
+    path: /api/room/getroomtype
+    defaults: { _controller: EFTNetworkingBundle:Room:getRoomType }
+
+eft_networking_room_getone:
+    path: /api/floor/getone
+    defaults: { _controller: EFTNetworkingBundle:Room:getOne }
+
+eft_networking_room_save:
+    path: /api/room/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:Room:save }
+# Networking - Room
+
+# Networking - Point
+eft_networking_point_getlist:
+    path: /api/point/getlist
+    defaults: { _controller: EFTNetworkingBundle:Point:getList }
+
+eft_networking_point_pointtype:
+    path: /api/point/getpointtype
+    defaults: { _controller: EFTNetworkingBundle:Point:getPointType }
+
+eft_networking_point_getone:
+    path: /api/point/getone
+    defaults: { _controller: EFTNetworkingBundle:Point:getOne }
+
+eft_networking_point_save:
+    path: /api/point/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:Point:save }
+# Networking - Point
+
+# Networking - TransportDevice
+eft_networking_transportdevice_getlist:
+    path: /api/transportdevice/getlist
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:getList }
+
+eft_networking_transportdevice_transportdevicetype:
+    path: /api/transportdevice/gettransportdevicetype
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:getTransportDeviceType }
+
+eft_networking_transportdevice_usingstatus:
+    path: /api/transportdevice/getusingstatus
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:getUsingStatus }
+
+eft_networking_transportdevice_getone:
+    path: /api/transportdevice/getone
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:getOne }
+
+eft_networking_transportdevice_save:
+    path: /api/transportdevice/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:save }
+
+eft_networking_transportdevice_transportdevicecombo:
+    path: /api/transportdevice/getcombo
+    defaults: { _controller: EFTNetworkingBundle:TransportDevice:getTransportDeviceCombo }
+# Networking - TransportDevice
+
+# Operation - Smart Cart
+eft_networking_smartcart_getlist:
+    path: /api/smartcart/getlist
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getList }
+
+eft_networking_smartcart_getone:
+    path: /api/smartcart/getone
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getOne }
+
+eft_networking_smartcart_save:
+    path: /api/smartcart/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:save }
+
+eft_networking_smartcart_getconfigcombo:
+    path: /api/smartcart/getconfigcombo
+    methods: GET
+    defaults: {_controller: EFTNetworkingBundle:Smartcart:getConfigCombo}
+
+eft_networking_smartcart_getpurposecombo:
+    path: /api/smartcart/getpurposecombo
+    methods: GET
+    defaults: {_controller: EFTNetworkingBundle:Smartcart:getPurposeCombo}
+
+eft_networking_smartcart_getproductsizecombo:
+    path: /api/smartcart/productsizecombo
+    methods: GET
+    defaults: {_controller: EFTNetworkingBundle:Smartcart:getProductsizeCombo}
+
+eft_networking_smartcart_smartcartcombo:
+    path: /api/smartcart/getcombo
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getCombo }
+
+eft_networking_smartcart_gettransportdevices:
+    path: /api/smartcart/gettransportdevices
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getTransportDevices }
+
+eft_networking_smartcart_getbininfo:
+    path: /api/smartcart/getbininfo
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getBinInfo }
+
+eft_networking_smartcart_getconfiginfo:
+    path: /api/smartcart/getconfiginfo
+    defaults: { _controller: EFTNetworkingBundle:Smartcart:getConfigureInfo }
+# Operation - Smart Cart
+
+# Networking - TransportDeviceOnSmartcart
+eft_networking_transportdeviceonsmartcart_getlist:
+    path: /api/transportdeviceonsmartcart/getlist
+    defaults: { _controller: EFTNetworkingBundle:TransportDeviceOnSmartcart:getList }
+
+eft_networking_transportdeviceonsmartcart_getcombo:
+    path: /api/transportdeviceonsmartcart/getcombo
+    defaults: { _controller: EFTNetworkingBundle:TransportDeviceOnSmartcart:getCombo }
+
+eft_networking_transportdeviceonsmartcart_getone:
+    path: /api/transportdeviceonsmartcart/getone
+    defaults: { _controller: EFTNetworkingBundle:TransportDeviceOnSmartcart:getOne }
+
+eft_networking_transportdeviceonsmartcart_save:
+    path: /api/transportdeviceonsmartcart/save
+    methods: POST
+    defaults: { _controller: EFTNetworkingBundle:TransportDeviceOnSmartcart:save }
+# Networking - TransportDeviceOnSmartcart
+
+# Operation - Smart Cart Configuration
+# eft_networking_smartcartconfiguration_getlist:
+#     path: /api/smartcartconfiguration/getlist
+#     defaults: { _controller: EFTNetworkingBundle:SmartcartConfiguration:getList }
+
+# eft_networking_smartcartconfiguration_save:
+#     path: /api/smartcartconfiguration/save
+#     methods: POST
+#     defaults: { _controller: EFTNetworkingBundle:SmartcartConfiguration:save }
+# Operation - Smart Cart Configuration

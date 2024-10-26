@@ -1,0 +1,86 @@
+<app-page-session>
+    <app-page-session-header title="{{'RocketPlanning.POFilter' | translate}}"></app-page-session-header>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    </mat-card-content>
+</app-page-session>
+
+<app-page-session>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+    </mat-card-content>
+</app-page-session>
+
+
+<ng-template #headerContent>
+    <div class="tab-container">
+        <form #form layout="column">
+            <mat-grid-list cols="5" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+                <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'RocketPlanning.Warehouse' | translate}}:</label>
+                    <app-combo #warehouseCombo class="app-combo" tabindex="1"
+                        title="{{'RocketPlanning.Warehouse' | translate}}" [configs]="warehouseConfig"></app-combo>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+                    <app-combo #typeCombo class="app-combo" title="{{'RocketPlanning.StoreType' | translate}}"
+                        [configs]="typeConfig"></app-combo>
+                </mat-grid-tile>
+                <mat-grid-tile colspan='2'>
+                    <label class="app-label-top p-14">{{'RocketPlanning.Code' | translate}}:</label>
+                    <app-combo #rocketCombo class="app-combo" title="{{'RocketPlanning.Code' | translate}}"
+                        (focusout)="onFocusOutEvent($event)" (keyup.enter)="search()" [configs]="rocketConfig">
+                    </app-combo>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="app-btn-row-left" style="width: 100%;">
+                        <button class="button-po" color="accent" (click)="search()" mat-raised-button>
+                            <mat-icon>search</mat-icon>{{'btn_search' | translate}}
+                        </button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #mainContent>
+    <div class="tab-container">
+        <div class="header-summary">
+            <div class="summary-item" style="padding-left: 0px;">
+                <label class="app-label p-10 " style="padding-left: 0px; margin-left: 0px;">{{'RocketPlanning.Code' | translate}}:</label><span>{{summary.Code}}</span>
+            </div>
+            <div class="summary-item">
+                <label class="app-label p-10">Tổng Qty:</label><span>{{summary.TotalQty |
+                    number:'1.0-0':'en-US'}}</span>
+            </div>
+            <div class="summary-item">
+                <label class="app-label p-10 ">Ngày bắt đầu:</label><span>{{summary.StartDate}}</span>
+            </div>
+            <div class="summary-item">
+                <label class="app-label p-10 ">Ngày kết thúc:</label><span>{{summary.EndDate}}</span>
+            </div>
+            <div class="summary-item-button app-btn-row-right">
+                <button class="custom-button" color="warn" style="width: 150px;" (click)="exportExcel($event)"  [disabled]="!allowExportPO" 
+				mat-stroked-button >{{'RocketPlanning.ExportPOScc' | translate}}</button>
+
+                <!-- <button class="custom-button-a" color="warn" style="width: 150px;" (click)="exportPOScc($event)"
+                mat-stroked-button>{{'RocketPlanning.ExportPOScc' | translate}}</button>
+            <button class="custom-button-a" color="warn" style="width: 150px;" (click)="exportPOErr($event)" 
+                mat-stroked-button>{{'RocketPlanning.ExportPOErr' | translate}}</button> -->
+
+
+                <button class="button-po-promotion" color="accent" (click)="showCreatePO()" [disabled]="!allowCreatePO"
+                    mat-stroked-button>{{'RocketPlanning.CreatePOBtn' | translate | uppercase}}</button>
+                    
+                <button class="button-po-promotion" color="accent" (click)="goToPageImportPO()"
+                    mat-stroked-button>{{'RocketPlanning.UploadPO' | translate | uppercase}}</button>
+            </div>
+        </div>
+
+        <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+    </div>
+
+</ng-template>

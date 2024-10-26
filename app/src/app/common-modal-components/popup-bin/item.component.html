@@ -1,0 +1,43 @@
+<h3 style="margin: 0 0 10px 0; display: flex; justify-content: center; font-weight: 500">
+	{{ 'AutoPackSO.title_Bin' | translate | uppercase }}
+</h3>
+<h4 style="margin: 0 0 10px 0; display: flex; justify-content: center; color: #d0333a; font-weight: 500">
+	{{data.SKU}}
+</h4>
+<h4 style="margin: 0 0 10px 0; display: flex; justify-content: center;color: #d0333a; font-weight: 500">
+	{{data.SKUName}}
+</h4>
+<div style="margin: 0 0 5px 0; display: flex; justify-content: left;align-items: center;">
+	<span style="font-weight: bold">
+		{{'AutoPackSO.BinDetail.Status' | translate}}
+	</span>: 
+	<div style="width: 200px; margin-left: 5px">
+		<app-combo #binCombo class="app-combo" tabindex="5" title="{{'AutoPackSession.btn_Status' | translate}}"
+		[configs]="binConfig">
+		</app-combo>
+	</div>
+</div>
+<div style="margin: 0 0 10px 0; display: flex; justify-content: left;">
+	<span style="font-weight: bold">
+		{{'AutoPackSO.BinDetail.TotalSO' | translate}}
+	</span>: {{data.TotalSO}}
+</div>
+<div style="margin: 0 0 10px 0; display: flex; justify-content: left;">
+	<span style="font-weight: bold">
+		{{'AutoPackSO.BinDetail.TotalQty' | translate}}
+	</span>: {{availableBINQty}} / {{data.TotalQty}}
+</div>
+<div style="margin: 0 0 10px 0; display: flex; justify-content: left;">
+	<span style="font-weight: bold">
+		{{'AutoPackSO.BinDetail.Title' | translate}}
+	</span>
+</div>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<app-edit-table class="app-table" #tableWarehouseBins [configs]="tableConfig"></app-edit-table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 10px;">
+		<button style="width: 120px;" (click)="confirm($event)" mat-raised-button color="accent">{{'btn_confirm' |
+			translate}}</button>
+		<button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-content>

@@ -1,0 +1,18 @@
+<app-page>
+	<app-page-header title="Xe Đẩy">
+		<app-table-header #theader></app-table-header>
+	</app-page-header>
+	<div>
+		<app-table (onActionHandle)="onActionHandle($event)" (onFirstChange)="onFirstChange($event)"
+			(clickRow)="onSelectRow($event)" #smartcartTable [header]="tableheader" [configs]="tableConfigs">
+		</app-table>
+		<div #container></div>
+	</div>
+</app-page>
+<app-page>
+	<app-page-header title="Bin">
+		<!-- <app-table-header #theader></app-table-header> -->
+	</app-page-header>
+	<app-table #binTable [header]="binTableheader" [configs]="binTableConfigs"></app-table>
+	<div #binContainer></div>
+</app-page>

@@ -1,0 +1,114 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<span><span style="text-transform:uppercase;color: #d0333a;">Tiếp theo:</span> {{ inputPlaceholder | translate | uppercase}}</span>
+		<div [hidden]="!showScan">
+			<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-10"><span>Scan:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #code name="code" tabindex="1" placeholder="{{ inputPlaceholder | translate}}"
+							matInput (keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+					
+					<div class="app-btn-row" *ngIf="data.TransportDeviceCode">
+						<button color="accent" mat-raised-button (click)="printPalletCode(data.TransportDeviceCode)">
+							{{'POPallet.BtnPrintPallet' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+
+				<mat-grid-tile *ngIf= "enableCreatePallet && !data['TransportDeviceCode']">
+					<div class="app-btn-row-left" style="width: 100%;">
+						<button color="accent" (click)="showCreatePallet($event)" mat-raised-button>
+							{{'POPallet.BtnCreatePallet' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div [hidden]="!data.POCode">
+		<app-page-session>
+			<mat-card-content>
+				<table class="app-table app-table-p">
+					<tr>
+						<td style="width: 10%;"><span class="txt-label">{{'SOR.SORCode' | translate}}:</span></td>
+						<td style="width: 30%;"><label>{{data.POCode}}</label></td>
+						<td style="width: 15%;"><span class="txt-label">{{'POPallet.SessionCode' | translate}}:</span></td>
+						<td style="width: 15%;"><label>{{data.SessionCode}}</label></td>
+						<td style="width: 15%;"><span class="txt-label">{{'POPallet.Specification' | translate}}:</span></td>
+						<td style="width: 15%;">
+							<label style="padding-right: 10px;">{{data.SpecificationText}}</label>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="txt-label">{{'POPallet.DOID' | translate}}:</span></td>
+						<td><label>{{data.DOID}}</label></td>
+						<td><span class="txt-label">{{'POPallet.Status' | translate}}:</span></td>
+						<td><label>{{data.Status}}</label></td>
+						<td><span class="txt-label">{{'POPallet.CreateDate' | translate}}:</span></td>
+						<td>
+							<label style="padding-right: 10px;">{{data.CreateDate}}</label>
+						</td>
+					</tr>
+
+					<tr>
+						<td><span class="txt-label">{{'POPallet.PalletCode' | translate}}:</span></td>
+						<td>
+							<label style="padding-right: 10px;">{{data.TransportDeviceCode}}</label>
+						</td>
+						<td><span class="txt-label">{{'POPallet.ScanQty' | translate}}:</span></td>
+						<td><label>{{data.ScanQty}}/{{data.Qty}}</label></td>
+						<td><span class="txt-label">{{'POPallet.ScheduleDate' | translate}}:</span></td>
+						<td><label>{{data.ScheduleDate || data.ReceivingDate}}</label></td>
+					</tr>
+
+					<!-- <tr>
+						<td style="width: 110px;"><span>{{'POPallet.CreateDate' | translate}}:</span></td>
+						<td style="width: 97px;">
+							<label style="padding-right: 10px;">{{data.CreateDate}}</label>
+						</td>
+						<td style="width: 180px;"><span>{{'POPallet.ScheduleDate' | translate}}:</span></td>
+						<td><label>{{data.ScheduleDate || data.ReceivingDate}}</label></td>
+					</tr> -->
+
+					<tr>
+						<td><span class="txt-label">{{'POPallet.VendorName' | translate}}:</span></td>
+						<td colspan="5"><label>{{data.VendorName}}</label></td>
+					</tr>
+				</table>
+				<div>
+					<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+				</div>
+				<div class="p-10 bt-button">
+					<div class="app-btn-row" *ngIf="data.TransportDeviceCode">
+						<button color="accent" (click)="confirmFinishPallet($event)" mat-raised-button>
+							{{'POPallet.BtnFinishPallet' | translate}}
+						</button>
+					</div>
+					<div class="app-btn-row" *ngIf="IsFinishReceive">
+						<button color="accent" (click)="confirmFinsihReceive(false)" mat-raised-button>
+							{{'POPallet.BtnFinishReceive' | translate}}
+						</button>
+					</div>
+					<div class="app-btn-row" [hidden]="!data.POCode">
+						<button (click)="confirmExitPallet()"  mat-raised-button>
+							{{'POPallet.BtnExitPallet' | translate}}
+						</button>
+					</div>
+				</div>
+			</mat-card-content>
+		</app-page-session>
+		
+	</div>
+</ng-template>

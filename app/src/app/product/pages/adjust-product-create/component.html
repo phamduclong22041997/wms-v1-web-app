@@ -1,0 +1,91 @@
+<div>
+	<app-page-session>
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+		</mat-card-content>
+	</app-page-session>
+</div>
+
+<div [hidden]="!data.LocationLabel">
+	<app-page-session>
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		</mat-card-content>
+	</app-page-session>
+</div>
+
+
+<ng-template #headerContent>
+	<div #form layout="column" style="margin-left: 6px; padding-top: 10px;">
+		<span style="text-transform:uppercase;color: #d0333a;">Tiếp theo:</span>
+		<div>
+			<mat-grid-list cols="3" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<div style="width: 100%;">
+						<mat-form-field appearance="outline" class="app-input">
+							<input #code name="code" tabindex="1" placeholder="{{ inputPlaceholder | translate}}" matInput
+								(keyup.enter)="onEnter($event)" autocomplete="off">
+						</mat-form-field>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainContent>
+	<div>
+		
+		<table class="app-table app-table-p">
+			<tr>
+				<td colspan="6">
+					<span style="font-size: medium; font-weight: bold; margin-top: 10px;">{{'AdjustProduct.TitleAdjustProduct' |
+						translate | uppercase}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 100px; color: #ADADAD;"><span>{{'AdjustProduct.LocationLabel' | translate}}:</span>
+				</td>
+				<td style="width: 200px;">
+					<label>
+						{{data.LocationLabel}}
+					</label>
+				</td>
+
+				<td style="width: 180px; color: #ADADAD;"><span>{{'AdjustProduct.Client' | translate}}:</span></td>
+				<td style="width: 200px;"><label>{{data.ClientCode}}</label></td>
+
+				<td style="width: 100px; color: #ADADAD;"><span>{{'AdjustProduct.TotalSKU' | translate}}:</span></td>
+				<td style="width: 200px;">
+					<label>
+						{{data.TotalSKU}}
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.SubLocationLabel' | translate}}:</span>
+				</td>
+				<td><label>{{data.SubLocationLabel}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'DC Site' | translate}}:</span></td>
+				<td><label>{{data.DCSite}}</label></td>
+				
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.TotalUnits' | translate}}:</span></td>
+				<td><label>{{data.TotalUnits}}</label></td>
+			</tr>
+		</table>
+		<div>
+			<span style="font-size: medium; font-weight: bold; margin-bottom: 50px;">{{'AdjustProduct.TitleProduct' |
+				translate | uppercase}}</span>
+			<div style="margin-top: 10px;">
+				<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+			</div>
+		</div>
+	</div>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<button mat-button mat-raised-button style="margin-top: 15px; margin-left: 15px;"
+			(click)="exit()">
+			{{'AdjustProduct.exit' | translate}}
+		</button>
+</div>
+</ng-template>

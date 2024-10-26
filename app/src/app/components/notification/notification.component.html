@@ -1,0 +1,15 @@
+<div mat-dialog-title ngClass="{{data.type ? 'title-confirm':'title-notify'}}">
+  <div>{{ (data.title || 'Thông báo') | translate}}</div>
+</div>
+<div mat-dialog-content>
+  <p class="message">{{ data.message | translate:{Default: data.message, Ref: data.ref} }}</p>
+  <p *ngIf="data.note" class="note">{{ data.note | translate }}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

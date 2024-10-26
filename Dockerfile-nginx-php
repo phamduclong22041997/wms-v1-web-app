@@ -1,0 +1,23 @@
+FROM php:7.4-fpm-alpine as builder
+
+RUN apk update\
+    && apk add --no-cache freetype-dev libjpeg-turbo-dev libpng-dev openssl-dev build-base autoconf automake gcc make g++ \
+    && pecl install redis-5.1.1 \
+    && pecl install xdebug-2.8.1 \
+    && pecl install mongodb \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-enable redis xdebug gd mongodb
+
+FROM php:7.4-fpm-alpine
+
+COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+ADD supervisord.conf /etc/supervisord.conf
+
+RUN apk update\
+    && apk add --no-cache freetype-dev libjpeg-turbo-dev libpng-dev nginx net-tools ca-certificates tzdata \
+    && ln -fs /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime \
+    && docker-php-ext-enable redis xdebug gd mongodb \
+    && rm /usr/bin/wget
+
+ENTRYPOINT ["/bin/sh", "-c", "php-fpm -D && nginx -c /etc/nginx/nginx.conf"]

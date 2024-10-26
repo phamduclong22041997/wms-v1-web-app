@@ -1,0 +1,18 @@
+<div mat-dialog-content *ngIf="!data.isupload">
+  <h2>{{data.message ?data.message: 'RocketPlanning.RequireExport' | translate}}</h2>
+  <p *ngIf="data.data.type"><strong>{{'RocketPlanning.StoreType' | translate}}</strong> {{data.data.type}}</p>
+  <p *ngIf="data.data.fileName"><strong>{{'RocketPlanning.FileName' | translate}}</strong>: {{data.data.fileName}}</p>
+  <p *ngIf="data.data.promotionCode"><strong>{{'RocketPlanning.PromotionCode' | translate}}</strong>: {{data.data.promotionCode}}</p>
+  <p *ngIf="data.data.CTKM"><strong>{{'RocketPlanning.CTKM' | translate}} / {{'RocketPlanning.FileCTKM' | translate}}</strong>: {{data.data.CTKM}}</p>
+</div>
+<div mat-dialog-content *ngIf="data.isupload">
+  <h2>{{data.title}}</h2>
+  <p><strong>Mã đơn hàng</strong>: {{data.code}}</p>
+  <p><strong>Tên file</strong>: {{data.fileName}}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

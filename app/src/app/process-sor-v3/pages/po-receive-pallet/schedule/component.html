@@ -1,0 +1,47 @@
+<div class="content" mat-dialog-content>
+  <h2 class="page-title">{{ data.title | translate }}</h2>
+  <div #form layout="column" style="min-width: 450px;">
+    <mat-card-content class="mat-grid-tile-left">
+      <mat-grid-list cols="1" rowHeight="35px" gutterSize="10px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label" style="padding-right: 10px;font-weight: bold;">{{ 'POPallet.VendorName' |
+            translate}}:</label>
+          <label>{{info.VendorName}}</label>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <label class="app-label" style="padding-right: 10px;font-weight: bold;">{{ 'POPallet.PODate' |
+            translate}}:</label>
+          <label>{{info.PODate}}</label>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <label class="app-label" style="padding-right: 10px;font-weight: bold;"><span>{{'POPallet.ScheduleDate' |
+              translate}}:</span></label>
+          <app-combo #scheduleDate class="app-combo" tabindex="1" title="{{'POPallet.ScheduleDate' | translate}}"
+            [configs]="schedulesConfig">
+          </app-combo>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <div *ngIf="showLineItem" style="display: flex; width: 100%;">
+            <label class="app-label" style="padding-right: 10px;font-weight: bold;"><span>{{'POPallet.LineItem' |
+                translate}}:</span></label>
+            <app-combo #lineItem class="app-combo" tabindex="2" title="{{'POPallet.LineItem' | translate}}"
+              [configs]="lineItemConfig">
+            </app-combo>
+          </div>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial
+      [disabled]="!allowConfirm">{{ 'btn_confirm' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

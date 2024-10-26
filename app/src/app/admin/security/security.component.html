@@ -1,0 +1,58 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerContent>
+	<app-page-header title="Quyền truy cập">
+		<div style="margin: 20px 20px 0;">
+			<button (click)="createNew()" mat-raised-button color="primary">
+				Thêm mới
+				<mat-icon class="mat-icon-rtl-mirror">
+					add
+				</mat-icon>
+			</button>
+		</div>
+	</app-page-header>
+</ng-template>
+
+<ng-template #mainContent>
+	<div>
+		<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+			<mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+				<button mat-icon-button disabled></button>
+			</mat-tree-node>
+
+			<mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+				<button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+					<mat-icon class="mat-icon-rtl-mirror">
+						{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+					</mat-icon>
+				</button>
+				<button (click)="selectNode(node)" mat-button [matMenuTriggerFor]="menu">{{node.item}}</button>
+			</mat-tree-node>
+
+			<mat-tree-node *matTreeNodeDef="let node; when: isMenu" matTreeNodePadding>
+				<button (click)="selectNode(node)" mat-button [matMenuTriggerFor]="menu">{{node.item}}</button>
+			</mat-tree-node>
+
+		</mat-tree>
+		<mat-menu #menu="matMenu">
+			<button (click)="grantPermission()" mat-menu-item>
+				<mat-icon>people_alt</mat-icon>Cấp quyền
+			</button>
+			<button (click)="createNewChild()" mat-menu-item>
+				<mat-icon>add</mat-icon>Thêm quyền
+			</button>
+			<button (click)="editNode()" mat-menu-item>
+				<mat-icon>edit</mat-icon>Chỉnh sửa
+			</button>
+			<!--<button (click)="moveNode()" mat-menu-item><mat-icon>arrow_right_alt</mat-icon>Move to</button>-->
+			<button (click)="removeNode()" mat-menu-item>
+				<mat-icon>delete_sweep</mat-icon>Xóa
+			</button>
+		</mat-menu>
+	</div>
+</ng-template>

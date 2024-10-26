@@ -1,0 +1,6 @@
+.mat-button-toggle-group-appearance-standard {
+    display: inline-grid;
+}
+.mat-list-base .mat-list-item .mat-list-item-content{
+    padding: 0;
+}

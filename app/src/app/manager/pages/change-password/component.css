@@ -1,0 +1,47 @@
+.app-label {
+    width: 180px;
+    min-width: 160px;
+    max-width: 180px;
+}
+.btn-lr{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+mat-form-field.mat-form-field {
+    font-size: 16px;
+  }
+mat-form-field.mat-form-field-label{
+    font-size: 16px;
+}
+.changepass-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 500px;
+    margin-left: 35%;
+    min-width: 300px;
+  }
+  
+  .changepass-container > * {
+    width: 100%;
+  }
+  
+  .changepass-right-align {
+    text-align: right;
+  }
+  
+  input.changepass-right-align::-webkit-outer-spin-button,
+  input.changepass-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.changepass-right-align {
+    -moz-appearance: textfield;
+  }
+
+.note-info {
+    color: red;
+    font-size: 16px;
+    font-weight: 700;
+    width: 100%;
+}

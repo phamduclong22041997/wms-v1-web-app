@@ -1,0 +1,79 @@
+<app-page-session>
+	<app-page-session-header title="{{'AutoPickPack.TitleCancel' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="6" [(ngModel)]="filters.Content"
+							placeholder="{{ 'AutoPickPack.AutoPPKeywordPlaceholder' | translate}}" matInput
+							(keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'STO.Client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6" title="{{'STO.Client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AutoPickPack.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #fromDate>
+					</app-datepicker>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'STO.BranchWH' | translate}}:</span></label>
+					<app-combo #whBranchCombo class="app-combo" tabindex="6" title="{{'STO.BranchWH' | translate}}"
+						[configs]="warehouseBrachConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AutoPickPack.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AutoPickPack.Store' | translate}}:</span></label>
+					<app-combo #store class="app-combo" tabindex="7"
+						title="{{'AutoPickPack.Store' | translate}}"
+						[configs]="storeConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<div class="app-btn-row-right" style="width: 100%;">	
+						<button color="accent" (click)="search()" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>
+							{{'btn_search' | translate}}
+						</button>
+						<button color="accent" (click)="cancelSelectPickList($event)" mat-raised-button tabindex="10">
+							<mat-icon>cancel</mat-icon>
+							{{'AutoPickPack.CancelPickList' | translate}}
+						</button>
+						<!-- <button color="accent" (click)="ImportCancelPickList($event)" mat-raised-button tabindex="9">
+							<mat-icon>file_upload</mat-icon>
+							{{'btn_import' | translate}}
+						</button> -->
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

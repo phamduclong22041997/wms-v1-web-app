@@ -1,0 +1,23 @@
+<app-page>
+	<app-page-header title="Phân Quyền">
+	</app-page-header>
+	<div>
+			<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				
+				<div fxFlex.gt-sm="25" fxFlex="100" class="p-10 align-center">
+					<mat-list>
+					<mat-button-toggle-group>
+						<mat-list-item *ngFor="let role of dataRole">
+							 <mat-button-toggle (change)="selectHandle($event)" style="width:100%;display: inline-grid;" value={{role.code}}>{{role.rolename}} </mat-button-toggle>
+						</mat-list-item>
+						</mat-button-toggle-group>
+					</mat-list>
+				</div>
+		
+			
+				<div fxFlex.gt-sm="40" fxFlex="100" class="p-10 align-center">
+						<app-security-permission-list #plist></app-security-permission-list>
+				</div>
+			</div>
+	</div>
+</app-page>

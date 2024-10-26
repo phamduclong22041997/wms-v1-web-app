@@ -1,0 +1,91 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="6" [(ngModel)]="filters.Content"
+							placeholder="{{ 'AssignPickListPOR.KeywordPlaceholder' | translate}}" matInput
+							(keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPickListPOR.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #fromDate>
+					</app-datepicker>
+				</mat-grid-tile>
+				
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'STO.Client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6" title="{{'STO.Client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPickListPOR.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+				</mat-grid-tile>
+				
+				
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPickListPOR.Vendor' | translate}}:</span></label>
+					<app-combo #vendor class="app-combo" tabindex="7"
+						title="{{'AssignPickListPOR.Vendor' | translate}}"
+						[configs]="vendorConfig">
+					</app-combo>
+				</mat-grid-tile>
+				
+				<!-- <mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPickListPOR.StatusPL' | translate}}:</span></label>
+					<app-combo #status class="app-combo" tabindex="2"
+						title="{{'AssignPickListPOR.StatusPL' | translate}}"
+						[configs]="statusConfig">
+					</app-combo>
+				</mat-grid-tile> -->
+				
+				<mat-grid-tile>
+					<div class="app-btn-row-right" style="width: 100%;">	
+						<button color="accent" (click)="search($event)" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<button color="accent" (click)="importAssignPickList($event)" mat-raised-button tabindex="9">
+							<mat-icon>file_upload</mat-icon>{{'btn_import' | translate}}
+						</button>
+					</div>
+					<div class="app-btn-row-right" [hidden]="!isShowTaskProcess">
+						<button color="accent" (click)="getLastTaskProcess($event)" mat-raised-button tabindex="9">
+							{{'AssignPickListPOR.TaskProcess' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+				
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<mat-grid-list cols="1" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<div class="app-btn-row-right" style="width: 100%;">	
+				<button color="accent" (click)="onClickAssignEmployee($event)" mat-raised-button tabindex="10">
+					{{ 'AssignPickListPOR.AssignEmployee' | translate}}
+				</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>	
+	<div style="margin-top: 20px;">
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

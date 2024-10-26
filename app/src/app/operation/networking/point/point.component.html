@@ -1,0 +1,9 @@
+<app-page>
+	<app-page-header title="Vị Trí">
+		<app-table-header #theader [headerInputs]="headerInputs"></app-table-header>
+	</app-page-header>
+	<div>
+		<app-table #tablePoint (onActionHandle)="onActionHandle($event)" (onFirstChange)="onFirstChange($event)" [header]="tableheader" [configs]="tableConfigs"></app-table>
+		<div #container></div>
+	</div>
+</app-page>

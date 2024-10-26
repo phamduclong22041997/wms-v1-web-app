@@ -1,0 +1,1 @@
+1) https://symfony.com/doc/current/introduction/http_fundamentals.html#step-1-the-client-sends-a-request

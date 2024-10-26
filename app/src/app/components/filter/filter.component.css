@@ -1,0 +1,27 @@
+.app-filter {
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: right;
+    font-size: 14px;
+}
+.app-filter-row-item {
+    margin-left: 10px;
+}
+.app-filter-item {
+    width: auto;
+    margin-left: 10px;
+}
+.app-filter-btn {
+    font-size: small;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 5px;
+}
+.app-filter-close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+.app-filter-close .mat-icon{
+    font-size: initial;
+}

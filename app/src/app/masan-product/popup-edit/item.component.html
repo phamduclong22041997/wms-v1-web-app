@@ -1,0 +1,29 @@
+<h4 style="margin: 0 0 10px 0;">{{ 'MasanProduct.EditProduct' | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr>
+			<td><b>{{'MasanProduct.CodeSKU' | translate}}:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+				<input disabled #CodeSKU maxlength="6" name="CodeSKU" [(ngModel)]="dataEditProduct.SKU"
+					  matInput autocomplete="off">
+			</mat-form-field>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding-top: 7px;"><b>{{'MasanProduct.Status' | translate}}:</b></td>
+			<td style="padding-top: 7px;">
+				<mat-radio-group aria-label="Select an option" [(ngModel)]="dataEditProduct.Status">
+					<mat-radio-button style="margin-right: 30px;" [value]="1">Có</mat-radio-button>
+					<mat-radio-button [value]="0">Không</mat-radio-button>
+				</mat-radio-group>
+			</td>
+		</tr>
+	</table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 10px;">
+		<button style="width: 120px;" (click)="confirm($event)" mat-raised-button color="accent">{{'btn_confirm' |
+			translate}}</button>
+		<button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-content>

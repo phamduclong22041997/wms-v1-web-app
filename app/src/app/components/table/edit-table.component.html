@@ -1,0 +1,206 @@
+<div class="app-table-container mat-elevation-z8" id={{configs.id}}>
+  <div class="responsive-table" [ngStyle]="configs?.style">
+    <div class="app-table-tool" *ngIf="!disableTools">
+      <span *ngFor="let tool of tools">
+        <button mat-icon-button *ngIf="tool.enable" (click)="onClickEventHandle(tool)">
+          <mat-icon>{{tool.icon}}</mat-icon>
+        </button>
+      </span>
+    </div>
+
+    <mat-table mat-table [dataSource]="data.rows" class="app-table" [ngStyle]="configs.style" matSort
+      matSortActive="CreatedDate" matSortDisableClear multiTemplateDataRows matSortDirection="desc">
+
+      <ng-container *ngIf="enableIndex" matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef class="column-no">{{ 'table_index' | translate:{Default: 'STT'} }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngStyle]="row.style" class="column-no">
+          <span class="header-label">{{ 'table_index' | translate:{Default: 'STT'} }}:</span>
+          {{row['index'] || row['Idx'] || row['Index']}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let option of columns.options" matColumnDef={{option.name}}>
+        <mat-header-cell *matHeaderCellDef [ngStyle]="option.style" [matTooltip]="option.toolTip" [matTooltipClass]="option.toolTipCss || 'header-tooltip'"
+          [ngClass]="{'column-center': option.align==='center'}"> <span [ngStyle]="option.headerStyle">{{ option.title |
+            translate:{Default: option.title} }}</span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngStyle]="row.style ? row.style : option.style"
+          [ngClass]="{'column-center': option.align==='center'}">
+          <!-- <span *ngIf="!option.type && !option.action && !option.onlyIcon && !highlightCondition(row, option)" [ngStyle]="option.style"  (click)="onClickCell($event, row, option)" [ngClass]="{'link': option.link}" [title]="renderText(row, option)">{{renderText(row, option)}}</span> -->
+          <span *ngIf="!option.type && 
+
+                          !option.action && 
+                          !option.link && 
+                          !option.onlyIcon && 
+                          !highlightCondition(row, option)" [ngStyle]="renderBorderStyle(row, option)"
+            [ngClass]="{'span-txt-ellipsis': option?.isEllipsis}"
+            [ngStyle]="option.style" (click)="onClickCell($event, row, option)" [title]="renderText(row, option)">
+            <span *ngIf="option['showPrefix'] &&  row['Prefix']" style="color: #009688;">[{{row['Prefix']}}]</span>
+            {{renderText(row, option)}}
+          </span>
+          <a *ngIf="option.link" [ngClass]="{'link': option.link}" [href]="renderLink(row, option)"
+            [title]="renderText(row, option)" (click)="onLeftClickHref($event, row, option)">
+            {{renderText(row, option)}}
+          </a>
+          <mat-form-field *ngIf="option.type=='number'" floatLabel="never" style="width: 60%;">
+            <input matInput type="number" [(ngModel)]="row[option.name]"
+              [disabled]="configs.disabled" style="text-align: center;" autocomplete="off"
+              (change)="inputNumberHandle($event, row)">
+          </mat-form-field>
+          <mat-checkbox *ngIf="option.type=='checkbox'" [(ngModel)]="row[option.name]" [disabled]="configs.disabled"
+            (change)="onCheckboxHandle($event, row)"></mat-checkbox>
+          <app-combo *ngIf="option.type=='combo'" style="width: 100%;" [onChange]="comboHandle(row, option)"
+            [configs]="option.configs" value={{row[option.name]}}></app-combo>
+          <img *ngIf="option.type=='image'" src="/api/file/image?thumbnail={{row[option.name]}}" />
+          <img *ngIf="option.type=='imageLink'" [ngStyle]="option.style" src="{{row[option.name]}}" />
+          <span *ngIf="option.onlyIcon" [ngStyle]="customStyle(row, option)">
+            <mat-icon>{{renderText(row, option)}}</mat-icon>
+          </span>
+          <button *ngIf="option.action" mat-icon-button
+            [disabled]="disabledAction(option.disabledActionCondition && option.disabledActionCondition(row))"
+            (click)="onClickCell($event, row, option)">
+            <mat-icon>{{renderText(row, option)}}</mat-icon>
+          </button>
+          <span *ngIf="highlightCondition(row, option)" [ngClass]="{'highlight': highlightCondition(row, option)}">
+            {{renderText(row, option)}}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- START - Header Action -->
+      <ng-container *ngIf="columns.headerAction" matColumnDef="headerAction" stickyEnd>
+        <mat-header-cell *matHeaderCellDef class="cell-action">
+          <button mat-icon-button (click)="onClickHeaderAction($event, columns.headerAction)">
+            <mat-icon [ngStyle]="columns.headerAction.style">{{columns.headerAction.icon}}</mat-icon>
+          </button>
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row" class="cell-action">
+          <mat-checkbox *ngIf="enableCheckbox" (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+            [disabled]="disabledAction(columns.disabledActionCondition && columns.disabledActionCondition(row))"
+            [aria-label]="onToggleCheck(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <!-- END - Header Action -->
+
+      <!-- START - Header Action check box -->
+      <ng-container *ngIf="columns.headerActionCheckBox" matColumnDef="headerAction" stickyEnd>
+        <mat-header-cell *matHeaderCellDef class="cell-action">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="onHeaderChecked($event)" 
+              [checked]="selectedAll"
+              [disabled]="isDisabledHeaderCheckbox">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row" class="cell-action">
+          <mat-checkbox *ngIf="enableCheckbox" (click)="$event.stopPropagation()" (change)="onRowChecked($event, row)"
+            [disabled]="disabledAction(columns.disabledActionCondition && columns.disabledActionCondition(row))"  
+            [checked]="(row.selected || selectedAll) && !disabledAction(columns.disabledActionCondition && columns.disabledActionCondition(row))" 
+             [aria-label]="onToggleCheck(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <!-- END - Header Action -->
+
+      <ng-container *ngIf="columns.actions && columns.actions.length" matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="cell-action">
+          <button mat-icon-button (click)="onClickActionHandle($event, 'new')" *ngIf="enableAddNew">
+            <mat-icon>add</mat-icon>
+          </button>
+          <span *ngIf="columns.actionTitle">{{ columns.actionTitle | translate:{Default: columns.actionTitle} }}</span>
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row" class="cell-action">
+          <div *ngIf="columns.isContextMenu">
+            <button mat-icon-button class="context-menu-btn" (click)="onClickContextMenu()"
+              [matMenuTriggerFor]="contextMenu"
+              [disabled]="disabledAction(columns.disabledCondition && columns.disabledCondition(row))">
+              <mat-icon>{{columns?.iconMenu}}</mat-icon>
+            </button>
+            <mat-menu class="context-menu" #contextMenu="matMenu" (closed)="closeContextMenu()">
+              <button mat-menu-item *ngFor="let action of columns.actions"
+                [disabled]="disabledAction(action.disabledCondition && action.disabledCondition(row))"
+                (click)="onClickActionHandle($event, action.icon, row)">
+                <mat-icon *ngIf="action?.showIcon">{{action?.icon}}</mat-icon>
+                <span>{{action?.actionName | translate}}</span>
+              </button>
+            </mat-menu>
+          </div>
+          <div *ngIf="!columns.isContextMenu">
+            <span *ngFor="let action of columns.actions">
+              <button mat-icon-button *ngIf="!isCustomizeAction(action)"
+                [disabled]="(columns.disabledActionCondition && columns.disabledActionCondition(row))"
+                [hidden]="row.hiddenAction" (click)="onClickActionHandle($event, action, row)">
+                <mat-icon>{{action}}</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="isCustomizeAction(action) && action?.icon && (action.disabledCondition && action.disabledCondition(row))"
+                [matTooltip]="renderTooltip(action?.toolTip) | translate | uppercase" matTooltipPosition="below"                
+                (click)="onClickActionHandle($event, action.name, row)">
+                <mat-icon [ngClass]="action.class">{{action?.icon}}</mat-icon>
+              </button>
+            </span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngIf="enableSelected" matColumnDef="selected" stickyEnd>
+        <mat-header-cell *matHeaderCellDef style="flex:0 0 40px;" class="column-center no-padding">
+          <mat-checkbox #selectAll [disabled]="configs.disabled" [(ngModel)]="selectedAll"></mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex:0 0 40px;" class="column-center">
+          <mat-checkbox [(ngModel)]="row['selected']" [disabled]="configs.disabled"
+            (change)="onCheckboxHandle($event, row)"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columns.displayedColumns;sticky:true" class="app-table-row-header">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: columns.displayedColumns;" id="{{configs.id}}-row-{{row.index}}"
+        class="row-{{row.index}}" [ngClass]="{'row-select': enableSelectRow, 'row-selected': selectedRow==row}"
+        (click)="onSelectRow($event, row)">
+      </mat-row>
+      <!-- expand module -->
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell class="td-table" *matCellDef="let row">
+          <div style="width: 100%;" [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'">
+            <mat-table mat-table [dataSource]="row.Details" class="app-table" [ngStyle]="configs.style" matSort
+              matSortActive="CreatedDate" matSortDisableClear matSortDirection="desc">
+              <ng-container *ngIf="enableIndex" matColumnDef="index">
+                <mat-cell *matCellDef="let rowCollapse" [ngStyle]="rowCollapse.style" class="column-no">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container *ngFor="let optionDetail of columns.options" matColumnDef={{optionDetail.name}}>
+                <mat-cell *matCellDef="let rowCollapse" [ngStyle]="optionDetail.style"
+                  [ngStyle]="row.style ? row.style : optionDetail.style"
+                  [ngClass]="{'column-center': optionDetail.align==='center'}">
+                  {{renderText(rowCollapse, optionDetail)}}
+                </mat-cell>
+              </ng-container>
+
+              <mat-row style="background: #ccc" *matRowDef="let rowCollapse; columns: columns.displayedColumns;">
+              </mat-row>
+            </mat-table>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <div *ngIf="enableCollapse">
+        <mat-row *matRowDef="let exspand; columns: ['expandedDetail']" [ngClass]="{'row-hidden': !enableCollapse}"
+          style="min-height: auto;">
+        </mat-row>
+      </div>
+
+      <!-- end expand module -->
+    </mat-table>
+
+    <div *ngIf="data.total === 0 && !configs.hoverContentText" style="text-align: center; padding: 50px;">{{ 'data_not_found' | translate }}</div>
+    <div *ngIf="data.total === 0 && configs.hoverContentText" style="text-align: center; padding: 50px;">{{ configs.hoverContentText }}</div>
+  </div>
+  <div>
+    <div *ngIf="!configs.disablePagination">
+      <mat-paginator #paginator [pageSizeOptions]="options.pageSizeOptions" [length]="data.total"
+        [pageSize]="options.pageSize" [showFirstLastButtons]="options?.showFirstLastButton"></mat-paginator>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'HandoverDetail.HandInfoDetail' | translate }}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight>
+
+			<mat-tab label="{{'HandoverDetail.Tabs.Infomation' | translate}}">
+				<ng-container *ngTemplateOutlet="receiveSessionContent"></ng-container>
+			</mat-tab>
+
+		</mat-tab-group>
+	</div>
+</ng-template>
+
+
+
+<ng-template #receiveSessionContent>
+	<div class="col50">
+		<app-page-session-header title="{{ 'HandoverDetail.Taps.SOList' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #packageTable [configs]="packageConfig"></app-edit-table>
+	</div>
+	<div class="col50">
+		<app-page-session-header title="{{ 'HandoverDetail.Taps.SHOList' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #SHOListSKUTable [configs]="receiveSKUConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<mat-grid-list cols="3" rowHeight="24px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile colspan="1">
+			<label class="p-5-10">{{'HandoverDetail.HandCode' | translate}}:</label>
+			<label class="p-5-10">{{ data.HandCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="p-5-10">{{'HandoverDetail.CreatedDate' | translate}}:</label>
+			<label class="p-5-10">{{ data.CreatedDate }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="1">
+			<label class="p-5-10"><span>{{'HandoverDetail.WHCode' | translate}}:</span></label>
+			<label class="p-5-10">{{ data.WarehouseName }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile colspan="2">
+			<label class="p-5-10">{{'HandoverDetail.FinishedDate' | translate}}:</label>
+			<label class="p-5-10">{{ data.TransferedDate }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile colspan="1">
+			<label class="p-5-10"><span>{{'HandoverDetail.Status' | translate}} :</span></label>
+			<label class="p-5-10">{{ ('SOStatus.' + data.Status) | translate }}</label>
+		</mat-grid-tile>
+
+
+		<mat-grid-tile colspan="2">
+			<label class="p-5-10"><span>{{'HandoverDetail.HandCanceledReason' | translate}} :</span></label>
+			<label class="p-5-10">{{ data.Note }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="1">
+			<label class="p-5-10"><span>{{'HandoverDetail.Note' | translate}}:</span></label>
+			<label class="p-5-10">{{ data.Address }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="p-5-10"><span>{{'HandoverDetail.NoteReasonCancel' | translate}}:</span></label>
+			<label class="p-5-10">{{ data.CanceledNote }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile colspan="1">
+			<label class="p-5-10"><span>Loại chuyển giao:</span></label>
+			<label class="p-5-10">{{ data.Type }}</label>
+		</mat-grid-tile>
+	</mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<button style="width: 120px" mat-raised-button color="accent-v1" class="mat-accent" (click)="onShowConfirm(0)"
+			[class.hiden]="isCreateHidden">{{'HandoverDetail.Tranfer' |translate}}</button>
+		<!--[disabled]="isdisabled"  -->
+		<button style="width: 120px" mat-raised-button color="accent-v2" class="mat-accent" (click)="onShowConfirm(1)"
+			[class.hiden]="isCancelHidden">{{'HandoverDetail.Cancel' |translate}}</button>
+		<button style="width: 200px" (click)="printSummaryInventory($event)" mat-stroked-button color="accent">{{'Print.ExportReportSODelivery' |
+				translate}}</button>
+		<button style="width: 80px" (click)="cancel($event)" mat-stroked-button color="primary">{{'cancel' |
+			translate}}</button>
+	</div>
+</ng-template>

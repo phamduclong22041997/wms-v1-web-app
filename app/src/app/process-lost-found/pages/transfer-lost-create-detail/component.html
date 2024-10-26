@@ -1,0 +1,84 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainImportContent>
+	<div #form layout="column">
+		<mat-grid-list cols="3" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+			<mat-grid-tile colspan="3">
+				<div class="app-btn-row-left"  style="width: 100%; margin-top: 30px; margin-bottom: 20px;">
+					<h3>{{'TransferLost.TransferLostPhysical' | translate}}</h3>
+				</div>
+			</mat-grid-tile>
+			<!---------------->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.LostCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Code}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.CreatedDate' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CreatedDate}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile></mat-grid-tile>
+			<!---------------->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.Status' | translate}}:</span></label>
+				<label class="app-label-content">{{'LostFoundStatus.' + data.Status | translate}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.CreatedBy' | translate}}:</span></label>
+				<label class="app-label-content">{{data.RefEmployee}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile></mat-grid-tile>
+			<!---------------->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.LocationLabel' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Location}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.LostType' | translate}}:</span></label>
+				<label class="app-label-content">{{'IssueType.' + data.IssueType | translate}}</label>
+			</mat-grid-tile>	
+			<mat-grid-tile></mat-grid-tile>
+			<!---------------->
+			<mat-grid-tile colspan="3">
+				<label class="app-label p-5-10"><span>{{'TransferLost.Note' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Note}}</label>
+			</mat-grid-tile>
+			<!---------------->
+		</mat-grid-list>
+	</div>
+	<mat-grid-list cols="2" rowHeight="20px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<div class="app-btn-row-left"  style="width: 100%; margin-top: 20px; margin-bottom: 30px;">
+				<h3>{{'TransferLost.ListSKU' | translate}}</h3>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>	
+	<div style="margin-top: 20px;">
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+	<div style="margin-top: 20px;display: inline-flex; align-items: center;">
+		<label class="app-label-input"><span>{{'TransferLost.MatchingLabel' | translate}}:</span></label>
+		<mat-form-field appearance="outline" class="app-input">
+			<input #content name="Content" tabindex="1" type="number" [(ngModel)]="data.MatchQty" matInput
+			oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+				(keyup.enter)="onEnter($event)" autocomplete="off">
+		</mat-form-field>
+	</div>
+</ng-template>
+<ng-template #actionContain>
+	<div style="text-align: center; padding-top: 20px; padding-bottom: 25px;">
+		<button [disabled]="!allowCreate" style="width: 80px" color="accent" (click)="createTransferLost($event)" mat-raised-button>{{'btn_save' |
+			translate}}</button>
+
+		<button style="width: 80px" style="margin-left: 10px;" (click)="goToBack($event)"
+			mat-raised-button>{{'cancel' |
+			translate}}</button>
+	</div>
+</ng-template>

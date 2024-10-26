@@ -1,0 +1,38 @@
+<div class="app-filter" *ngIf="!disabled">
+  <mat-grid-list *ngFor="let row of rows" class="app-filter-row" cols="3" rowHeight="60px">
+    <mat-grid-tile *ngFor="let field of row">
+      <mat-form-field *ngIf="field.type != 'combo'" class="app-filter-row-item">
+        <input matInput [(ngModel)]="data[field.name]" (keyup)="onKeyup($event)" name={{field.name}}
+          placeholder="{{ field.title | translate:{Default: field.title} }}" autocomplete="off" autofocus>
+        <span class="app-filter-close" [hidden]="isHidden">
+          <mat-icon matSuffix (click)="clear(field.name)">close</mat-icon>
+        </span>
+      </mat-form-field>
+      <app-combo *ngIf="field.type == 'combo'" title="{{ field.title | translate}}" [configs]="field.config"
+        [comboName]="field.name" [onChange]="comboHandle" class="app-filter-combo app-filter-row-item">
+      </app-combo>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <span *ngIf="fields.length > 0">
+    <span *ngFor="let field of fields" style="display: inline-flex;">
+      <mat-form-field *ngIf="field.type != 'combo'" class="app-filter-item">
+        <input matInput [(ngModel)]="data[field.name]" (keyup)="onKeyup($event)" name={{field.name}}
+          placeholder="{{ field.title | translate:{Default: field.title} }}" autocomplete="off" autofocus>
+        <span class="app-filter-close" [hidden]="isHidden">
+          <mat-icon matSuffix (click)="clear(field.name)">close</mat-icon>
+        </span>
+      </mat-form-field>
+      <app-combo *ngIf="field.type == 'combo'" #filterCombo title="{{ field.title | translate}}" [configs]="field.config" style="margin-left: 10px;"
+        [comboName]="field.name">
+      </app-combo>
+    </span>
+  </span>
+
+  <button mat-stroked-button class="app-filter-btn" (click)="onClick()">
+    <mat-icon class="mat-icon-rtl-mirror">
+      search
+    </mat-icon>
+    {{ 'btn_search' | translate:{Default: 'Search'} }}
+  </button>
+</div>

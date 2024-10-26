@@ -1,0 +1,19 @@
+<mat-form-field>
+    <input type="text" [formControl]="formValidation" (keydown)="handleKeydown($event)" placeholder={{title}} tabindex={{tabindex}}
+    aria-label="Number" matInput [matAutocomplete]="auto" autocomplete="off" required>    
+    <mat-icon class="header-down-icon" matSuffix>keyboard_arrow_down</mat-icon>
+    <mat-autocomplete (optionSelected) = "optionSelected($event)" (closed)="closed($event)" 
+    autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of justASimpleArray" [value]="option.configurationcode">
+        {{option.configurationcode}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <mat-select [(value)]="configValue" [disabled]="disableField" (selectionChange)="optionSelected($event)"
+    placeholder={{title}} (closed)="closed($event)" required>
+      <mat-option *ngFor="let option of justASimpleArray" [value]="option.configurationcode">
+        {{option.configurationcode}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->

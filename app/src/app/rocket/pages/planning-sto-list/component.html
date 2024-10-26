@@ -1,0 +1,82 @@
+<app-page-session>
+	<app-page-session-header title="{{'RocketPlanning.STOList' | translate}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<ng-template #headerContent>
+	<div class="tab-container">
+		<form #form layout="column">
+			<mat-grid-list cols="6" rowHeight="40px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.Warehouse' | translate}}:</label>
+					<app-combo #warehouseCombo class="app-combo" tabindex="1"
+						title="{{'RocketPlanning.Warehouse' | translate}}" (keyup.enter)="search()"
+						[configs]="warehouseConfig"></app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+					<app-combo #typeCombo class="app-combo" (keyup.enter)="search()"
+						title="{{'RocketPlanning.StoreType' | translate}}" [configs]="typeConfigList"></app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile colspan='2'>
+					<label class="app-label-top p-14">{{'RocketPlanning.Code' | translate}}:</label>
+					<app-combo #ctkmCombo class="app-combo" title="{{'RocketPlanning.Code' | translate}}"
+						(keyup.enter)="search()" [configs]="ctkmConfig"></app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<div class="app-btn-row-left" style="width: 100%;">
+						<button class="button-po" color="accent" (click)="search()" mat-raised-button>
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</form>
+	</div>
+</ng-template>
+<ng-template #mainContent>
+	<div class="tab-container">
+		<div class="header-summary">
+			<div class="summary-item" style="padding-left: 0px;">
+				<label class="app-label p-5">{{'RocketPlanning.Code' | translate}}:
+				</label><span>{{summaryList.Code}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-5 ">Tổng cửa hàng: </label><span>{{summaryList.TotalStore}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-5 ">Tổng sản phẩm: </label><span>{{summaryList.TotalSKU}}</span>
+			</div>
+			<div class="summary-item">
+				<label class="app-label p-5 ">Tổng số Units: </label><span>{{summaryList.TotalUnit |
+					number:'1.0-0':'en-US'}}</span>
+			</div>
+			<div class="summary-item-button app-btn-row-right">
+				<!-- <button class="custom-button-a" color="warn" style="width: 150px;" (click)="exportSOScc($event)"
+				mat-stroked-button>{{'RocketPlanningSO.ExportSOScc' | translate}}</button>
+			<button class="custom-button-a" color="warn" style="width: 150px;" (click)="exportSOErr($event)"  [disabled]="allowExportErr"
+				mat-stroked-button>{{'RocketPlanningSO.ExportSOErr' | translate}}</button> -->
+				<button class="custom-button" color="warn" style="width: 150px;" (click)="exportSTOList($event)" [disabled]="allowExportSTO"
+					mat-stroked-button>{{'RocketPlanningSO.ExportSOScc' | translate}}</button>
+				<button class="button-po btn-upper" color="accent" (click)="showCreateSTO()" [disabled]="allowCreateSTO"
+					mat-stroked-button>{{'RocketPlanningSO.CreateSO' | translate}}</button>
+				<button class="button-po btn-upper" color="accent" (click)="goToPageImport()"
+					mat-stroked-button>{{'RocketPlanningSO.UploadSO' | translate |uppercase}}</button>
+
+
+			</div>
+		</div>
+
+		<app-edit-table class="app-table" #appTableList [configs]="tableConfigList"></app-edit-table>
+	</div>
+</ng-template>

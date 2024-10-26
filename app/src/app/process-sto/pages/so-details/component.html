@@ -1,0 +1,178 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'SODetails.SOInfo' | translate }}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight
+			(selectedTabChange)="onTabClick($event)">
+			<mat-tab label="{{'SODetails.Tabs.Summary' | translate}}">
+				<ng-container *ngTemplateOutlet="summaryContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="{{'SODetails.Tabs.ReceiveSession' | translate}}">
+				<ng-container *ngTemplateOutlet="statusTrackiContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="{{'SODetails.Tabs.Packageinformation' | translate}}">
+				<ng-container *ngTemplateOutlet="receiveSessionContent"></ng-container>
+			</mat-tab>
+
+			<mat-tab label="{{'SODetails.Tabs.Document' | translate}}">
+				<ng-container *ngTemplateOutlet="documentContent"></ng-container>
+			</mat-tab>
+
+			<mat-tab label="{{'GIGRStatus' | translate}}">
+				<ng-container *ngTemplateOutlet="statusSAPTrackingContent"></ng-container>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</ng-template>
+<ng-template #summaryContent>
+	<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+</ng-template>
+<ng-template #statusTrackiContent>
+	<app-edit-table class="app-table" #statusTrackingTable [configs]="statusTrackingConfig"></app-edit-table>
+</ng-template>
+<ng-template #receiveSessionContent>
+	<div class="col50">
+		<app-page-session-header title="{{ 'SODetails.PackageInfo' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #receiveSessionTable [configs]="receiveConfig"></app-edit-table>
+	</div>
+	<div class="col50">
+		<app-page-session-header title="{{ 'SODetails.PackageinfoDetail' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #receiveSessionSKUTable [configs]="receiveSKUConfig"></app-edit-table>
+	</div>
+</ng-template>
+<ng-template #documentContent>
+	<app-page-session-header title="{{ 'SODetails.DocumentTitle' | translate }}"></app-page-session-header>
+	<mat-grid-list cols="5" gutterSize="15px" flex-gt-sm="100">
+
+
+	</mat-grid-list>
+	<div class="col50">
+		<app-edit-table class="app-table" #documentTable [configs]="documentConfig"></app-edit-table>
+	</div>
+	<!-- </div> -->
+</ng-template>
+<ng-template #statusSAPTrackingContent>
+	<app-edit-table class="app-table" #statusSAPTrackingTable [configs]="statusSAPTrackingConfig"></app-edit-table>
+</ng-template>
+<ng-template #headerContent>
+	<mat-grid-list cols="3" rowHeight="35px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.SOCode' | translate}}:</label>
+			<label class="p-10">{{ data.SOCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'store' | translate}}:</label>
+			<label class="p-10"><span [ngStyle]="{'color': data.Priority=='VIP' ? '#7bbd7b' : '' }">[{{data.Priority}}]</span> {{ data.SiteId }} - {{ data.StoreName }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SODetails.ExternalCode' | translate}}:</span></label>
+			<label class="p-10" [ngStyle]="GIStyle">{{ data.ExternalCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'SODetails.Address' | translate}}:</label>
+			<label class="p-10">{{ data.Address }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.SOStatus' | translate}}:</label>
+			<label class="p-10">{{ data.Status }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<!-- <label class="app-label p-5-10"><span>{{'SODetails.Address' | translate}}:</span></label>
+			<label class="p-10">{{ data.ContactName }}</label> -->
+			<label class="app-label p-5-10"><span>{{'SODetails.CHTGĐST' | translate}}:</span></label>
+			<label class="p-10">{{ data.ContactName }} - {{ data.ContactPhone }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.SOType' | translate}}:</label>
+			<label class="p-10 {{data.SOTypeClass}}">{{ data.SOType }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.QLKV' | translate}}:</span></label>
+			<label class="p-10">{{ data.ReceivingStaffName }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.ConditionType' | translate}}:</label>
+			<label class="p-10">{{ data.ConditionType }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'PointType.PackingZone' | translate}}:</span></label>
+			<label class="p-10" style="width: 100px;">{{ data.PackingStation }}</label>
+			<label class="app-label p-5-5"><span>{{'PointType.GatheredZone' | translate}}:</span></label>
+			<label class="p-5">{{ data.PackedLocationLabel }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SODetails.WarehouseSiteId' | translate}}:</span></label>
+			<label class="p-10">{{ data.WarehouseSiteId }} - {{ data.WarehouseSiteName }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.TotalWeight' | translate}}:</span></label>
+			<label class="p-10" style="width: 100px;">{{ data.TotalWeight }}</label>
+			<label class="app-label p-5-5"><span>{{'SODetails.TotalVolume' | translate}}:</span></label>
+			<label class="p-5">{{ data.TotalVolume }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>SortCode:</span></label>
+			<label class="p-10">{{ data.SortCode }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.SOCanceledBy' | translate}}:</span></label>
+			<label class="p-10" style="width: 100px;">{{ data.CanceledBy }}</label>
+			<label class="app-label p-5-5"><span>{{'SODetails.SOCanceledReason' | translate}}:</span></label>
+			<label class="p-5">{{ data.CanceledNote}}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.CreatedDate' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedDate }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.PromotionCode' | translate}}:</span></label>
+			<label class="p-10" style="width: 100px;">{{ data.PromotionCode }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'SODetails.EstDeliveryDate' | translate}}:</label>
+			<label class="p-10">{{ data.EstDeliveryDate }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.TotalUnitSKU' | translate}}:</span></label>
+			<label class="p-10">{{ data.TotalUnit }} (unit) / {{ data.TotalSKU }} (sku)</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'SODetails.CreatedBy' | translate}}:</span></label>
+			<label class="p-10">{{ data.CreatedBy }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'SODetails.SONote' | translate}}:</span></label>
+			<label class="p-10">{{ data.Note }}</label>
+		</mat-grid-tile>
+	</mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<!-- <button style="width: 120px" (click)="requestPrintListLabelSO($event)" mat-stroked-button
+			ng-reflect-color="accent" color="accent">{{'SODetails.PrintSOListLabel' |
+			translate | uppercase}}</button> -->
+		<button style="width: 80px" (click)="cancel($event)" mat-stroked-button color="primary">{{'cancel' |
+			translate}}</button>
+	</div>
+</ng-template>

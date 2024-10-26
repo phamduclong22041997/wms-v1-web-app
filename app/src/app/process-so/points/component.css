@@ -1,0 +1,45 @@
+.notification-action {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mat-dialog-content {
+    /* padding-top: 18px; */
+    padding-left: 0;
+    padding-right: 0rem;
+}
+
+.header-container {
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 40vw;
+    padding-left: 20px;
+    padding-right: 20px
+}
+
+.app-title {
+    font-weight: 600;
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.app-label-top {
+    margin-bottom: 10px;
+    color: #d0333a;
+}
+
+.app-combo {
+    margin-top: 20px;
+}
+
+.app-table {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.app-combo {
+    margin-top: 0;
+}

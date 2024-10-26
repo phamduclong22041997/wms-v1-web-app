@@ -1,0 +1,49 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 !important;
+}
+
+.app-label {
+  width: 180px;
+}
+
+.my-class {
+  width: 2000px;
+  height: 2000px;
+}
+
+
+.input-icons mat-icon {
+  position: absolute;
+  right: 0;
+}
+
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.icon {
+  padding: 6px;
+  min-width: 40px;
+}
+
+.customize-input {
+  width: 100%;
+  border: 1px solid #7a7a7a;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 33px;
+}
+
+.button-create-address {
+  width: 20px;
+  height: 20px;
+  margin: 8px 0 0 8px;
+  padding: 1px;
+}
+.pdl {
+  padding-left: 20px;
+}

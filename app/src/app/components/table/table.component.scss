@@ -1,0 +1,167 @@
+/* Structure */
+.app-table-container {
+  position: relative;
+  // min-height: 200px;
+}
+
+.responsive-table {
+  position: relative;
+  // max-height: 400px;
+  // height: 400px;
+  // overflow-x: hidden;
+}
+
+.header-label {
+  width: 100px;
+}
+
+table {
+  width: 100%;
+}
+
+.app-loading-shade {
+  position: absolute;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-data-empty {
+  flex: 0 0 150px;
+}
+
+.cell-action {
+  display: flex !important;
+  justify-content: center !important;
+  background: transparent;
+  min-width: 100px;
+  max-width: 150px;
+}
+
+.column-no {
+  flex: 0 0 50px;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.column-center {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.app-table-header-tool {
+  display: inline-flex;
+  width: 100%;
+}
+
+.app-table-tool {
+  z-index: 1;
+}
+
+.mat-cell {
+  padding: 5px;
+}
+
+.mat-header-cell {
+  padding: 0px 0px 0px 5px;
+}
+
+.row-selected {
+  background-color: #7d7c7c82;
+}
+
+.mat-header-cell:last-of-type {
+  padding-right: 0;
+}
+
+.context-menu-btn {
+
+  &:active,
+  &:hover {
+    color: #d0333a;
+  }
+}
+
+.span-txt-ellipsis {
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// css expand
+
+.header-table-collapse {
+  background-color: #030303 !important;
+  padding: 5px 0 !important;
+}
+
+.data-table-row-collapse {
+  height: 48px;
+}
+
+.td-table {
+  padding: 0px !important;
+  border-bottom-width: 0;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  border-bottom-style: solid;
+  background-color: rgb(72 14 14 / 12%);
+  ;
+}
+
+.row-hidden {
+  display: none;
+}
+
+.ac-finish {
+  color: #0fe31f;
+}
+.ac-task{
+  // color: #fda521;
+  color: #f3c74c;
+}
+.ac-remove{
+  color: #fb332ae6;
+}
+.ac-finish-second{
+  color: #f3c74c;
+}
+button:disabled .ac-task,
+button[disabled] .ac-task,
+button:disabled .ac-finish,
+button[disabled] .ac-finish,
+button:disabled .ac-remove,
+button[disabled] .ac-remove{
+  color: rgba(255, 255, 255, 0.1);
+}
+
+::ng-deep .header-tooltip {
+  font-size: 14px;
+  background-color: #FFFDE7;
+  color: #000 !important;
+}
+::ng-deep .header-tooltip-warning {
+  font-size: 14px;
+  background-color: #FFB74D;
+  color: #000 !important;
+}
+// end css expand
+
+@media (max-width: 600px) {
+  .cell-action {
+    flex: 0 0 50px;
+  }
+
+  .column-no {
+    flex: none;
+  }
+}

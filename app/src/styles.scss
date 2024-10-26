@@ -1,0 +1,309 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
+@import './assets/styles/variable.scss';
+
+.model-panel {
+  height: 100vh !important;
+}
+
+.model-panel-custom {
+  height: 100vh !important;
+  width: 130vh !important;
+}
+
+.input-required {
+  color: $red;
+}
+
+.mat-form-field-required-marker {
+  color: $red !important;
+}
+
+.column-qty {
+  flex: 0 0 80px;
+}
+
+.app-search-product .mat-dialog-container {
+  padding: 0;
+}
+
+/** Header Title **/
+.app-header-title {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 8px 20px;
+  color: rgba(0, 0, 0, .54);
+  background: rgba(0, 0, 0, .03);
+}
+
+.app-header-title-spacer {
+  flex: 1 1 auto;
+}
+
+/** Header Title **/
+
+.app-tab .mat-tab-body-wrapper {
+  min-height: 400px;
+  height: 400px;
+}
+
+.app-tab .mat-tab-body-content {
+  overflow: scroll !important;
+}
+
+.app-filter-item .mat-form-field-infix {
+  text-align: left !important;
+}
+
+.app-filter-item .mat-form-field-wrapper {
+  width: 100%;
+}
+
+.app-filter-combo {
+  width: 100%;
+}
+
+.link {
+  color:green;
+  cursor: pointer;
+}
+
+.app-header-table {
+  line-height: 40px;
+  font-size: 14px;
+  margin-bottom: 40px;
+  // width: 100%;
+}
+
+.app-header-table > tr > td {
+  text-align: left;
+}
+
+.app-header-table > tr > td:nth-child(even) {
+  font-weight: 400;
+}
+
+/*-------------Modal----------*/
+app-modal > div {
+  background-color: #ffffff;
+}
+
+app-modal mat-card.mat-card {
+  box-shadow: none !important;
+}
+
+.mat-toolbar.mat-accent, .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background: #d0333a !important;
+}
+
+.mat-bottom-sheet-container {
+  background: #ffffff00 !important;
+  box-shadow: none !important;
+}
+
+/*-------------Loader----------*/
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #d0333a !important;
+}
+
+/*-------------Custom----------*/
+.app-input {
+  min-width: 180px;
+  width: 180px;
+}
+
+.app-btn-row {
+  text-align: center;
+}
+
+.app-btn-row button {
+  margin-left: 5px;
+}
+
+.app-btn-row-right {
+  text-align: right;
+}
+.app-btn-row-left {
+  text-align: left;
+}
+.app-btn-row-left button {
+  margin-right: 5px;
+}
+
+.app-btn-row-right button {
+  margin-left: 5px;
+}
+
+.app-input .mat-form-field-flex {
+  height: 34px;
+}
+
+.p-10 {
+  margin-left: 10px;
+}
+
+.app-label {
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #ADADAD;
+}
+
+
+.app-label-top {
+  width: 100%;
+  position: absolute;
+  top: -16px;
+  padding-left: 0 !important;
+  margin-left: 0;
+}
+
+.app-combo {
+  width: 100%;
+}
+
+.app-datepicker {
+  width: 100%;
+}
+
+.mat-datepicker-toggle>button {
+  margin-top: -2px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 !important;
+  margin-top: 0.25em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  padding: 0 !important;
+  margin-top: 0.25em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix input {
+  padding-top: 0px;
+  padding-bottom: 3px;
+}
+
+/* Hepl icon*/
+.app-help-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    text-align: right;
+    vertical-align: text-top;
+}
+.app-require-icon {
+  color: #E30000;
+}
+/* Hepl icon*/
+
+/* Table Row Select */
+.row-select {
+  cursor: pointer;
+}
+.row-select:hover {
+  background: #6b6868 0% 0% no-repeat padding-box !important;
+}
+.row-selected {
+  background: #6b6868 0% 0% no-repeat padding-box !important;
+}
+/* Table Row Select */
+
+/* Copyright */
+.copyright {
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: list-item;
+  position: absolute;
+  bottom: 0;
+  color: #939393;
+  width: 100%;
+}
+.copyright>span{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+}
+.copyright-logo {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  position: absolute;
+  opacity: 1;
+}
+.copyright-logosm {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  opacity: 1;
+}
+.copyright-textsm {
+  background: transparent linear-gradient(140deg, #CC6633 0%, #FED31A 26%, #F4EA0B 50%, #FED31A 75%, #CC6633 100%) 0% 0% no-repeat padding-box;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  opacity: 1;
+}
+.copyright-text {
+  background: transparent linear-gradient(140deg, #CC6633 0%, #FED31A 26%, #F4EA0B 50%, #FED31A 75%, #CC6633 100%) 0% 0% no-repeat padding-box;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  opacity: 1;
+  margin-left: 20px;
+}
+
+
+  .mat-badge-content {
+    right: -6px !important;
+  }
+
+
+
+  .mat-badge-content {
+    top: 20px !important;
+  }
+
+  .my-class .mat-dialog-container{
+    height: 600px;
+    width: 1000px;
+  }
+ 
+.ng-image-fullscreen-view .lightbox-wrapper {
+    width: 95% !important;
+    height: 100% !important;
+    top: 95px !important;
+    left: 47px !important;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked{
+  background: #d0333a !important
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){
+  color: #d0333a !important;
+}
+
+.cdk-overlay-container .cdk-overlay-pane .combo-multiple {
+  margin-top: 5%;
+  margin-left: 4%;
+  min-width: 104% !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color:  #d0333a !important;
+}
+
+// .mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
+//   top: 0.3em !important;
+// }
+
+.app-combo .mat-form-field-appearance-outline .mat-form-field-prefix, .app-combo .mat-form-field-appearance-outline .mat-form-field-suffix {
+  top: 0 !important;
+}
+
+
+/* Copyright */

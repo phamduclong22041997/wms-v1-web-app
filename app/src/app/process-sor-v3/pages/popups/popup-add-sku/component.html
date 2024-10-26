@@ -1,0 +1,110 @@
+<h4 class="popup-title">{{ 'FinishPo.TitleAddSKU' | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography popup-add-sku" color='accent'>
+  <table class="table">
+    <tr>
+      <td class="td-label"><b>{{'FinishPo.PoCode' | translate}}:</b></td>
+      <td>
+        <strong>{{data.POCode}} - {{data.ExternalCode}}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td><b>{{'FinishPo.SKU' | translate}}<span class="app-require-icon">*</span>:</b></td>
+      <td>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtSKU maxlength="20" tabindex="1" name="SKU" [(ngModel)]="dataSave.SKU" (change)="onChange($event)" matInput
+            autocomplete="on" (keyup)="onKeyUpChange($event)">
+        </mat-form-field>
+      </td>
+
+    </tr>
+    <tr>
+      <td><b>{{'FinishPo.ProductName' | translate}}<span class="app-require-icon">*</span>:</b></td>
+      <td>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtName name="Name" tabindex="2" [(ngModel)]="dataSave.Name" matInput autocomplete="off">
+        </mat-form-field>
+      </td>
+
+    </tr>
+    <tr>
+      <td><b>{{'FinishPo.Uom' | translate}}:<span class="app-require-icon">*</span></b></td>
+      <td>
+    
+					<app-combo #cbbUnit class="app-combo" tabindex="3" title="{{'FinishPo.Uom' | translate}}"
+						[configs]="comboUnitConfig">
+					</app-combo>
+        <!-- <mat-form-field appearance="outline" class="app-input">
+          <input #txtUom name="Uom" [(ngModel)]="dataSave.Uom" matInput autocomplete="off">
+        </mat-form-field> -->
+      </td>
+
+    </tr>
+    <tr>
+      <td><b>{{'FinishPo.Qty' | translate}}:<span class="app-require-icon">*</span></b></td>
+      <td>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtQty name="Qty" tabindex="4" [(ngModel)]="dataSave.Qty" type="number" min="0" max="999999" maxlength="6" matInput autocomplete="off" (keyup)="onChangeQty($event)">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><b>{{'PCB' | translate}}:</b></td>
+      <td>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtPCB name="PCB" tabindex="5" [(ngModel)]="dataSave.PCB" type="number" min="0" max="999999" maxlength="6" matInput autocomplete="off">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><b>{{'MHU' | translate}}:</b></td>
+      <td>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtMHU name="MHU" tabindex="6" [(ngModel)]="dataSave.MHU" type="number" min="0" max="999999" maxlength="6" matInput autocomplete="off">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td><b>{{'Product.ExpiryDate' | translate}}:</b></td>
+      <td>
+        <app-combo #expirydateCombo class="app-combo app-combo-mid" tabindex="7"
+        title="{{'Product.ExpiryDatePlaceholder' | translate}}" [configs]="expiryConfig">
+      </app-combo>
+      </td>
+    </tr>
+    <!-- <tr>
+      <td><b>{{'FinishPo.Image' | translate}}:</b></td>
+      <td>
+        <div class="app-btn-row-left" style="width: 100%; display: none;">
+          <input style="display:none" #inputFile id="inputFile" type="file"
+            (change)="checkUploadFile($event.target.files)">
+          <label class="label-input-block" for="inputFile">
+            <span class="span-input-txt">Chọn hình sản phẩm</span>
+            <span class="span-input-upload">Browser</span>
+          </label>
+        </div>
+        
+      </td>
+
+    </tr> -->
+  </table>
+  <div class="image" *ngIf="dataSave.Exists">
+    <div class="view-image">
+      <div #form layout="column">
+        <mat-grid-list cols="1" rowHeight="60px" gutterSize="5px" flex-gt-sm="100" class="upload-img-content">
+          <mat-grid-tile class="upload-img">
+            <label style="width: 200px;font-weight: bold; padding-left: 2px;">Hình ảnh:</label>
+            <img *ngIf="dataSave.Image" src="{{dataSave.Image}}" alt="" style="height:100px;width:100px; cursor: pointer;" (click)="previewProductImage($event)"/>
+            <span class="btn-upload-image"  tabindex="7" color="accent" (click)="uploadProductImage($event)" style="margin-left: 10px;"><mat-icon>upload</mat-icon> Đổi hình</span>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </div>
+  <div class="app-btn-row" style="text-align: center;margin-top: 20px;">
+    <button style="width: 120px;" (click)="confirm($event)" [disabled]="isDisable" mat-raised-button
+      color="accent">{{'btn_confirm' |
+      translate}}</button>
+    <button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+      translate}}</button>
+  </div>
+</mat-dialog-content>

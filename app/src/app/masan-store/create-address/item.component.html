@@ -1,0 +1,51 @@
+<h4 style="margin: 0 0 10px 0;">TẠO {{text | uppercase}} MỚI</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr [class.hiden]="isRegionHidden">
+			<td class="pdl"><b>{{textCombo}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Region  class="app-combo" tabindex="5" 
+						title="{{'ImportStore.Region' | translate}}"  [configs]="RegionConfig"></app-combo>
+					<!-- <button class="button-create-address" (click)='showPopupCreateAddress("Provinces")'></button> -->
+				</div>
+			</td>
+		</tr>
+		<tr [class.hiden]="isProvinceHidden">
+			<td class="pdl"><b>{{textCombo}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #Province  class="app-combo" tabindex="5"
+						title="{{'ImportStore.Province' | translate}}"  [configs]="ProvinceConfig"></app-combo>
+					<!-- <button class="button-create-address" (click)='showPopupCreateAddress("Provinces")'></button> -->
+				</div>
+			</td>
+		</tr>
+		<tr  [class.hiden]="isDistrictHidden" >
+			<td class="pdl"><b>{{textCombo}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<div style="display: flex;">
+					<app-combo #District  class="app-combo" tabindex="5"
+						title="{{'ImportStore.District' | translate}}"  [configs]="DistrictConfig"></app-combo>
+					<!-- <button class="button-create-address" (click)='showPopupCreateAddress("Provinces")'></button> -->
+				</div>
+			</td>
+		</tr>		
+		<tr>
+			<td><b>Tên {{text}}<span class="app-require-icon">*</span>:</b></td>
+			<td>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #StoreCode name="StoreCode" [(ngModel)]="inputValue" matInput autocomplete="off">
+				</mat-form-field>
+			</td>
+		</tr>
+	
+		
+	</table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 10px;">
+		<button style="width: 120px;" (click)="confirm($event)" mat-raised-button color="accent" >{{'btn_confirm' |
+			translate}}</button>
+		<button style="width: 120px;" mat-dialog-close mat-raised-button color="accent">{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-content>

@@ -1,0 +1,6 @@
+::ng-deep html .page-wrapper {
+    height: calc(100vh - 1px) !important;    
+  }
+  .page-content{
+    height: 100%;
+  }

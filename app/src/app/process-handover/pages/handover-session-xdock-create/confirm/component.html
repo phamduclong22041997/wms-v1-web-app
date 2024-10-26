@@ -1,0 +1,47 @@
+<div>
+  <div mat-dialog-title class="title-confirm">
+    <div>{{ (data.title || 'Thông báo') | translate}}</div>
+  </div>
+  <div mat-dialog-content>
+    <form #form layout="column">
+      <mat-grid-list cols="1" rowHeight="30px" gutterSize="5px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">Số lượng SO/CH:</label>
+          <label><b>{{ data.NumOfSO + "/" + data.NumOfStore}}</b></label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <p>Vui lòng chọn Kho nhận hàng từ phiên chuyển giao XDock</p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <app-combo #warehouse class="app-combo" tabindex="1" title="Chọn Kho nhận hàng" [configs]="warehouseConfig">
+          </app-combo>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">Kho nhận hàng:</label>
+          <label><b>{{ warehouse_confirm.Code + " - " + warehouse_confirm.Name }}</b></label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">Người liên hệ:</label>
+          <label><b>{{ warehouse_confirm.ContactName }}</b></label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">Điện thoại:</label>
+          <label><b>{{ warehouse_confirm.ContactPhone }}</b></label>
+        </mat-grid-tile>
+        <mat-grid-tile class="address">
+          <label class="app-label">Địa chỉ:</label>
+          <label><b>{{ warehouse_confirm.Address['FullAddr'] }}</b></label>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button (click)="onOkClick()" [disabled]="!warehouse_confirm.Code">{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="accent" (click)="onCancelClick()" cdkFocusInitial>{{ 'btn_no' |
+      translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

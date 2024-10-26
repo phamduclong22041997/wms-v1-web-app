@@ -1,0 +1,17 @@
+<div *ngIf="isShow" class="page-breadcrumb p-t-3 p-b-3 bg-dark p-l-10 p-r-10">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
+            <div class="breadcrumb d-flex align-items-center float-left float-sm-left">
+                <ul class="list-style-none d-flex align-items-center">
+                    <ng-template ngFor let-url [ngForOf]="pageInfo?.urls" let-last="last">
+                        <li class="breadcrumb-item" style="cursor: pointer;" *ngIf="!last"
+                            [routerLink]="renderLink(url)">
+                            <a>{{url.title}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" *ngIf="last && url?.title">{{url.title}}</li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

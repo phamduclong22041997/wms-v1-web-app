@@ -1,0 +1,180 @@
+<div mat-dialog-content *ngIf="!data.isReceivePallet && !data.isRemoveReceiveItem && !data.isConfirmQty">
+  <span class="popup-title">{{ data.title | translate }}</span>
+  <p><strong>{{ data.message | translate}}</strong></p>
+  <div [hidden]="info.Name != 'FinishPallet'">
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.POCode' | translate}}:</span><span
+        style="font-weight: bold;">{{info.POCode}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.PalletCode' | translate}}:</span><span
+        style="font-weight: bold;">{{info.TransportDeviceCode}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.Qty' | translate}}:</span><span
+        style="font-weight: bold;">{{info.ScanPalletQty}}</span></p>
+  </div>
+  <div [hidden]="info.Name != 'FinishReceive'">
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.POCode' | translate}}:</span><span
+        style="font-weight: bold;">{{info.POCode}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.Qty' | translate}}:</span><span
+        style="font-weight: bold;">{{info.ScanQty}}/{{info.Qty}}</span></p>
+  </div>
+</div>
+<div class="content" mat-dialog-content *ngIf="data.isRemoveReceiveItem">
+  <span class="popup-title">{{ data.title | translate }}</span>
+  <div>
+    <p><span style="width: 100px; display: inline-flex;">Pallet:</span><span
+        style="font-weight: bold;">{{info.TransportDeviceCode}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">SKU:</span><span style="font-weight: bold;">{{info.SKU}}</span>
+    </p>
+    <p><span style="width: 100px; display: inline-flex;">Barcode:</span><span
+        style="font-weight: bold;">{{info.Barcode}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">{{'POPallet.Qty' | translate}}:</span><span
+        style="font-weight: bold;">{{info.Qty}}</span></p>
+    <p><span style="width: 100px; display: inline-flex;">{{'MasanProduct.UOM' | translate}}:</span><span
+        style="font-weight: bold;">{{info.BaseUom}}</span></p>
+  </div>
+</div>
+<div class="content" mat-dialog-content *ngIf="data.isReceivePallet">
+  <span class="popup-title">{{ data.title | translate }}</span>
+  <mat-card-content>
+    <mat-grid-list cols="1" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+      <mat-grid-tile *ngIf="isShowLotNumber">
+        <label class="app-label">{{ 'FinishPo.LotNumber' | translate}}:</label>
+        <mat-form-field appearance="outline" class="app-input">
+          <input #txtLotNumber tabindex="1" type="text" name="lotNumber" (keyup.enter)="onEnter($event)"
+            placeholder="{{'FinishPo.LotNumber' | translate}}" matInput autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <label class="app-label">{{ 'POPallet.Expired' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="expiredDate" placeholder="D/M/YYYY" tabindex="2"
+          class="app-datepicker" [options]="expiredDateConfig" #expiredDate></app-datepicker>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <label class="app-label">{{ 'POPallet.ManufactureDate' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="manufactureDate" placeholder="D/M/YYYY"
+          tabindex="3" class="app-datepicker" [options]="manufactureDateConfig" #manufactureDate></app-datepicker>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <label class="app-label">{{ 'POPallet.EffectiveDate' | translate}}:</label>
+        <app-datepicker (keyup.enter)="onEnter($event)" datePickerName="effectiveDate" placeholder="D/M/YYYY"
+          tabindex="4" class="app-datepicker" [options]="effectiveDateConfig" #effectiveDate></app-datepicker>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <label class="app-label">{{ 'POPallet.ExpiredPercents' | translate}}:</label>
+        <div style="position: absolute;padding-left: 200px;color: white;width: 100%;z-index: 9999;">
+          {{expiredPercents}}% </div>
+        <mat-progress-bar mode="determinate" [value]="expiredPercents" bufferValue="50">
+        </mat-progress-bar>
+        <mat-icon class="icon-helper" aria-hidden="false"
+          matTooltip="%HSD = ((Ngày Hạn Sử Dụng - Ngày Hiện Tại)/(Ngày Hạn sử dụng - Ngày sản xuất))*100"
+          matTooltipClass="helper-tooltip" aria-label="Example home icon">help</mat-icon>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card-content>
+</div>
+<div class="content" mat-dialog-content *ngIf="data.isConfirmQty">
+  <span class="popup-title">{{ data.title | translate }}</span>
+  <div #form layout="column">
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="33px" gutterSize="5px" flex-gt-sm="100">
+        <mat-grid-tile colspan="2">
+          <label class="app-label">SKU:</label>
+          <label style="width: 300px;">{{data.product.SKU}}</label>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2">
+          <label class="app-label">Barcode:</label>
+          <label style="width: 300px;">{{data.code}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <label class="app-label">{{'Product.Name' | translate}}:</label>
+          <label style="width: 300px;">{{data.product.Name}}</label>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2">
+          <label class="app-label">{{ 'POPallet.Uom' | translate}}:</label>
+          <label style="width: 300px;">{{data.barcode.Uom}} [{{data.barcode.UomName}}]</label>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" *ngIf="data.productUnit">
+          <label class="app-label">{{'Product.QtyByCase' | translate}}:</label>
+          <label style="width: 300px;">
+            <span  style="font-weight: 600;">{{data.ProductUnitLabel}}</span>
+          </label>
+        </mat-grid-tile>
+        
+        <mat-grid-tile colspan="2">
+          <label class="app-label">{{'POPallet.MaxReceiveQtyLabel' | translate}}:</label>
+          <label *ngIf="isShowPromotion" style="width: 107px;">
+            <span *ngIf="data.productUnit" style="font-weight: 600;">{{data.product.BaseQty/data.barcode.Numerator}} {{data.barcode.Uom}}</span>
+          </label>
+          <label *ngIf="isShowPromotion" class="app-label">{{'POPallet.MaxPromotionReceiveQtyLabel' | translate}}:</label>
+          <label>
+            <span *ngIf="isShowPromotion && data.productUnit" style="font-weight: 600;">{{data.product.PromotionQty}} {{data.product.Uom}}</span>
+          </label>
+          <label *ngIf="!isShowPromotion" style="width: 300px;">
+            <span *ngIf="data.productUnit" style="font-weight: 600;">{{data.product.BaseQty/data.barcode.Numerator}} {{data.barcode.Uom}}</span>
+            <span *ngIf="!data.productUnit" style="font-weight: 600;">{{data.product.BaseQty}} {{data.barcode.Uom}}</span>
+          </label>
+        </mat-grid-tile>
+        
+        
+        <mat-grid-tile colspan="2">
+          <label class="app-label">{{ 'POPallet.Qty' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input" style="width: 300px;">
+            <input #barcodeqty tabindex="2" type="number" name="barcodeqty" [(ngModel)]="qty" ng-pattern="/^[0-9]+$/"
+              (change)="onChange($event)" step="1" max="99999" (keyup.enter)="onQtyEnter($event)"
+              placeholder="{{'POPallet.Qty' | translate}}" [disabled]="disableQty" matInput autocomplete="off">
+              <span matTextSuffix style="position: absolute;right: 20px;">[{{data.barcode.Uom}}]</span>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile  *ngIf="isShowPromotion" colspan="2">
+          <label class="app-label">{{ 'POPallet.PromotionQty' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input" style="width: 300px;">
+            <input #promotionqty tabindex="3" type="number" name="promotionqty" [(ngModel)]="promotionQty" ng-pattern="/^[0-9]+$/"
+              (change)="onChange($event)" step="1" max="99999" (keyup.enter)="onQtyEnter($event)"
+              placeholder="{{'POPallet.PromotionQty' | translate}}" matInput autocomplete="off">
+              <span matTextSuffix style="position: absolute;right: 20px;">[{{data.product.Uom}}]</span>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2" *ngIf="data.productUnit">
+          <label class="app-label">{{'POPallet.QtyBaseUnit' | translate}}:</label>
+          <label style="width: 300px;">
+            <span  style="font-weight: 600;">{{qtyNumerator}} {{data.product.Uom}}</span>
+          </label>
+        </mat-grid-tile>
+        <mat-grid-tile class="mat-grid-figure-left" *ngIf="!data.productUnit" colspan="2">
+          <!-- <label class="app-label"></label> -->
+          <label>
+            <i class="text-danger" style="font-weight: 700;">{{data.warningProductUnit}}</i>
+          </label>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+  <mat-card-content *ngIf="data.warningBarcode">
+    <mat-grid-list cols="1" rowHeight="22px" gutterSize="5px" flex-gt-sm="100">
+      <mat-grid-tile class="mat-grid-figure-left">
+        <label [hidden]="!data.warningBarcode"><i class="text-danger"
+            style="font-weight: 700;">{{data.warningBarcode}}</i></label>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button *ngIf="!data.isReceivePallet&&!data.isConfirmQty" class="custom-button bb1" mat-flat-button color="accent" mat-flat-button
+      (click)="onOkClick()">{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button *ngIf="data.isReceivePallet" class="custom-button bb2" mat-flat-button color="accent" mat-flat-button
+      (click)="onReceiveOkClick()">{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button *ngIf="data.isConfirmQty" class="custom-button bb3" (click)="onQtyOkClick()" mat-flat-button color="accent" mat-flat-button
+      [disabled]="isDisableConfirm">{{ 'btn_confirm' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="accent" mat-flat-button (click)="onCancelClick()" cdkFocusInitial>{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

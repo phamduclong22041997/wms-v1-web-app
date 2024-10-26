@@ -1,0 +1,32 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 !important;
+}
+
+.app-label {
+  width: 180px;
+}
+
+.my-class {
+  width: 2000px;
+  height: 2000px;
+}
+
+.span-input-upload{
+  float:right;
+  background-color: #d0333a; 
+  color: #fff;
+  padding: 1px;
+  border-radius: 5px;
+  width: 100px;
+  text-align: center;
+  font-size: 14px;
+  padding: 7px;
+}
+.import-file{
+  display: flex;
+  border: solid 1px #d0333a;
+  border-radius: 5px;
+}
+
+
+

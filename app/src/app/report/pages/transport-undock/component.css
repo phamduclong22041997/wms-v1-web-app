@@ -1,0 +1,12 @@
+.app-label {
+    width: 180px;
+    min-width: 160px;
+    max-width: 180px;
+}
+.btn-lr{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+::ng-deep .dark .transport-undock-list .mat-grid-tile {
+    min-height: auto !important;
+}

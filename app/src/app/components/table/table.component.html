@@ -1,0 +1,55 @@
+<div class="app-table-container mat-elevation-z8">
+  <div class="responsive-table">
+
+    <mat-table mat-table [dataSource]="data?.rows" class="app-table" matSort matSortActive="CreatedDate" matSortDisableClear
+      matSortDirection="desc">
+
+      <ng-container *ngIf="enableIndex" matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef class="column-no">{{ 'table_index' | translate:{Default: 'STT'} }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column-no">
+          <span class="header-label">{{ 'table_index' | translate:{Default: 'STT'} }}:</span>
+          {{row['index'] || row['Idx']}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let option of columns.options" matColumnDef={{option.name}}>
+        <mat-header-cell *matHeaderCellDef [ngStyle]="option.style"
+          [ngClass]="{'column-center': option.align==='center'}"> {{ option.title | translate:{Default: option.title} }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngStyle]="option.style" [ngClass]="{'column-center': option.align==='center'}">
+          <span class="header-label">{{ option.title | translate:{Default: option.title} }}:</span>
+          <span *ngIf="!option.onlyIcon">
+            {{renderText(row, option)}}
+          </span>
+          <span *ngIf="option.onlyIcon">
+            <mat-icon>{{renderText(row, option)}}</mat-icon>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngIf="columns.actions && columns.actions.length" matColumnDef="actions" stickyEnd>
+        <mat-header-cell *matHeaderCellDef class="cell-action">{{ 'table_action' | translate:{Default: 'Actions'} }}
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row" class="cell-action">
+          <span>
+            <button mat-icon-button (click)="onClickActionHandle($event, action, row)"
+              *ngFor="let action of columns.actions">
+              <mat-icon>{{action}}</mat-icon>
+            </button>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columns.displayedColumns;sticky:true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columns.displayedColumns;" (click)="clickRow(row)"></mat-row>
+    </mat-table>
+
+    <div style="text-align: center; padding-top: 20px;" *ngIf="data.rows.length === 0">
+      {{ 'table_nodata' | translate:{Default: noDataTxt} }}</div>
+  </div>
+  <div *ngIf="!configs.disablePagination" [hidden]="isEmpty">
+    <mat-paginator [pageSizeOptions]="options.pageSizeOptions" [length]="total" [pageSize]="options.pageSize">
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,219 @@
+<app-page-session>
+	<app-page-session-header title="{{'Quầy đóng gói' | uppercase}}">
+		<span [hidden]="!StationCode">[<a (click)="showInputStation()" class="link">{{StationCode}}</a>]</span>
+	</app-page-session-header>
+
+	<div [hidden]="!IsReady">
+
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+
+
+	<div [hidden]="!data.PickListCode">
+		<!-- <app-page-session> -->
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		</mat-card-content>
+		<!-- </app-page-session> -->
+	</div>
+	<div [hidden]="!data.PickListCode">
+		<mat-divider></mat-divider>
+		<!-- <app-page-session> -->
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="detailContent"></ng-container>
+		</mat-card-content>
+		<!-- </app-page-session> -->
+	</div>
+	<div [hidden]="!data.PickListCode || !IsPacking">
+		<!-- <app-page-session> -->
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+		</mat-card-content>
+		<!-- </app-page-session> -->
+	</div>
+</div>
+</app-page-session>
+
+<ng-template #headerContent>
+	<div #form layout="column" [hidden]="IsFinishPacking" style="margin-left: 6px;">
+		<span style="text-transform:uppercase;color: #d0333a;">Tiếp theo:</span>
+		<div [hidden]="IsFinishPacking">
+			<mat-grid-list cols="3" rowHeight="50px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile colspan="{{IsPacking?1:0}}">
+					<div [hidden]="!IsPacking" style="width: 100%;">
+						<mat-form-field appearance="outline" class="app-input">
+							<input #code name="code" tabindex="1" placeholder="{{ inputPlaceholder | translate}}"
+								matInput (keyup.enter)="onEnter($event)" autocomplete="off">
+						</mat-form-field>
+					</div>
+				</mat-grid-tile>
+				<mat-grid-tile colspan="{{IsScanBarcode?3:0}}">
+					<div *ngIf="IsScanBarcode" style="display: inline-flex; width: 100%;margin-top: 5px;">
+
+						<div style="margin-left: 15px;" [hidden]="IsPacking">
+							<button mat-button mat-raised-button color="accent" (click)="onPackingEven()">
+								{{'SOPacking.CoutingEnclosingEven' | translate}}
+							</button>
+						</div>
+
+						<div style="margin-left: 15px;" [hidden]="IsPackingEven">
+							<button mat-button mat-raised-button color="accent" (click)="autoPackingItemEven()">
+								{{'SOPacking.CoutingEven' | translate}}
+							</button>
+						</div>
+
+						<div [hidden]="!IsPacking">
+							<button mat-button mat-raised-button [disabled]="!AllowPacking" color="accent"
+								(click)="createPackage()">
+								{{'SOPacking.CreatePackage' | translate}}
+							</button>
+						</div>
+						<div style="margin-left: 15px;" [hidden]="IsPacking">
+							<button mat-button mat-raised-button color="accent" (click)="printPointSummary()">
+								<mat-icon>print</mat-icon>
+								{{'SOPacking.PrintSOHandover' | translate}}
+							</button>
+						</div>
+					</div>
+				</mat-grid-tile>
+
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainContent>
+	<div [hidden]="!data.PickListCode">
+		<table class="app-table app-table-p">
+			<tr>
+				<td style="width: 120px; color: #ADADAD;"><span>{{'SOPacking.TransportDeviceCode' | translate}}:</span>
+				</td>
+				<td style="width: 200px;"><label>{{data.TransportCode}}</label></td>
+
+				<td style="width: 120px; color: #ADADAD;"><span>{{'SOPacking.CreateDate' | translate}}:</span></td>
+				<td><label>{{data.CreatedDate}}</label></td>
+
+				<td style="width: 120px; color: #ADADAD;"><span>{{'SOPacking.SKUScan' | translate}}:</span></td>
+				<td><label>{{data.TotalSKUScan}} / {{data.TotalSKU}}</label></td>
+
+				<td style="width: 180px; color: #ADADAD;"><span>{{'SOPacking.TotalPackage' | translate}}:</span></td>
+				<td><label>{{data.TotalPackage}}</label></td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'SOPacking.PickListCode' | translate}}:</span></td>
+				<td><label>{{data.PickListCode}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'SOPacking.SOScan' | translate }}:</span></td>
+				<td><label>{{data.TotalSOPackedScan}} / {{data.TotalSOPacked || 0}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'SOPacking.QtyScan' | translate}}:</span></td>
+				<td><label>{{data.TotalQtyScan}} / {{data.TotalQty}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'SOPacking.TotalUnitPackage' | translate}}:</span></td>
+				<td><label>{{data.TotalUnitPackage}} / {{data.TotalQty}}</label></td>
+			</tr>
+			<tr style="display: none;">
+				<td style="color: #ADADAD;"><span>{{'SOPacking.PickListStatus' | translate}}:</span></td>
+				<td><label>{{data.Status}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'SOPacking.PickListType' | translate}}:</span></td>
+				<td><label>{{data.Type}}</label></td>
+
+				<td></td>
+				<td></td>
+
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div>
+			<span style="font-size: medium; font-weight: bold; margin-bottom: 50px;">{{'SOPacking.TitleProductPacking' |
+				translate | uppercase}}</span>
+			<div style="margin-top: 10px;">
+				<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+			</div>
+		</div>
+	</div>
+</ng-template>
+<ng-template #detailContent>
+	<div [hidden]="!data.PickListCode">
+		<div class="col60">
+			<table class="app-table app-table-p">
+				<tr>
+					<td colspan="2"><span
+							style="font-size: large; font-weight: bold; margin-bottom: 30px;">{{'SOPacking.TitleSOInfo'
+							| translate | uppercase}}</span></td>
+				</tr>
+				<tr>
+					<td style="color: #ADADAD;"><span>{{'SOPacking.SOCode' | translate}}:</span></td>
+					<td><label>{{data.SOCode}}</label></td>
+
+					<td style="color: #ADADAD;"><span>{{'SOPacking.DOCode' | translate}}:</span></td>
+					<td><label>{{data.DOCode}}</label></td>
+				</tr>
+				<tr>
+					<td style="color: #ADADAD;"><span>{{'SOPacking.QtyScan' | translate}}:</span></td>
+					<td><label>{{data.TotalQtyScan}} / {{data.TotalQty}}</label></td>
+
+					<td style="color: #ADADAD;"><span>{{'SOPacking.SOType' | translate}}:</span></td>
+					<td><label class="{{data.SOTypeClass}}">{{data.SOType}}</label></td>
+				</tr>
+				<tr>
+					<td style="color: #ADADAD;"><span>{{'SOPacking.SKUScan' | translate}}:</span></td>
+					<td><label>{{data.TotalSKUScan}} / {{data.TotalSKU}}</label></td>
+					<td style="color: #ADADAD;"><span>{{'SOPacking.TotalUnitPackage' | translate}}:</span></td>
+					<td><label>{{data.TotalUnitPackage}} / {{data.TotalQty}}</label></td>
+				</tr>
+				<tr style="display: none;">
+					<td style="color: #ADADAD;"><span>{{'SOPacking.SOStatus' | translate}}:</span></td>
+					<td colspan="3"><label>{{data.SOStatus}}</label></td>
+				</tr>
+			</table>
+		</div>
+		<div class="col40">
+			<table class="app-table app-table-p">
+				<tr>
+					<td colspan="2"><span
+							style="font-size: large; font-weight: bold; margin-bottom: 30px;">{{'SOPacking.TitlePackageAndSOPacking'
+							| translate | uppercase}}</span></td>
+				</tr>
+				<tr>
+					<td>
+						<span style="color: #ADADAD;">{{'SOPacking.TotalPackage' | translate}}: <label
+								style="color: white;">{{data.TotalPackage}}</label> </span>
+					</td>
+					<td>
+
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col60">
+			<app-edit-table class="app-table" #appTableSO [configs]="tableSOConfig"></app-edit-table>
+		</div>
+		<div class="col40">
+			<app-edit-table class="app-table" #appTablePackage [configs]="tablePackageConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<div [hidden]="!IsPacking">
+			<button mat-button mat-raised-button [hidden]="AllowPacking && IsPacking" color="accent"
+				style="margin-top: 15px; margin-right: 15px;" (click)="printPointSummary()">
+				<mat-icon>print</mat-icon>
+				{{'SOPacking.PrintSOHandover' | translate}}
+			</button>
+			<button mat-button mat-raised-button [disabled]="!IsFinishPacking" color="accent"
+				style="margin-top: 15px; margin-right: 15px;" (click)="onClickPrintInventoryDeliveryByPacking()">
+				<mat-icon>print</mat-icon>
+				{{'SOPacking.PrintInventoryDeliveryByPacking' | translate}}
+			</button>
+			<button mat-button mat-raised-button [disabled]="!IsFinishPacking" color="accent"
+				style="margin-top: 15px; margin-left: 15px;" (click)="finishPacking()">
+				{{'SOPacking.finishPackingTask' | translate}}
+			</button>
+		</div>
+	</div>
+</ng-template>

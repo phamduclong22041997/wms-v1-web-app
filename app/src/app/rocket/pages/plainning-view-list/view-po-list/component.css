@@ -1,0 +1,28 @@
+.header-summary {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.header-summary .summary-item {
+    min-width: 15%;
+    display: inline-block;
+    padding-top: 7px;
+    padding-left: 15px;
+}
+
+.header-summary .summary-item:first-child {
+    padding-left: 2px;
+}
+
+.summary-item-button {
+    float: right;
+}
+
+.tab-container {
+    padding-top: 12px;
+}
+
+.hiden {
+    display: none;
+}

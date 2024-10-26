@@ -1,0 +1,6 @@
+.header-down-icon, .header-close-icon {
+    cursor: pointer;
+}
+.app-filter-row .app-filter-item .mat-form-field-wrapper {
+    width: 100%;
+}

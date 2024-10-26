@@ -1,0 +1,84 @@
+<app-page>
+	<app-page-header title="{{ 'filter_title' | translate | uppercase }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<app-page>
+	<app-page-header title="{{ 'LostFound.FoundListTitle' | translate | uppercase}}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<div #form layout="column">
+		<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.Client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="6" title="{{'FinishPo.Client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.FromDate' | translate}}:</span></label>
+				<app-datepicker tabindex="2" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+				<app-combo #whBranch class="app-combo" tabindex="4" [configs]="whBranchConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.ToDate' | translate}}:</span></label>
+				<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.Location' | translate}}:</span></label>
+				<app-combo #bin class="app-combo" tabindex="2" title="{{'LostFound.BinPlaceholder' | translate}}"
+					[configs]="binConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.Status' | translate}}:</span></label>
+				<app-combo #status class="app-combo" tabindex="4" title="{{'LostFound.Status' | translate}}"
+					[configs]="statusConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.PalletCode' | translate}}:</span></label>
+				<app-combo #pallet class="app-combo" tabindex="4" title="{{'LostFound.PalletPlaceholder' | translate}}"
+					[configs]="palletConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'LostFound.Keyword' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #content tabindex="1" (change)="onChange($event)" (keyup.enter)="onEnter($event)"
+						placeholder="{{'LostFound.KeywordPlaceholder' | translate}}" matInput autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+
+			<mat-grid-tile></mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-right" style="width: 100%">
+					<button type="button" color="accent" (click)="search($event)" mat-raised-button tabindex="9">
+						<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+					</button>
+					<button type="button" color="accent" (click)="addNew($event)" mat-raised-button tabindex="9">
+						<mat-icon>add</mat-icon>{{'btn_create' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</div>
+</ng-template>

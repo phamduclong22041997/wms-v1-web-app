@@ -1,0 +1,75 @@
+<app-page-session>
+	<app-page-session-header title="{{'Report.IssueTitle' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="2" rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content name="Content" tabindex="1" [(ngModel)]="filters.Content"
+							placeholder="{{ 'Report.BinInventoryKeyword' | translate}}" matInput
+							(keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Pickingwave.Status' | translate}}:</span></label>
+					<app-combo #issueStatus class="app-combo" tabindex="2"
+						title="{{'Pickingwave.Status' | translate}}"
+						[configs]="issueStatusConfig">
+					</app-combo>
+				</mat-grid-tile>
+				
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Pickingwave.FromDate' | translate}}:</span></label>
+					<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #fromDate>
+					</app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Pickingwave.ToDate' | translate}}:</span></label>
+					<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'Report.IssueType' | translate}}:</span></label>
+					<app-combo #issueType class="app-combo" tabindex="6"
+						title="{{'Pickingwave.Status' | translate}}"
+						[configs]="issueTypeConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="6"
+						title="{{'client' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile colspan="2">
+					<div class="app-btn-row-right" style="width: 100%;">	
+						<button color="accent" (click)="search($event)" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+						<button color="accent" (click)="exportExcel($event)" mat-raised-button tabindex="10">
+							<mat-icon>file_download</mat-icon>{{'btn_export' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

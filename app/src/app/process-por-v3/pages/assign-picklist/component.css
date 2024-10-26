@@ -1,0 +1,10 @@
+.app-table {
+    width: 100%;
+    display: inline-grid;
+}
+
+.app-label {
+    width: 130px;
+    min-width: 130px;
+    max-width: 150px;
+}

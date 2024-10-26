@@ -1,0 +1,120 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div #sidebar class="main-container" [dir]="dir"
+    [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark, 'eyellow': eyellow }">
+    <!-- ============================================================== -->
+    <!-- Topbar - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <mat-toolbar id="app-header" color="primary" class="topbar telative">
+        <!-- ============================================================== -->
+        <!-- Logo - style you can find in header.scss -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a id="navbarbrand" class="navbar-brand" href="{{baseUrl}}">
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span fxShow="false" fxShow.gt-xs>
+                    <!-- dark Logo text -->
+                    <img src="assets/images/logo.png" alt="homepage" class="dark-logo">
+                    <!-- Light Logo text -->
+                    <img src="assets/images/logo/logo.png" class="light-logo" alt="homepage">
+                </span>
+            </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- sidebar toggle -->
+        <!-- ============================================================== -->
+
+        <button mat-icon-button (click)="toggleSidenav()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <!-- ============================================================== -->
+        <!-- app header component - style you can find in header.scss / header.component.ts-->
+        <!-- ============================================================== -->
+        <app-header></app-header>
+        <!-- ============================================================== -->
+        <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
+        <!-- ============================================================== -->
+        <!-- <button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
+            <mat-icon>settings</mat-icon>
+        </button> -->
+    </mat-toolbar>
+    <!-- ============================================================== -->
+    <!-- End Topbar - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+        [ngClass]="{'minisidebar': minisidebar}">
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
+            [ngStyle]="{'width': toggleActive ? '240px' : '47px' }" [opened]="mobileQuery.matches"
+            [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true" (close)="sidebarOpened = false"
+            [perfectScrollbar]="config">
+
+            <app-sidebar class="app-sidebar" [toggleActive]="toggleActive" (onToggleChange)="onToggleChange($event)">
+            </app-sidebar>
+
+        </mat-sidenav>
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar - style you can find in rightsidebar.component.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+            <div class="scroll">
+                <mat-nav-list>
+
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
+                    <mat-list-item>
+                        <mat-slide-toggle color="warn" (change)="dir = (dir == 'rtl' ? 'ltr' : 'rtl')">RTL
+                        </mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-slide-toggle color="warn" [(ngModel)]="boxed">Boxed Layout</mat-slide-toggle>
+                    </mat-list-item>
+                    <!--<mat-list-item>
+                    <mat-slide-toggle [(ngModel)]="minisidebar">Mini Sidebar</mat-slide-toggle>
+                  </mat-list-item>    -->
+                    <mat-divider></mat-divider>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Colors</h3>
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="danger" (change)="green = blue = false"
+                            class="text-danger">Red</mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="green" (change)="danger = blue = false"
+                            class="text-megna">Teal
+                            Green</mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="blue" (change)="green = danger = false"
+                            class="text-info">Blue</mat-checkbox>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-checkbox color="warn" [(ngModel)]="dark" (change)="green = blue = danger = false">Dark
+                        </mat-checkbox>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+        </mat-sidenav>
+
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav-content class="page-wrapper" [ngStyle]="{'margin-left': !toggleActive ? '47.5px' : '240px' }">
+            <app-breadcrumb></app-breadcrumb>
+            <div class="page-content">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>
+            </div>
+        </mat-sidenav-content>
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+    </mat-sidenav-container>
+</div>

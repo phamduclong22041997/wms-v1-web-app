@@ -1,0 +1,49 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'Rocket.UploadSTO' | translate | uppercase}}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<div class="app-btn-row" style="margin-top: 15px;">
+	<button (click)="backToList($event)" mat-flat-button color="accent"
+		style="color: white; margin-bottom: 40px;">{{'btn_back' | translate}}</button>
+</div>
+
+<ng-template #mainContent>
+	<div style="padding-top: 10px;">
+		<span style="margin-right: 25px;">Tổng cửa hàng: {{totalStore}}</span>
+		<span style="margin-right: 25px;">Tổng số sản phẩm: {{totalSKU}}</span>
+		<span style="margin-right: 25px;">Tổng số Units: {{totalUnits}}</span>
+	</div>
+	<div class="tab-container" style="padding-top: 12px;">
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="4" rowHeight="60px" gutterSize="15px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<input style="display:none" #inputFile id="inputFile" type="file"
+					(change)="checkUploadFile($event.target.files)">
+				<label class="label-input-block" for="inputFile">
+					<span class="span-input-txt">{{nameFileUpload}}</span>
+					<span class="span-input-upload">{{'UploadSTO.SelectSTOSet' | translate}}</span>
+				</label>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<div class="app-btn-row-left" style="width: 100%;margin-top: 5px;">
+					<button class="button-upload-sto" name="btn" color="accent" (click)="confirm($event)"
+						mat-raised-button>{{'btn_upload' | translate | uppercase}}</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

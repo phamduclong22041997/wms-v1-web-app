@@ -1,0 +1,39 @@
+<app-page-session>
+    <app-page-session-header title="{{'RocketPlanning.PO' | translate | uppercase}}"></app-page-session-header>
+    <mat-card-content>
+        <ng-container *ngTemplateOutlet="mainContent"></ng-container>
+    </mat-card-content>
+</app-page-session>
+
+
+<ng-template #mainContent>
+	<div class="tab-container">		
+		<form #formTK layout="column">
+			<mat-grid-list cols="6" rowHeight="40px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.Client' | translate}}:</label>
+					<app-combo #clientCombo class="app-combo" tabindex="1"
+						title="{{'RocketPlanning.Client' | translate}}" [configs]="clientConfig"></app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label-top p-14">{{'RocketPlanning.StoreType' | translate}}</label>
+					<app-combo #typeComboTK class="app-combo" title="{{'RocketPlanning.StoreType' | translate}}" tabindex="1"
+						[configs]="typeConfigTK"></app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile colspan='2'>
+                    <label class="app-label-top p-14">{{'RocketPlanning.PromotionCode' | translate}}:</label>
+                    <app-combo #ctkmComboTK class="app-combo" title="{{'RocketPlanning.PromotionCode' | translate}}"
+                        [configs]="ctkmComboConfigTK"></app-combo>
+                </mat-grid-tile>							
+				<mat-grid-tile>
+					<div class="app-btn-row-left" style="width: 100%;">
+						<button class="button-po" color="accent" (click)="onSearchTK()"
+							mat-raised-button><mat-icon>search</mat-icon>{{'btn_search' | translate}}</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</form>
+		<hr>
+		<app-edit-table class="app-table cs-mat-table" #appTableTK [configs]="tableConfigTK"></app-edit-table>
+	</div>
+</ng-template>

@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <h2>Bạn có chắc muốn import file chia chọn?</h2>
+  <p><strong>Kho</strong>: {{data.Warehouse}}</p>
+  <p><strong>File chia chọn</strong>: {{data.STOSet}}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div>
+  <div mat-dialog-title ngClass="title-confirm">
+    <div>{{ (data.title || 'HỦY') | translate | uppercase}}</div>
+  </div>
+  <div mat-dialog-content>
+    <div *ngFor="let item of data.Items" style="padding-top: 10px; padding-bottom: 10px;">
+      <span>{{item.Key}}: </span>
+      <span style="margin-left: 15px;">{{item.Val}}</span>
+    </div>
+    
+    <div #form layout="column">
+      <label>{{'note' | translate}}:</label>
+      <mat-form-field class="text-full-width" appearance="fill">
+        <textarea placeholder="Nhập ghi chú hủy" matInput class="app-input" name="noteContent"
+          [(ngModel)]="noteContent"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_yes' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

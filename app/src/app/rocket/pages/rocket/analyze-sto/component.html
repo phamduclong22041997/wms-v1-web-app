@@ -1,0 +1,42 @@
+<ng-template #dialogTitle>
+  <span class="app-title">{{'Rocket.ProcessSTOSets' | translate}}</span>
+</ng-template>
+
+<ng-template #headerContent>
+  <div class="header-container" style="display:inline-block;line-height: 28px;">
+    <span style="display: grid;">Kho xử lý: {{warehouse}}</span>
+    <span>Tổng số SO: {{totalSO}}</span>
+    <span style="margin-left: 25px;">Tổng số Units: {{totalUnits}}</span>
+  </div>
+  <!-- <div class="header-container" style="display:inline-flex;">
+    <span style="width: 120px;margin-bottom: auto;margin-top: auto;">{{'Rocket.Warehouse' | translate}}</span>
+    <app-combo #whCombo class="app-combo" title="{{'RocketPlanning.Warehouse' | translate}}" [configs]="whConfig"></app-combo>
+  </div> -->
+</ng-template>
+
+<ng-template #tableContent>
+  <div class="app-table">
+    <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+  </div>
+</ng-template>
+
+<div mat-dialog-content>
+  <div class="container">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="importRocket()" cdkFocusInitial>{{
+      'Rocket.ProcessSTOBtn' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="accent" (click)="exportSTO()">{{ 'Rocket.ExportSTOBtn' |
+      translate:{Default: "No"}
+      }}</button>
+    <button class="custom-button" mat-flat-button color="warn" (click)="onCancelClick()">{{ 'btn_close' |
+      translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

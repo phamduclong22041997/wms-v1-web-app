@@ -1,0 +1,37 @@
+<ng-template #dialogTitle>
+  <span class="app-title">CHỌN MÁY IN</span>
+</ng-template>
+
+<ng-template #tableContent>
+  <div #form layout="column">
+		<div>
+			<mat-grid-list cols="1" rowHeight="80px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<app-combo #printer class="app-combo" tabindex="1" title="{{'select' | translate}}"
+						[configs]="printerConfig">
+					</app-combo>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+		</div>
+	</div>
+</ng-template>
+
+<div mat-dialog-content>
+  <div class="container">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onSelect()" cdkFocusInitial
+      [disabled]="!allowSave">{{
+      'btn_confirm' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="warn" (click)="onOkClick()">{{ 'btn_close' |
+      translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="form-reset-password">
+  <h4 class="header-form-title">
+    {{ 'ResetPassword.Title' | translate }}</h4>
+  <mat-dialog-content class="mat-typography" color='accent'>
+    <div>
+      <div style="margin-top: 10px;">
+        <mat-form-field appearance="outline" class="app-input">
+          <mat-label>{{'ResetPassword.OldPassword' | translate}} <span class="start-red">*</span></mat-label>
+          <input matInput #oldPassword name="oldPassword" tabindex="1" maxlength="30" (keydown.enter)="focusEmptyInput()"
+            [type]="hideOldPsw ? 'text' : 'password'" [(ngModel)]="formInfo.oldPassword">
+          <span style="color:gray; cursor: pointer;" matSuffix (click)="hideOldPsw = !hideOldPsw"
+            [attr.aria-label]="'Hide old password'" [attr.aria-pressed]="hideOldPsw">
+            <mat-icon>{{hideOldPsw ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </span>
+        </mat-form-field>
+      </div>
+      <div style="margin-top: 10px;">
+        <mat-form-field appearance="outline" class="app-input">
+          <mat-label>{{'ResetPassword.NewPassword' | translate}} <span class="start-red">*</span></mat-label>
+          <input matInput #newPassword name="newPassword" tabindex="2" maxlength="30" (keydown.enter)="focusEmptyInput()"
+            [type]="hideNewPsw ? 'text' : 'password'" [(ngModel)]="formInfo.newPassword">
+          <span style="color:gray; cursor: pointer;" matSuffix (click)="hideNewPsw = !hideNewPsw"
+            [attr.aria-label]="'Hide new password'" [attr.aria-pressed]="hideNewPsw">
+            <mat-icon>{{hideNewPsw ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </span>
+        </mat-form-field>
+      </div>
+      <div style="margin-top: 10px;">
+        <mat-form-field appearance="outline" class="app-input">
+          <mat-label>{{'ResetPassword.ConfirNewPassword' | translate}} <span class="start-red">*</span></mat-label>
+          <input matInput #confirNewPassword name="confirNewPassword" tabindex="3" maxlength="30" (keydown.enter)="focusEmptyInput()"
+            [type]="hideConfirmPsw ? 'text' : 'password'" [(ngModel)]="formInfo.confirNewPassword">
+          <span style="color:gray; cursor: pointer;" matSuffix (click)="hideConfirmPsw = !hideConfirmPsw"
+            [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirmPsw">
+            <mat-icon>{{hideConfirmPsw ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </span>
+        </mat-form-field>
+      </div>
+      <div class="examplePassword">
+        {{examplePassword}}
+      </div>
+    </div>
+    <div class="app-btn-row" style="text-align: center;margin-top: 20px;">
+      <button style="width: 100%; margin-left: 0; height: 50px;" (click)="changePassword($event)" mat-raised-button
+        color="accent">{{'btn_change_password' | translate}}</button>
+    </div>
+  </mat-dialog-content>
+</div>

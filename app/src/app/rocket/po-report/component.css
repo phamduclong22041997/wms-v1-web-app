@@ -1,0 +1,4 @@
+.app-input{min-width: 100px;}
+ ::ng-deep .cs-mat-table .mat-row:last-child .mat-cell{
+    background-color: #030303 !important;
+} 

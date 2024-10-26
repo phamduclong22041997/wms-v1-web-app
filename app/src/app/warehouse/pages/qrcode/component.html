@@ -1,0 +1,50 @@
+<app-page>
+	<app-page-header title="Tạo mã QRCode theo mã DC Site(SAP)"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<div style="height: 320px; padding-top: 20px;">{{data.DecryptContent}}
+		<div *ngIf="!data.IsExpired && data.timerID">Mã QRCode sẽ hết hiệu lực sau: <span>{{ data.countTimeText }}</span> giây</div>
+		<div style="display: flex;justify-content: center;align-items: center;">
+			<div *ngIf="data.IsExpired" style="color: red;font-weight: 700;position: absolute;width: 256px;height: 256px;background: #333;opacity: 0.9;vertical-align: middle;display: flex;justify-content: center;align-items: center;">
+				<p>QRCode đã hết hiệu lực. <br/>Vui lòng tạo mã khác!</p>
+			</div>
+			<qrcode [qrdata]="data.Content" [width]="256" [errorCorrectionLevel]="'M'" [scale]="1"></qrcode>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="1"
+					title="{{'client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+				<app-combo #dcCombo class="app-combo" tabindex="2" title="{{'DCSite' | translate}}"
+					[configs]="dcConfig">
+				</app-combo>
+			</mat-grid-tile>	
+
+			<mat-grid-tile>
+				<div class="app-btn-row-left" style="margin-left: 10px; width: 100%">
+					<button color="accent" (click)="createQRCode()" mat-raised-button tabindex="3">
+						{{'Tạo QRCode' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>

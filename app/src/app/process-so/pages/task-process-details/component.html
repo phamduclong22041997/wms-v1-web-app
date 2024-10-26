@@ -1,0 +1,73 @@
+<app-page-session>
+	<app-page-session-header subTitle="{{Code}}"
+		title="{{'TaskProcess.TitleDetail' | translate | uppercase}}: ">
+	</app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="infoImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainImportContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>
+
+<ng-template #infoImportContent>
+	<mat-grid-list cols="3" rowHeight="35px" gutterSize="10px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.Code' | translate}}:</label>
+			<label class="p-10">{{ data.Code }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.TaskType' | translate}}:</label>
+			<label class="p-10">{{'TaskProcessType.' + data.TaskType | translate}}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.Status' | translate}}:</label>
+			<label class="p-10">{{'TaskProcessStatus.' + data.Status | translate}}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.TotalSO' | translate}}:</label>
+			<label class="p-10">{{ data.TotalSO }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.TotalSucess' | translate}}:</label>
+			<label class="p-10">{{ data.TotalSucess }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.TotalError' | translate}}:</label>
+			<label class="p-10">{{ data.TotalError }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.CreatedDate' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedDate }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.Note' | translate}}:</label>
+			<label class="p-10">{{ data.Note }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'TaskProcess.CreatedBy' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedBy }}</label>
+		</mat-grid-tile>
+
+	</mat-grid-list>
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<span [hidden]="!allowCancel">
+			<button (click)="showConfirmCancel($event)" mat-flat-button color="accent"
+				style="color: white; margin-bottom: 40px;">{{'TaskProcess.Cancel' | translate}}</button>
+		</span>
+		<button (click)="goToBack($event)" mat-flat-button
+			style="color: white; margin-bottom: 40px;">{{'btn_back' | translate }}</button>
+	</div>
+</ng-template>

@@ -1,0 +1,26 @@
+# Warehouse
+eft_warehouse_list:
+    path: /api/warehouse/list
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:getList }
+
+eft_warehouse_getone:
+    path: /api/warehouse/getone
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:getOne }
+
+eft_warehouse_type_combo:
+    path: /api/warehousetype/combo
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:getWarehouseTypeCombo }
+
+eft_warehouse_function_combo:
+    path: /api/warehousefunction/combo
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:getWarehouseFunctionCombo }
+
+eft_warehouse_position_combo:
+    path: /api/warehouseposition/combo
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:getWarehousePositionCombo }
+
+eft_warehouse_save:
+    path: /api/warehouse/save
+    methods: POST
+    defaults: { _controller: EFTWarehouseBundle:Warehouse:save }
+# Warehouse

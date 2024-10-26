@@ -1,0 +1,20 @@
+<span mat-dialog-title style="margin-bottom: 5px; text-transform: uppercase; text-align: center;">
+	{{'area.title' | translate}}</span>
+<mat-dialog-content class="mat-typography" style="padding: 20px;">
+	<div class="table-config">
+		<mat-form-field appearance="fill">
+			<mat-label>{{'area.title' | translate}}</mat-label>
+			<mat-select name="area" (selectionChange)="setRegion($event)" [(ngModel)]="selected.Code">
+				<mat-option *ngFor="let item of optionData" [value]="item.Code">
+					{{item.Name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+</mat-dialog-content>
+<div class="app-btn-row-center" style="width: 100%; text-align: center;">
+	<button style="margin-right: 10px; margin-top: 10px;" color="accent" (click)="close()" mat-raised-button
+		[disabled]="!selected.Code">
+		{{'area.btn_choose' | translate}}
+	</button>
+</div>

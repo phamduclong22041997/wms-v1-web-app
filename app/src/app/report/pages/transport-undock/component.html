@@ -1,0 +1,56 @@
+<app-page>
+	<div>
+		<app-page-header title="{{ 'Report.TransportUndockTitle' | translate }}"></app-page-header>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		</mat-card-content>
+	</div>
+</app-page>
+
+<ng-template #headerContent>
+	<form #form layout="column">
+		<mat-grid-list cols="3" class="transport-undock-list" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{ 'Report.KeywordLabel' | translate }}:</span></label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #inputNumber name="LocationLabel" tabindex="1" [(ngModel)]="filters.LocationLabel" (keyup.enter)="onEnter($event)"
+						placeholder="{{'Report.KeywordHolder' | translate}}" matInput autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-10"><span>{{'FinishPo.Client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="2" title="{{'client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile></mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-14"><span>{{'FinishPo.FromDate' | translate}}:</span></label>
+				<app-datepicker tabindex="3" class="app-datepicker" [options]="configDate" #fromDate></app-datepicker>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-10"><span>{{'FinishPo.ToDate' | translate}}:</span></label>
+				<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<div class="app-btn" style="width: 100%;">
+					<button style="margin-right: 5px;" type="button" color="accent" (click)="search($event)" mat-raised-button tabindex="2">
+						<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+					</button>
+					<button *ngIf="isExport" style="margin-right: 10px;" type="button" color="accent" (click)="exportExcel($event)" mat-raised-button tabindex="4">
+						<mat-icon>file_download</mat-icon>{{'Print.Export' | translate}}
+					</button>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+</ng-template>
+
+<ng-template #mainContent>
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

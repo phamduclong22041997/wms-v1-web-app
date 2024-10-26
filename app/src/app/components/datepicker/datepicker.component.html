@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <input #ref
+      name={{datePickerName}} 
+      matInput 
+      [min]="minDate"
+      [max]="maxDate"
+      tabindex={{tabindex}} 
+      [matDatepicker]="fd" 
+      [formControl]="formDate" 
+      [(ngModel)]="formDateValue"
+      autocomplete="off"
+      (change)="changeDate($event)"
+      (dateChange)="selectedDate($event)"
+      (dateInput)="orgValueChange(ref.value)"
+      [readonly]="isReadonly"
+      (options)="options"
+      required={{required}}
+      placeholder="{{placeholder}}"
+  >
+  <mat-datepicker-toggle matSuffix [for]="fd"></mat-datepicker-toggle>
+  <mat-datepicker #fd></mat-datepicker>
+</mat-form-field>

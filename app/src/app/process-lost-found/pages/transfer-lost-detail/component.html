@@ -1,0 +1,67 @@
+<app-page-session>
+	<mat-card-content>
+		<app-page-header title="{{'TransferLost.TitleTransferLostDetail' | translate }}"></app-page-header>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<div class="app-btn-row" style="width: 100%; padding-top: 20px">
+			<button type="button" (click)="onClickExit($event)" mat-raised-button tabindex="9">
+				{{'btn_exit' | translate}}
+			</button>
+		</div>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div #form layout="column">
+		<mat-grid-list cols="4" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.TransferLostCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.Code}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.LostCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.LostCode}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.PhysicallyLostCode' | translate}}:</span></label>
+				<label class="app-label-content">{{data.PhysicallyLostCode}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+				<label class="app-label-content">{{data.ClientCode}}</label>
+			</mat-grid-tile>
+			
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.CreatedDate' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CreatedDate}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.LocationLabel' | translate}}:</span></label>
+				<label class="app-label-content">{{data.LocationLabel}}</label>
+			</mat-grid-tile>
+			
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.NewLocationLabel' | translate}}:</span></label>
+				<label class="app-label-content">{{data.NewLocationLabel}}</label>
+			</mat-grid-tile>
+			<!----->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.BranchWH' | translate}}:</span></label>
+				<label class="app-label-content">{{data.DCSite}}</label>
+			</mat-grid-tile>
+			<!---->
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'TransferLost.CreatedBy' | translate}}:</span></label>
+				<label class="app-label-content">{{data.CreatedBy}}</label>
+			</mat-grid-tile>
+			<!----->
+		</mat-grid-list>
+	</div>
+	<app-edit-table class="app-table" #appTable [configs]="appTableConfig"></app-edit-table>
+</ng-template>

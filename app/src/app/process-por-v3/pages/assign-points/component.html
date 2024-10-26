@@ -1,0 +1,81 @@
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerImportContent"></ng-container>
+	</mat-card-content>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainImportContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #headerImportContent>
+	<div #form layout="column">
+		<div>
+			<mat-grid-list cols="3"  rowHeight="30px" gutterSize="15px" flex-gt-sm="100">
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'filter_keyword' | translate}}:</span></label>
+					<mat-form-field appearance="outline" class="app-input">
+						<input #content (change)="onChange($event)" tabindex="7"
+							placeholder="{{ 'AssignPointsPOR.KeywordPlaceholder' | translate}}" matInput
+							(keyup.enter)="onEnter($event)" autocomplete="off">
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'province' | translate}}:</span></label>
+					<app-combo #province class="app-combo" tabindex="3" title="{{'select' | translate}}"
+						[configs]="provinceConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'district' | translate}}:</span></label>
+					<app-combo #district class="app-combo" tabindex="6" title="{{'select' | translate}}"
+						[configs]="districtConfig">
+					</app-combo>
+				</mat-grid-tile>
+
+
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+					<app-combo #client class="app-combo" tabindex="1" title="{{'select' | translate}}"
+						[configs]="clientConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'POR.Vendor' | translate}}:</span></label>
+					<app-combo #vendor class="app-combo" tabindex="4" title="{{'select' | translate}}"
+						[configs]="vendorConfig">
+					</app-combo>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPointsPOR.Status' | translate}}:</span></label>
+					<app-combo #sostatus class="app-combo" tabindex="8" title="{{'select' | translate}}"
+						[configs]="soStatusConfig">
+					</app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile>
+					<label class="app-label p-5-10"><span>{{'AssignPointsPOR.PackedLocation' | translate}}:</span></label>
+					<app-combo #points class="app-combo" tabindex="8" title="{{'select' | translate}}"
+						[configs]="pointsConfig">
+					</app-combo>
+				</mat-grid-tile>
+
+				<mat-grid-tile [colspan]="2">
+					<div class="app-btn-row-right" style="width: 100%;">
+						<button color="accent" (click)="showAssignGatheredPoint($event)" mat-raised-button>{{'AssignPointsPOR.BtnAddNew' | translate}}</button>
+						<button color="accent" (click)="search()" mat-raised-button tabindex="9">
+							<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+						</button>
+					</div>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #mainImportContent>
+	<div >
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+</ng-template>

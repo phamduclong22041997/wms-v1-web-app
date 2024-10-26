@@ -1,0 +1,82 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+.app-table {
+    width: 100%;
+    padding: 15px 0;
+}
+.app-label {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+}
+::ng-deep .dark .mat-grid-tile {
+    min-height: 70px !important;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+    justify-content: left !important;
+}
+
+::ng-deep .mat-tab-header {
+    padding-left: 15px !important;
+}
+
+::ng-deep .mat-tab-header div div div div {
+    background-color: #1F1F1F;
+    border-radius: 5px 5px 0 0;
+}
+
+::ng-deep .mat-tab-header div div div div:first-child {
+    margin: 0 5px 0 15px;
+}
+
+::ng-deep .mat-tab-header div div div div div {
+    background-color: transparent;
+}
+
+::ng-deep .mat-tab-body .mat-tab-body-content .ng-star-inserted .mat-card {
+    margin-top: 0px!important;
+}
+.app-table-p td{
+    line-height: 30px;
+}
+.bt-button{
+    display: inline-block;
+    text-align: center;
+    width: 100%
+}
+.bt-button .app-btn-row{
+    display: inline-block
+}
+
+.mat-grid-tile{
+    min-height: 40px !important;
+}
+.mat-card-content{
+    margin-bottom: 0;
+}
+.p-5-10{
+    padding:  5px 10px;
+}
+.green-color{
+    color: green;
+}
+.col50{
+    width: calc(1 * ((50% - 0.5px) * 1));
+    display: inline-block;
+    padding-right: 20px;
+    vertical-align: top;
+}  
+@media screen and (max-width:1200px) {
+    ::ng-deep .app-label{
+        min-width: 120px;
+    }
+    ::ng-deep .mat-form-field-infix{
+        width: auto !important;
+    }
+    ::ng-deep .app-input{
+        max-width: 180px;
+        width: 180px;
+    }
+}

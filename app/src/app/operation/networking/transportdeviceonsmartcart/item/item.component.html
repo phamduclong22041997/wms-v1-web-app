@@ -1,0 +1,95 @@
+<mat-card class="app-model-card">
+	<mat-card-header>
+		<mat-card-subtitle *ngIf="!isView">
+			<div appTranslator>Điền thông tin vào form bên dưới để hoàn thành việc tạo mới thiết bị vận chuyển trên xe
+				đẩy.</div>
+			<div>(<span class="input-required">*</span>) <span appTranslator> Là thông tin bắt buộc.</span></div>
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form *ngIf="!isView">
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput appInputForm autoFocus name="bincode" [formControl]="formValidator.BinCode"
+							tabindex="1" (ngModelChange)="onChangeBin($event)" placeholder="Mã Bin" required
+							value={{data.bincode}} autoUppercase />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput appInputForm name="smartcartcode" value={{data.smartcartcode}} readonly
+							placeholder="Mã smart cart" />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxLayout="row" fxFlexAlign="center center">
+						<div fxFlex.lt-sm="100" fxFlex class="p-10">
+							<mat-form-field>
+								<input matInput appInputForm name="configuration" value={{data.configuration}} readonly
+									placeholder="Cấu hình xe" />
+							</mat-form-field>
+						</div>
+						<div fxFlex.lt-sm="100" fxFlex class="p-10">
+							<mat-form-field>
+								<input matInput appInputForm name="purposeusing" value={{data.purposeusing}} readonly
+									placeholder="Mục đích sử dụng" />
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput appInputForm name="transportdevicecode" tabindex="2"
+							[formControl]="formValidator.TransportDeviceCode"
+							(ngModelChange)="onChangeTransport($event)" placeholder="Mã thiết bị vẫn chuyển" required
+							value={{data.transportdevicecode}} autoUppercase />
+					</mat-form-field>
+				</div>
+			</div>
+		</form>
+		<mat-list *ngIf="isView">
+			<mat-list-item>
+				<div class="app-transportdeviceonsmartcart-view" appTranslator>Mã Bin: </div>
+				<div> {{ data.bincode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdeviceonsmartcart-view" appTranslator>Mã smart cart: </div>
+				<div> {{ data.smartcartcode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdeviceonsmartcart-view" appTranslator>Cấu hình xe: </div>
+				<div> {{ data.configuration}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdeviceonsmartcart-view" appTranslator>Mục đích sử dụng: </div>
+				<div> {{ data.purposeusing}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdeviceonsmartcart-view" appTranslator>Mã thiết bị vẫn chuyển: </div>
+				<div> {{ data.transportdevicecode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+		</mat-list>
+	</mat-card-content>
+	<mat-card-actions *ngIf="!isView">
+		<div fxLayout="row" fxFlexAlign="center center">
+			<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+				<div class="button-row">
+					<button mat-flat-button color="accent" (click)="onSaveClick()" disabled={{!formValid}}
+						cdkFocusInitial appTranslator>Lưu</button>
+				</div>
+			</div>
+		</div>
+	</mat-card-actions>
+</mat-card>

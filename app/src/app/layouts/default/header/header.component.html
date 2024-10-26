@@ -1,0 +1,76 @@
+<mat-menu #message="matMenu" class="mymessage">
+    <div class="mailbox">
+        <ul>
+            <li>
+                <div class="drop-title">You have 4 new Mymessages</div>
+            </li>
+            <li>
+                <div class="message-center">
+                    <perfect-scrollbar [config]="config">
+                        <!-- Message -->
+                        <a href="#" *ngFor="let mymessage of mymessages">
+                            <div class="user-img">
+                                <img src="{{mymessage.useravatar}}" alt="user" class="img-circle" width="40">
+                                <span class="profile-status {{mymessage.status}} pull-right"></span>
+                            </div>
+                            <div class="mail-content">
+                                <h5>{{mymessage.from}}</h5>
+                                <span class="mail-desc">{{mymessage.subject}}</span>
+                                <span class="time">{{mymessage.time}}</span>
+                            </div>
+                        </a>
+                        <!-- Message -->
+                    </perfect-scrollbar>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-menu>
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+
+<!-- <button [matBadge]="numberNotification" [matMenuTriggerFor]="notification" mat-icon-button class="m-r-5">
+    <img src="assets/images/bell.png" alt="user" class="profile-pic">
+</button> -->
+
+<!-- <mat-menu #notification="matMenu" class="mymegamenu">
+    <mat-list role="list" *ngFor="let item of soPackedStatus" style="cursor: pointer;">
+        <mat-list-item role="listitem" (click)="showMore(item.SupraCode)">{{item.SupraCode}} đã hoàn thành lúc {{item.CreatedDate}}</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+     
+      <button mat-menu-item (click)="showMore()">
+         {{'show_more' | translate}} <mat-icon>arrow forward</mat-icon>   
+    </button>
+  
+</mat-menu> -->
+<span *ngIf="region?.Name">
+    <a (click)="openRegion(true)"
+        style="font-size: 14px;border: 1px solid #d0333a;padding: 5px;border-radius: 4px;margin-right: 15px;background: #d0333a;cursor: pointer;">
+        {{'area.title' | translate}}: {{region?.Name}}
+    </a>
+</span>
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
+    <img src="assets/images/no-image-user.png" alt="user" class="profile-pic">
+</button>
+<span style="font-size:15px;min-width: 70px;">{{displayName}}</span>
+<span *ngIf="warehouseInfo" style="font-size:15px;min-width: 70px;">{{warehouseInfo}}</span>
+<mat-menu #profile="matMenu" class="mymegamenu">
+    <!-- <button mat-menu-item>
+        <mat-icon>settings</mat-icon> Settings </button>
+    <button mat-menu-item>
+        <mat-icon>account_box</mat-icon> Profile </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon> Disable notifications </button> -->
+<button mat-menu-item (click)="openChangePassowrd()">
+    <mat-icon>lock</mat-icon> {{'btn_change_password' | translate}}
+</button>
+<button mat-menu-item (click)="onSelectPrinter($event)">
+    <mat-icon>printer</mat-icon> {{'setup_printer' | translate}}
+</button>
+    <button mat-menu-item (click)="onSignout($event)">
+        <mat-icon>exit_to_app</mat-icon> {{'logout' | translate}}
+    </button>
+</mat-menu>

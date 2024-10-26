@@ -1,0 +1,93 @@
+<div>
+	<app-page-session>
+		<mat-card-content>
+			<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		</mat-card-content>
+	</app-page-session>
+</div>
+
+<ng-template #mainContent>
+	<div>
+		
+		<table class="app-table app-table-p">
+			<tr>
+				<td colspan="5">
+					<span style="font-size: medium; font-weight: bold; margin-top: 10px;">{{'AdjustProduct.TitleAdjustProduct' |
+						translate | uppercase}}</span>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 150px; color: #ADADAD;"><span>{{'AdjustProduct.AdjustCode' | translate}}:</span>
+				</td>
+				<td style="width: 300px;">
+					<label>
+						{{data.Code}}
+					</label>
+				</td>
+
+				<td style="width: 150px; color: #ADADAD;"><span>{{'AdjustProduct.AdjustDate' | translate}}:</span>
+				</td>
+				<td style="width: 300px;">
+					<label>
+						{{data.CreatedDate}}
+					</label>
+				</td>
+
+				<td></td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.Location' | translate}}:</span>
+				</td>
+				<td><label>{{data.Location}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.AdjustEmployee' | translate}}:</span>
+				</td>
+				<td>
+					<label>
+						{{data.Employee}}
+					</label>
+				</td>
+
+				<td></td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.Client' | translate}}:</span></td>
+				<td><label>{{data.ClientCode}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'DC Site' | translate}}:</span></td>
+				<td><label>{{data.DCSite}}</label></td>
+
+				<td></td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.SKU' | translate}}:</span></td>
+				<td><label>{{data.SKU}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.SKUName' | translate}}:</span></td>
+				<td colspan="2"><label>{{data.SKUName}}</label></td>
+			</tr>
+			<tr>
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.TotalUnitLocation' | translate}}:</span></td>
+				<td><label>	{{data.TotalLocation}} / {{data.TotalUnits}}</label></td>
+
+				<td style="color: #ADADAD;"><span>{{'AdjustProduct.LotNumber' | translate}}:</span></td>
+				<td><label>{{data.LotNumber}}</label></td>
+
+				<td></td>
+			</tr>
+		</table>
+		<div>
+			<span style="font-size: medium; font-weight: bold; margin-bottom: 50px;">{{'AdjustProduct.TitleLocationAdjust' |
+				translate | uppercase}}</span>
+			<div style="margin-top: 10px;">
+				<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+			</div>
+		</div>
+	</div>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<button mat-button mat-raised-button style="margin-top: 15px; margin-left: 15px;"
+			(click)="exit()">
+			{{'AdjustProduct.exit' | translate}}
+		</button>
+</div>
+</ng-template>

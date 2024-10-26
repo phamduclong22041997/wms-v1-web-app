@@ -1,0 +1,121 @@
+<mat-card class="app-model-card">
+	<mat-card-header>
+		<mat-card-subtitle *ngIf="!isView">
+			<div>{{configs.info}}</div>
+			<div>(<span class="input-required">*</span>) <span> {{configs.require}}</span></div>
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form *ngIf="!isView">
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input (blur)="inputValidator('FloorCode')" matInput appInputForm autoFocus name="floorcode" [formControl]="formValidator.FloorCode"
+							tabindex="1" placeholder={{configs.form.floorcode}} minlength="2" maxlength="2" required autoUppercase />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxFlex.xs="100" fxFlex class="p-10">
+						<mat-form-field>
+							<input (blur)="inputValidator('FloorName')" matInput appInputForm maxlength="50" name="floorname" [formControl]="formValidator.FloorName"
+								tabindex="2" placeholder={{configs.form.floorname}} required />
+						</mat-form-field>
+					</div>
+					<div fxFlex.xs="100" fxFlex class="p-10">
+						<mat-form-field>
+							<input matInput appInputForm name="floorname_en" maxlength="50"
+								[(ngModel)]="data.floorname_en"
+								(ngModelChange)="onChange($event)"
+								tabindex="3" placeholder={{configs.form.floorname_en}} />
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+					<app-combo #roomCombo value={{data.room.roomname}} tabindex="4"
+						[disabled]="isView || isEdit"
+						title={{configs.form.room}} [configs]="roomConfig" required=true>
+					</app-combo>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input (blur)="inputValidator('Acreage')" matInput appInputForm name="flooracreage" type="number"
+							min="1" max="100000" [formControl]="formValidator.Acreage" tabindex="5" placeholder={{configs.form.flooracreage}} required/>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input (blur)="inputValidator('Height')" matInput appInputForm name="floorheight" type="number"
+							min="1" max="500" [formControl]="formValidator.Height" tabindex="6" placeholder={{configs.form.floorheight}}  required/>
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+					<mat-checkbox name="status" tabindex="7" [(ngModel)]="data.status" (change)="statusHandle($event)">
+						{{configs.form.status}}  [{{statusText}}]</mat-checkbox>
+				</div>
+			</div>
+		</form>
+		<mat-list *ngIf="isView">
+			<mat-list-item>
+				<div class="app-floor-view">{{configs.form.floorcode}}: </div>
+				<div>{{data.floorcode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.floorname}}: </div>
+				<div>{{data.floorname}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.floorname_en}}: </div>
+				<div>{{data.floorname_en}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.room}}: </div>
+				<div>{{data.room.roomname}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.flooracreage}}: </div>
+				<div>{{data.flooracreage}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.floorheight}}: </div>
+				<div>{{data.floorheight}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>{{configs.form.status}}: </div>
+				<div>{{data.status ? "Active" : "Inactive"}}</div>
+			</mat-list-item>
+			<!-- <mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-floor-view" appTranslator>Notes: </div>
+				<div>{{data.notes}}</div>
+			</mat-list-item> -->
+		</mat-list>
+	</mat-card-content>
+	<mat-card-actions *ngIf="!isView">
+		<div fxLayout="row" fxFlexAlign="center center">
+			<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+				<div class="button-row">
+					<button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="!formValid"
+						cdkFocusInitial appTranslator>{{configs.form.save}}</button>
+				</div>
+			</div>
+		</div>
+	</mat-card-actions>
+</mat-card>

@@ -1,0 +1,181 @@
+<app-page-session>
+	<mat-card-content style="padding-top: 15px;">
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<!-- <app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+		<ng-container *ngTemplateOutlet="actionContain"></ng-container>
+	</mat-card-content>
+</app-page-session> -->
+
+<ng-template #mainContent>
+	<div class="tab-container">	
+		<mat-tab-group mat-align-tabs="start" animationDuration="0ms" class="mat-elevation-z4" dynamicHeight [selectedIndex]="tabIndexActive">
+			<mat-tab label="{{'FinishPo.Tabs.Summary' | translate}}">
+				<ng-container *ngTemplateOutlet="summaryContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="{{'FinishPo.Tabs.ReceiveSession' | translate}}">
+				<ng-container *ngTemplateOutlet="receiveSessionContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="{{'FinishPo.Tabs.POPallet' | translate}}">
+				<ng-container *ngTemplateOutlet="poPalletContent"></ng-container>
+			</mat-tab>
+			<mat-tab label="{{'FinishPo.Tabs.Document' | translate}}">
+				<ng-container *ngTemplateOutlet="documentContent"></ng-container>
+			</mat-tab>
+			<!-- <mat-tab label="{{'FinishPo.Tabs.History' | translate}}">
+				<ng-container *ngTemplateOutlet="historyContent"></ng-container>
+			</mat-tab> -->
+		</mat-tab-group>
+	</div>
+</ng-template>
+<ng-template #summaryContent>
+	<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+</ng-template>
+<ng-template #receiveSessionContent>
+	<div class="col50">
+		<app-page-session-header title="{{ 'FinishPo.ReceiveSessionTitle' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table receive-session" #receiveSessionTable [configs]="receiveConfig"></app-edit-table>
+	</div>
+	<div class="col50">
+		<app-page-session-header title="{{ 'FinishPo.ReceiveSessionSKUTitle' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #receiveSessionSKUTable [configs]="receiveSKUConfig"></app-edit-table>
+	</div>
+</ng-template>
+<ng-template #documentContent>
+	<div class="col50">
+		<app-page-session-header title="{{ 'FinishPo.ReceiveSessionTitle' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #receiveSessionDocTable [configs]="receiveDocConfig"></app-edit-table>
+		<div>
+			<input style="display:none" #inputFile id="inputFile" type="file"
+				(change)="checkUploadFile($event.target.files)">
+		</div>
+	</div>
+	<div class="col50">
+		<app-page-session-header title="{{ 'FinishPo.DocumentTitle' | translate }}"></app-page-session-header>
+		<app-edit-table class="app-table" #documentTable [configs]="documentConfig"></app-edit-table>
+	</div>
+</ng-template>
+<ng-template #poPalletContent>
+	<div>
+		<app-edit-table class="app-table" #palletTable [configs]="palletTableConfig"></app-edit-table>
+	</div>
+</ng-template>
+<!-- <ng-template #historyContent>
+	<h4>Lich su thay doi</h4>
+</ng-template> -->
+<ng-template #headerContent>
+	<mat-grid-list cols="3" rowHeight="35px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'FinishPo.SORCode' | translate}}:</label>
+			<label class="p-10">{{ data.POCode }}</label>			
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'FinishPo.ExternalCode' | translate}}:</span></label>
+			<label class="p-10" [ngStyle]="GRStyle">{{ data.ExternalCode }}</label>	
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'DCSite' | translate}}:</label>
+			<label class="p-10">{{ data.WarehouseSiteName }}</label>
+		</mat-grid-tile>	
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'FinishPo.StoreName' | translate}}:</span></label>
+			<label class="p-10">{{ data.StoreName }}</label>	
+		</mat-grid-tile>
+
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'FinishPo.SORType' | translate}}:</label>
+			<label class="p-10">{{ data.POType }} - {{data.Source }}</label>
+		</mat-grid-tile>	
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'FinishPo.ReceiveType' | translate}}:</label>
+			<label class="p-10">{{ data.ConditionType }}</label>			
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'FinishPo.ContactName' | translate}}:</span></label>
+			<label class="p-10">{{ data.ContactName }}</label>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'FinishPo.Status' | translate}}:</label>
+			<label class="p-10">{{ data.Status }}</label>	
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'FinishPo.ContactPhone' | translate}}:</span></label>
+			<label class="p-10">{{ data.ContactPhone }}</label>		
+		</mat-grid-tile>
+	
+
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'FinishPo.CreatedDate' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedDate }}</label>			
+		</mat-grid-tile>
+		<mat-grid-tile colspan="1">
+			<label class="app-label p-5-10">{{'FinishPo.EstReceiveDate' | translate}}:</label>
+			<label class="p-10">{{ data.EstReceiveDate }}</label>			
+		</mat-grid-tile>
+
+
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'FinishPo.CreatedBy' | translate}}:</label>
+			<label class="p-10">{{ data.CreatedBy }}</label>			
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'FinishPo.FinishedDate' | translate}}:</label>
+			<label class="p-10">{{ data.FinishedDate }}</label>			
+		</mat-grid-tile>
+
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10">{{'FinishPo.FinishedBy' | translate}}:</label>
+			<label class="p-10">{{ data.FinishedBy }}</label>			
+		</mat-grid-tile>
+		<mat-grid-tile >
+			<label class="app-label p-5-10"><span>{{'FinishPo.CanceledBy' | translate}}:</span></label>
+			<label class="p-10">{{ data.CanceledBy }}</label>
+		</mat-grid-tile>
+
+		<mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'FinishPo.CanceledReason' | translate}}:</span></label>
+			<label class="p-10">{{ data.CanceledReason }}</label>
+		</mat-grid-tile>
+		<!-- <mat-grid-tile colspan="2">
+			<label class="app-label p-5-10"><span>{{'FinishPo.CanceledNote' | translate}}:</span></label>
+			<label class="p-10">{{ data.CanceledNote }}</label>	
+		</mat-grid-tile> -->
+	
+
+		<mat-grid-tile colspan="1">
+			<label class="app-label p-5-10"><span>{{'FinishPo.PONote' | translate}}:</span></label>
+			<label class="p-10">{{ data.Note }}</label>	
+		</mat-grid-tile>
+	</mat-grid-list>
+
+</ng-template>
+
+<ng-template #actionContain>
+	<div class="app-btn-row" style="margin-top: 10px;">
+		<!-- <button *ngIf="isEnableFinishReceive()" (click)="isEnableFinishReceive(false)" (click)="confirmFinsihReceive($event)" mat-raised-button color="accent" class="mat-accent">
+			{{'POPallet.BtnFinishReceive' | translate}}
+		</button> -->
+
+		<button *ngIf="isShowAddSKU" (click)="showPopupAddSKU()" mat-raised-button color="accent" class="mat-accent">Thêm sản phẩm TẶNG ngoài danh mục</button>
+
+		<button *ngIf="isEnableFinish()" style="width: 120px" (click)="finishPO()" mat-raised-button color="accent" class="mat-accent">{{'finish' |
+			translate}}</button>
+
+		<button (click)="printPODetail($event)" mat-raised-button color="accent" class="mat-accent">{{'FinishPo.PrintPODetail' | translate}}</button>
+		<button (click)="printPODetail($event, 'pdf')" mat-raised-button color="accent" class="mat-accent">{{'FinishPo.ExportPDFPODetail' | translate}}</button>
+		<button style="width: 80px" (click)="cancel($event)" mat-stroked-button color="primary">{{'cancel' | translate}}</button>
+	</div>
+</ng-template>

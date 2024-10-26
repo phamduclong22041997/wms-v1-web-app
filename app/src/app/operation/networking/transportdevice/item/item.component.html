@@ -1,0 +1,137 @@
+<mat-card class="app-model-card">
+	<mat-card-header>
+		<mat-card-subtitle *ngIf="!isView">
+			<div appTranslator>Điền thông tin vào form bên dưới để hoàn thành việc tạo mới thiết bị vận chuyển.</div>
+			<div>(<span class="input-required">*</span>) <span appTranslator> Là thông tin bắt buộc.</span></div>
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form *ngIf="!isView">
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput appInputForm autoFocus name="transportdevicecode" [disabled]="isDisable"
+							[formControl]="formValidator.TransportDeviceCode" tabindex="1"
+							placeholder="Mã thiết bị vận chuyển" minlength="6" maxlength="6" required appTranslator
+							autoUppercase />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxFlex.xs="100" fxFlex class="p-10">
+						<mat-form-field>
+							<input matInput appInputForm name="description" maxlength="200" [formControl]="formValidator.Description"
+								(blur)="inputValidator('Description')" tabindex="2" placeholder="Mô tả" required appTranslator [disabled]="isDisable"/>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxFlex.xs="100" fxFlex class="p-10">
+						<mat-form-field>
+							<input matInput appInputForm name="descriptioneng" maxlength="200"
+								[formControl]="formValidator.DescriptionEng" tabindex="3" placeholder="Mô tả (English)"
+								required appTranslator [disabled]="isDisable"/>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<app-transportdevicetype-combo (onChange)="transportDeviceTypeHandle($event)"
+			            value={{data.transportdevicetype.type}} [disabled]="isDisable" title="Loại thiết bị vận chuyển" tabindex="4">
+					</app-transportdevicetype-combo>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxFlex.xs="100" fxFlex class="p-10">
+						<mat-checkbox name="usingforsmartcart" tabindex="5" [(ngModel)]="data.usingforsmartcart"
+							(change)="usingForSmartCartHandle($event)" [disabled]="isDisable">
+							Sử dụng trên Smart cart</mat-checkbox>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput appInputForm placeholder="Tình trạng sử dụng"
+						[(ngModel)]="data.usingstatus.name"
+						name="usingstatus" tabindex="6" disabled
+						appTranslator />
+					</mat-form-field>
+					<!-- <app-usingstatus-combo (onChange)="usingStatusHandle($event)" value={{data.usingstatus.name}}
+						title="Tình trạng sử dụng" tabindex="6"></app-usingstatus-combo> -->
+				</div>
+			</div>
+			<div fxLayout="row" fxFlexAlign="center center">
+				<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+					<mat-form-field>
+						<input matInput [formControl]="formValidator.NumberOfTransports" appInputForm [disabled]="isDisable"
+							name="numberoftransports" type="number" min="1" max="100" tabindex="7" placeholder="Số lượng TBVC cần tạo"
+							(blur)="inputValidator('NumberOfTransports')"
+							appTranslator />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+					<mat-checkbox name="status" tabindex="8" [(ngModel)]="data.status" [disabled]="isDisable" (change)="statusHandle($event)">
+						Trạng thái [{{statusText}}]</mat-checkbox>
+				</div>
+			</div>
+		</form>
+		<mat-list *ngIf="isView">
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Mã thiết bị vận chuyển: </div>
+				<div> {{ data.transportdevicecode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Mô tả: </div>
+				<div> {{ data.description}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Mô tả (English): </div>
+				<div> {{ data.descriptioneng}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Loại thiết bị vận chuyển: </div>
+				<div> {{ data.transportdevicetype.type}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Sử dụng trên Smart cart: </div>
+				<div> {{ data.usingforsmartcart ? "Co": "Khong"}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Trạng thái: </div>
+				<div> {{ data.status ? "Active" : "Inactive"}}</div>
+			</mat-list-item>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Tình trạng sử dụng: </div>
+				<div> {{ data.usingstatus.name}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+				<div class="app-transportdevice-view" appTranslator>Số lượng TBVC cần tạo: </div>
+				<div>{{ data.numberoftransports}}</div>
+			</mat-list-item>
+		</mat-list>
+	</mat-card-content>
+	<mat-card-actions *ngIf="!isView">
+		<div fxLayout="row" fxFlexAlign="center center">
+			<div fxFlex.gt-sm="50" fxFlex class="p-10 align-center">
+				<div class="button-row">
+					<button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="!formValid"
+						cdkFocusInitial appTranslator>Save</button>
+				</div>
+			</div>
+		</div>
+	</mat-card-actions>
+</mat-card>

@@ -1,0 +1,55 @@
+<div fxFlex="100%" class="column-item">
+  <app-combo #countryCombo value={{countryname}} tabindex="4" title={{configs.form.country}} [readonly]="readonly" [disabled]="isView"
+    [configs]="countryConfig">
+  </app-combo>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <app-combo #provinceCombo value={{provincename}} tabindex="6" title={{configs.form.province}}
+  [readonly]="readonly" [disabled]="isView || provinceConfig.disableAutoload" [configs]="provinceConfig">
+  </app-combo>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <app-combo #cityCombo value={{cityname}} tabindex="7" title={{configs.form.city}}
+  [readonly]="readonly" [disabled]="isView || cityConfig.disableAutoload" [configs]="cityConfig">
+  </app-combo>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <app-combo #districtCombo value={{districtname}} tabindex="8" title={{configs.form.district}}
+  [readonly]="readonly" [disabled]="isView || districtConfig.disableAutoload" [configs]="districtConfig"></app-combo>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <app-combo #wardCombo value={{wardname}} tabindex="9" title={{configs.form.ward}}
+  [readonly]="readonly" [disabled]="isView || wardConfig.disableAutoload" [configs]="wardConfig">
+  </app-combo>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <mat-form-field class="p-5">
+    <input matInput appInputForm type="number" [(ngModel)]="data.address.zipcode" name="zipcode" tabindex="10"
+      placeholder={{configs.form.zipcode}} [readonly]="readonly" maxlength="6" autocomplete="off" 
+      (change)="onChange($event)"
+      />
+  </mat-form-field>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <mat-form-field class="p-5">
+    <textarea rows="2" name="address1" [(ngModel)]="data.address.address1" matInput matAutosize={true} minRows={2}
+    (change)="onChange($event)"
+    (blur)="onChange()"
+      maxlength="100" tabindex="2" [readonly]="readonly" placeholder={{configs.form.address1}} required></textarea>
+  </mat-form-field>
+</div>
+
+<div fxFlex="100%" class="column-item">
+  <mat-form-field class="p-5">
+    <textarea rows="2" name="address2" [(ngModel)]="data.address.address2" matInput matAutosize={true} minRows={2}
+    (change)="onChange($event)"
+    (blur)="onChange()"
+      maxlength="100" tabindex="2" [readonly]="readonly" placeholder={{configs.form.address2}}></textarea>
+  </mat-form-field>
+</div>

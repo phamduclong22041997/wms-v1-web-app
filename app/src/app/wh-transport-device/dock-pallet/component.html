@@ -1,0 +1,45 @@
+<ng-template #dialogTitle>
+  <span class="app-title">ĐỊNH VỊ PALLET RỖNG</span>
+</ng-template>
+
+<ng-template #tableContent>
+  <div class="app-table">
+    <div style="margin-bottom: 20px;">
+      <mat-grid-list cols="1" rowHeight="40px" gutterSize="15px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label style="width: 150px;" class="app-label p-50"><span>{{'TransportDevice.LocationCode' |
+              translate}}:</span></label>
+          <app-combo #points class="app-combo" tabindex="1" readonly="readonlyLocation" title="{{'select' | translate}}" [configs]="pointsConfig">
+          </app-combo>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label style="width: 150px;" class="app-label p-50"><span>{{'TransportDevice.PalletCode' |
+              translate}}:</span></label>
+          <mat-form-field appearance="outline">
+            <input #content name="Content" tabindex="2" matInput (keyup.enter)="search($event)" autocomplete="off"
+              placeholder="{{ 'TransportDevice.KeywordDockPalletPlaceholder' | translate}}">
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+  </div>
+</ng-template>
+<div mat-dialog-content>
+  <div class="container" style="width: 100%;">
+    <ng-container *ngTemplateOutlet="dialogTitle"></ng-container>
+    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+    <ng-container *ngTemplateOutlet="tableContent"></ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <!-- cdkFocusInitial -->
+    <button class="custom-button" mat-flat-button color="accent" (click)="dockPallet()" [disabled]="!allowSave">{{
+      'btn_confirm' |
+      translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button color="warn" (click)="onOkClick()">{{ 'btn_close' |
+      translate:{Default: "No"}
+      }}</button>
+  </div>
+</div>

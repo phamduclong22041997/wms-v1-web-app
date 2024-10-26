@@ -1,0 +1,78 @@
+<app-page-session>
+	<app-page-session-header title="{{ 'AdjustProduct.TitleList' | translate }}"></app-page-session-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<app-page-session>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page-session>
+
+<ng-template #mainContent>
+	<div class="tab-container">
+		<div>
+			<h3 class="header-grid">
+				<div style="display: inline-block;width: 50%;">
+					{{'AdjustProduct.ListHeader' | translate}}
+				</div>
+			</h3>
+			<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<!-- <form #form layout="column"> -->
+	<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'AdjustProduct.Client' | translate}}:</span></label>
+			<app-combo #client class="app-combo" tabindex="1" title="{{'AdjustProduct.Client' | translate}}"
+				[configs]="clientConfig">
+			</app-combo>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'AdjustProduct.FromDate' | translate}}:</span></label>
+			<app-datepicker tabindex="4" class="app-datepicker" [options]="configDate" #fromDate>
+			</app-datepicker>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+			<app-combo #whBranchCombo class="app-combo" tabindex="2" title="{{'' | translate}}"
+				[configs]="warehouseBrachConfig">
+			</app-combo>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'AdjustProduct.ToDate' | translate}}:</span></label>
+			<app-datepicker tabindex="5" class="app-datepicker" [options]="configDate" #toDate></app-datepicker>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'AdjustProduct.Employee' | translate}}:</label>
+			<app-combo style="margin-top: 10px;" #employee class="app-combo" tabindex="1" title="{{'select' | translate}}" [configs]="employeeConfig">
+			</app-combo>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<label class="app-label p-5-10">{{'AdjustProduct.KeyWord' | translate}}:</label>
+			<mat-form-field appearance="outline" class="app-input">
+				<input #content name="Content" [(ngModel)]="filters.Content"
+					placeholder="{{'AdjustProduct.FindPlaceholder' | translate}}" matInput
+					(keyup.enter)="search($event)" autocomplete="off">
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile></mat-grid-tile>
+		<mat-grid-tile>
+			<div class="app-btn-row-right" style="width: 100%;">
+				<button color="accent" (click)="search($event)" mat-raised-button>
+					<mat-icon>search</mat-icon>{{'btn_search' | translate}}
+				</button>
+				<button color="accent" (click)="addNew($event)" mat-raised-button tabindex="10">
+					<mat-icon>add_new</mat-icon>{{'btn_create' | translate}}
+				</button>
+			</div>
+		</mat-grid-tile>
+	</mat-grid-list>
+	<!-- </form> -->
+</ng-template>

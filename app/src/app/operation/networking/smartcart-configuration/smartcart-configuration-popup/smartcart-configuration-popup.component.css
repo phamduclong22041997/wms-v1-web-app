@@ -1,0 +1,19 @@
+.button-row {
+    text-align: center;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+}
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+  width:100%;
+}
+
+.app-smartcart-view {
+  flex: 0 0 100px;
+}
+.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}

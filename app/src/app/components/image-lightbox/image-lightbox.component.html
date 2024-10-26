@@ -1,0 +1,16 @@
+<div id="imgModal" class="slide-modal">
+   <span class="close cursor" (click)="onCancelClick()">&times;</span>
+   <div class="slide-modal-content">
+      <div *ngFor="let image of data.images; let i = index">
+         <img class='img-slides' src="{{image.url}}">
+      </div>
+      <a class="prev" *ngIf="data.images.length > 1" style="background-color: rgb(116, 111, 108);" (click)="plusSlides(-1)">&#10094;</a>
+      <a class="next" *ngIf="data.images.length > 1" style="background-color: rgb(116, 111, 108);" (click)="plusSlides(1)">&#10095;</a>
+
+      <div class="image-row">
+         <div class="image-column" *ngFor="let image of data.images; let i = index">
+            <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
+         </div>
+      </div>
+   </div>
+</div>

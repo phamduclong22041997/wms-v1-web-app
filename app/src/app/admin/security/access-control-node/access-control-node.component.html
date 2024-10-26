@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>
+  {{title}}
+  <span *ngIf="refData && refData['action'] !== 'DELETE'"> (Parent: {{refData['title']}})</span>
+  <mat-slide-toggle *ngIf="refData && refData['action'] === 'ADD'"  (change)="toggleChange($event, a)" style="float:right">Menu?</mat-slide-toggle>
+</h2>
+<mat-dialog-content class="mat-typography" *ngIf="refData && refData['action'] !== 'DELETE'">
+  <form name="AccessNodeForm" class="access-node-form">
+  <mat-form-field class="full-width">
+    <input name="name" [(ngModel)]="data.name" matInput placeholder="Name" value="">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input name="title" [(ngModel)]="data.title" matInput placeholder="Menu Name" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isMenu" class="full-width">
+    <input name="path" [(ngModel)]="data.path" matInput placeholder="Location Path" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isMenu" class="full-width">
+    <input name="icon" [(ngModel)]="data.icon" matInput placeholder="Icon" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isMenu" class="full-width">
+    <input name="helplink" [(ngModel)]="data.helplink" matInput placeholder="Help Link" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="!isMenu" class="full-width">
+    <input name="resourceid" [(ngModel)]="data.resourceid" matInput placeholder="Resource Access" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isMenu" class="full-width">
+    <input name="level" [(ngModel)]="data.level" type="number" matInput placeholder="Level" />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isMenu" class="full-width">
+    <input name="position" [(ngModel)]="data.position" type="number" matInput placeholder="Menu Position" />
+  </mat-form-field>
+
+  <mat-checkbox *ngIf="isMenu" name="isview" [(ngModel)]="data.isview" (change)="onChecked($event)">
+    Is View</mat-checkbox>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button (click)="refData['action'] === 'DELETE'?removeHandle():saveHandle()" mat-button cdkFocusInitial>
+  {{refData['action'] === 'DELETE'?'OK':'Save'}}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,35 @@
+ovcore_security_authentication_sso:
+    path: /api/auth/sso
+    defaults: { _controller: OVCoreSecurityBundle:Authentication:sso }
+
+ovcore_security_authentication_session:
+    path: /session
+    defaults: { _controller: OVCoreSecurityBundle:Authentication:setupSession }
+
+# Authorization
+ovcore_security_authorization_remove:
+    path: /api/security/warrant
+    methods: OPTIONS|DELETE
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:remove }
+
+ovcore_security_authorization_save:
+    path: /api/security/warrant
+    methods: POST
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:save }
+
+ovcore_security_authorization_list:
+    path: /api/authorization/getlist
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:getList }
+
+ovcore_security_authorization_rolelist:
+    path: /api/authorization/rolelist
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:getRoleList }
+
+ovcore_security_authorization_screenlist:
+    path: /api/authorization/loadscreenlist
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:loadScreenList }
+
+ovcore_security_authorization_grantpermission:
+    path: /api/authorization/grantpermission
+    defaults: { _controller: OVCoreSecurityBundle:Authorization:grantPermission }
+# Authorization

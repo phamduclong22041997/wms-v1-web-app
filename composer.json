@@ -1,0 +1,98 @@
+{
+    "type": "oveftproject",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.1.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "alcaeus/mongo-php-adapter": "^1.1",
+        "blocktrail/cryptojs-aes-php": "^0.1.0",
+        "doctrine/common": "^2.10",
+        "doctrine/doctrine-bundle": "^1.9",
+        "doctrine/doctrine-cache-bundle": "^1.3",
+        "doctrine/mongodb": "^1.6",
+        "doctrine/mongodb-odm-bundle": "^3.5",
+        "doctrine/orm": "^2.6",
+        "friendsofsymfony/rest-bundle": "^2.4",
+        "google/apiclient": "^2.2",
+        "jms/serializer-bundle": "^2.4",
+        "knplabs/knp-snappy": "^1.0",
+        "knplabs/knp-snappy-bundle": "^1.5",
+        "mongodb/mongodb": "^1.4",
+        "nelmio/api-doc-bundle": "^3.3",
+        "php-amqplib/php-amqplib": "^2.8",
+        "php-http/guzzle6-adapter": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.10",
+        "predis/predis": "^1.1",
+        "robgridley/zebra": "^2.0",
+        "sensio/framework-extra-bundle": "^5.2",
+        "symfony/console": "4.3.*",
+        "symfony/css-selector": "4.3.*",
+        "symfony/dotenv": "4.3.*",
+        "symfony/flex": "^1.1",
+        "symfony/framework-bundle": "4.3.*",
+        "symfony/monolog-bundle": "^3.3",
+        "symfony/proxy-manager-bridge": "4.3.*",
+        "symfony/translation": "4.3.*",
+        "symfony/yaml": "4.3.*",
+        "twig/extensions": "^1.5",
+        "twig/twig": "^2.6"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "4.3.*",
+        "symfony/web-server-bundle": "4.3.*"
+    },
+    "config": {
+	"allow-plugins": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "platform": {
+            "ext-mongo": "1.6.16"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src\/"
+        },
+        "classmap": [
+            "src/",
+            "vendor/symfony/web-server-bundle/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests\/"
+        }
+    },
+    "replace": {
+        "paragonie\/random_compat": "2.*",
+        "symfony\/polyfill-ctype": "*",
+        "symfony\/polyfill-iconv": "*",
+        "symfony\/polyfill-php71": "*",
+        "symfony\/polyfill-php70": "*",
+        "symfony\/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony\/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.3.*"
+        }
+    }
+}

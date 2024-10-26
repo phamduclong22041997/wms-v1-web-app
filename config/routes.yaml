@@ -1,0 +1,12 @@
+ov_core_security:
+    resource: "@OVCoreSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+eft_networking:
+    resource: "@EFTNetworkingBundle/Resources/config/routing.yml"
+    prefix:   /
+eft_warehouse:
+    resource: "@EFTWarehouseBundle/Resources/config/routing.yml"
+    prefix:   /
+# eft_smartcart:
+#     resource: "@EFTSmartcartBundle/Resources/config/routing.yml"
+#     prefix:   /

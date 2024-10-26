@@ -1,0 +1,104 @@
+<mat-card class="app-model-card">
+<mat-card-header>
+    <mat-card-subtitle *ngIf="!isView">
+			<div>{{configs.info}}</div>
+			<div>(<span class="input-required">*</span>) <span> {{configs.require}}</span></div>
+		</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+		
+		<form *ngIf="!isView">
+			<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+				<mat-form-field>
+					<input matInput appInputForm name="pointcode" [(ngModel)]="data.pointcode" disabled tabindex="0" placeholder={{configs.form.pointcode}} required/>
+				</mat-form-field>
+			</div>
+			</div>
+			<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+					<app-room-combo (onChange)="roomHandle($event)" title={{configs.form.room}}  value={{roomname}} disabled={{isEdit}}></app-room-combo>
+				</div>
+			</div>
+				<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+					<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+						<app-floor-combo (onChange)="floorHandle($event)" value={{floorname}} title={{configs.form.floor}}  disabled={{isEdit}}></app-floor-combo>
+					</div>
+				</div>
+				<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+					<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+						<app-pointtype-combo (onChange)="pointTypeHandle($event)" value={{pointtypename}} disabled={{isEdit}} title={{configs.form.pointtype}} ></app-pointtype-combo>
+					</div>
+				</div>
+				<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+						<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+						<mat-checkbox name="status" [(ngModel)]="data.status" (change)="statusHandle($event)">{{configs.form.status}} [{{statusText}}]</mat-checkbox>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxFlexAlign="center center">
+					<div fxFlex.gt-xs="50" fxFlex class="align-center">
+					<div fxFlex.xs="50" fxFlex class="p-10">
+							<mat-form-field>
+								<input (blur)="inputValidator('xCoordinate')" type="number" min="1" max="999" (keydown)="handleKeydown($event)" matInput appInputForm name="xcoordinate" [formControl]="formValidator.xCoordinate" placeholder={{configs.form.xcoordinatefull}} required/>
+							</mat-form-field>
+					</div>
+					<div fxFlex.xs="50" fxFlex class="p-10">		
+							<mat-form-field>
+								<input (blur)="inputValidator('yCoordinate')" type="number" min="1" max="999" (keydown)="handleKeydown($event)" matInput appInputForm name="ycoordinate" [formControl]="formValidator.yCoordinate" placeholder={{configs.form.ycoordinatefull}} required/>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			
+		</form>
+
+		<mat-list *ngIf="isView">
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.pointcode}}: </div>
+			<div>{{data.pointcode}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.room}} : </div>
+			<div>{{roomname}}</div>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.floor}}: </div>
+			<div>{{floorname}}</div>
+			</mat-list-item>
+
+			<mat-divider></mat-divider>
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.pointtype}}: </div>
+			<div>{{pointtypename}}</div>
+			</mat-list-item>
+
+			<mat-divider></mat-divider>
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.status}} : </div>
+			<div>{{data.status?'Active':'Inactive'}}</div>
+			</mat-list-item>
+
+			<mat-divider></mat-divider>
+			<mat-list-item>
+			<div class="app-point-view">{{configs.form.coordinate}} : </div>
+			<div style="display: inline-grid;">
+				<span>{{configs.form.xcoordinate}}: &nbsp;{{data.xcoordinate}}(m)</span>
+				<span>&nbsp;&nbsp;&nbsp;{{configs.form.ycoordinate}}: &nbsp;{{data.ycoordinate}}(m)</span>
+			</div>
+			</mat-list-item>
+
+		</mat-list>
+  </mat-card-content>
+  <mat-card-actions *ngIf="!isView">
+		<div fxLayout="row wrap" fxFlexAlign="center" class="row">
+				<div fxFlex.gt-sm="50" fxFlex="100" class="p-10 align-center">
+		<div class="button-row">
+    	<button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="!formValid" cdkFocusInitial>{{configs.form.save}}</button>
+		</div>
+	</div>
+</div>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>THE SUPRA Fulfillment Technology</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    window.getRootPath = function () {
+      let path = window.location.pathname.split("/");
+      let _root = "app";
+      if (path[1]) {
+        _root = path[1];
+      }
+      if((_root == "app" || _root == "admin") && window.localStorage.getItem("_warehouse")) {
+        _root = window.localStorage.getItem("_warehouse").toLowerCase();
+      }
+      return _root;
+    }
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>

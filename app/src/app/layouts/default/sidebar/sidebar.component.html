@@ -1,0 +1,81 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<mat-nav-list style="padding-bottom: 40px;" (mouseenter)="onHover()" *ngIf="menuItems.getMenuitem?.length > 0" appAccordion>
+    <mat-list-item  appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem;let i=index"
+        routerLinkActive="selected" (click)="scrollToTop()">
+        <a class="" appAccordionToggle (click)="clickHandle(menuitem)" [routerLink]="['/', menuitem.state]"
+            *ngIf="menuitem.type === 'link'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+        </a>
+
+        <a class="" appAccordionToggle (click)="clickHandle(menuitem)" href="{{menuitem.state}}"
+            *ngIf="menuitem.type === 'extLink'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+        </a>
+        <a class="" appAccordionToggle (click)="clickHandle(menuitem)" href="{{menuitem.state}}" target="_blank"
+            *ngIf="menuitem.type === 'extTabLink'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name}}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+        </a>
+        <!-- Parent - Level 1 -->
+        <a class="" appAccordionToggle href="javascript: void(0);" *ngIf="menuitem.type === 'sub'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span [ngStyle]="{'display': toggleActive ? 'block' : 'none' }">{{ menuitem.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+            <mat-icon [ngStyle]="{'display': toggleActive ? 'block' : 'none' }" class="dd-icon">keyboard_arrow_down
+            </mat-icon>
+        </a>
+        <!-- END - Parent - Level 1 -->
+        <div [ngStyle]="{'display': toggleActive ? 'block' : 'none' }">
+            <mat-nav-list class="sub-item" *ngIf="menuitem.type === 'sub'">
+                <mat-list-item *ngFor="let childitem of menuitem.children" routerLinkActive="selected">
+                    <a (click)="clickHandle(childitem)" [routerLink]="['/', menuitem.state, childitem.state ]"
+                        *ngIf="childitem.type === 'link'" class="relative"
+                        routerLinkActive="selected">{{ childitem.name}}</a>
+                </mat-list-item>
+                <mat-list-item *ngFor="let childitem of menuitem.children; let j=index">
+                    <!-- Children - Level 2 -->
+                    <a class="" *ngIf="childitem.type === 'subchild'" (click)="selectItems(i, j);"
+                        [ngClass]="j==itemSelect[i]? 'selected' : ''">
+                        <span>{{ childitem.name }}</span>
+                        <span fxFlex></span>
+                        <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+                    </a>
+                    <!-- END - Children - Level 2 -->
+                    <!-- Sub Children - Level 3 -->
+                    <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'">
+                        <mat-list-item *ngFor="let child of childitem.subchildren" routerLinkActive="selected">
+                            <a [class]="classEllipsis(child.name)" (click)="clickHandle(child)"
+                                (onmouseover)="test($event)"
+                                [routerLink]="['/', menuitem.state, childitem.state, child.state ]"
+                                routerLinkActive="selected">{{child.name}}</a>
+                        </mat-list-item>
+                    </mat-nav-list>
+                    <!-- END - Children - Level 3 -->
+                </mat-list-item>
+            </mat-nav-list>
+        </div>
+        <div class="saperator text-muted" *ngIf="menuitem.type === 'saperator'">
+            <span>{{ menuitem.name }}</span>
+        </div>
+        
+    </mat-list-item>
+    <div class="copyright-content">
+        <span [ngStyle]="{'display': toggleActive ? 'none' : 'block' }"></span>
+        <span [ngStyle]="{'display': toggleActive ? 'block' : 'none' }">
+            &copy; 2022 - Designed by <img src="./../../../../assets/images/logo/copyright.png" class="logo-copyright" />
+        </span>
+    </div>
+
+    
+</mat-nav-list>

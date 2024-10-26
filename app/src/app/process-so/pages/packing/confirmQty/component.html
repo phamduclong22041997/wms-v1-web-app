@@ -1,0 +1,56 @@
+<div class="content" mat-dialog-content>
+  <h2>{{ data.title | translate }}</h2>
+  <div #form layout="column">
+    <mat-card-content>
+      <mat-grid-list cols="1" rowHeight="35px" gutterSize="5px" flex-gt-sm="100">
+        <mat-grid-tile>
+          <label class="app-label">{{'SOPacking.SOCode' | translate}}:</label>
+          <label style="width: 300px;"><span style="font-weight: bold;">{{info.SOCode}}</span></label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{'SOPacking.TransportDeviceCode' | translate}}:</label>
+          <label style="width: 300px;"><span style="font-weight: bold;">{{info.ToteCode}}</span></label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">SKU:</label>
+          <label style="width: 300px;">{{info.SKU}}</label>
+        </mat-grid-tile>
+        
+        <mat-grid-tile>
+          <label class="app-label">Barcode:</label>
+          <label style="width: 300px;">{{info.ScanBarcode}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{'Product.Name' | translate}}:</label>
+          <label style="width: 300px;">{{info.ProductName}}</label>
+        </mat-grid-tile>
+        
+        <mat-grid-tile>
+          <label class="app-label">{{ 'SOPacking.Uom' | translate}}:</label>
+          <label style="width: 300px;">{{info.ScanUomName}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'Product.QtyByCase' | translate}}:</label>
+          <label style="width: 300px;"><span>{{info.Numerator}} {{info.BaseUom}}</span></label>
+        </mat-grid-tile>
+        <mat-grid-tile style="min-height: 40px;">
+          <label class="app-label">{{ 'Product.Qty' | translate}}:</label>
+          <mat-form-field appearance="outline" class="app-input" style="width: 300px;">
+            <input #barcodeqty tabindex="1" type="number" name="barcodeqty" [(ngModel)]="qty" ng-pattern="/^[0-9]+$/" (change)="onChange($event)"
+            step="1" (keyup.enter)="onQtyEnter($event)" placeholder="{{'SOPacking.Qty' | translate}}" matInput autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <label class="app-label">{{ 'SOPacking.TotalQty' | translate}}:</label>
+          <label style="width: 300px;"><span>{{info.BaseQty}} {{info.BaseUom}}</span></label>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onQtyOkClick()" cdkFocusInitial>{{ 'btn_confirm' | translate:{Default: "Yes"} }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_no' | translate:{Default: "No"} }}</button>
+  </div>
+</div>

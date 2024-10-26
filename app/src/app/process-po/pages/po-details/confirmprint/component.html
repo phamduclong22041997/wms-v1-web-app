@@ -1,0 +1,23 @@
+<div style="text-align: center;">
+  <h3>{{ 'FinishPo.PrintPODetail'| translate }}</h3>
+</div>
+<div class="content" mat-dialog-content style="min-width: 500px; min-height: 100px;">
+  <mat-card-content>
+    <div #form layout="column">
+      <mat-grid-list cols="1" rowHeight="40px" gutterSize="5px" flex-gt-sm="200">
+        <mat-grid-tile>
+          <label class="p-5-10" style="width: 300px;"><span>{{'FinishPo.ScheduleDate' | translate}}:</span></label>
+          <app-combo #scheduleCombo class="app-combo" tabindex="1" [configs]="scheduleConfig">
+          </app-combo>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-card-content>
+</div>
+
+<div mat-dialog-actions>
+  <div class="notification-action">
+    <button class="custom-button" mat-flat-button color="accent" (click)="onOkClick()" cdkFocusInitial>{{ 'btn_print' | translate }}</button>
+    <button class="custom-button" mat-flat-button (click)="onCancelClick()">{{ 'btn_exit' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<app-page>
+	<app-page-header title="{{ 'LostFound.CreateTitle' | translate | uppercase }}"></app-page-header>
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="headerContent"></ng-container>
+	</mat-card-content>
+
+	<mat-card-content>
+		<ng-container *ngTemplateOutlet="mainContent"></ng-container>
+	</mat-card-content>
+</app-page>
+
+<ng-template #mainContent>
+	<mat-card-title class="app-page-header mat-card-title">
+		<div>
+			<span style="margin-left:5px;">{{'LostFound.CreateTitleDetail' | translate | uppercase}}:</span>
+		</div>
+	</mat-card-title>
+	<mat-grid-list cols="3" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>SKU:</span></label>
+			<mat-form-field appearance="outline" class="app-input">
+				<input #SKU tabindex="4" name="SKU" [ngModel]="ProductIssue.SKU"
+					(change)="onProductChange($event)" placeholder="{{'LostFound.FindBySKU' | translate}}" matInput
+					autocomplete="off">
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<!-- <label class="app-label p-5-10"><span>{{'LostFound.Grid.ProductName' | translate}}:</span></label>
+			<label class="app-label-content">{{ProductIssue.ProductName}}</label> -->
+		</mat-grid-tile>
+
+		<mat-grid-tile>
+			<label class="app-label p-5-10"><span>{{'LostFound.Qty' | translate}}:</span></label>
+			<mat-form-field appearance="outline" class="app-input">
+				<input #Qty type="number" tabindex="5" name="Qty" [ngModel]="ProductIssue.Qty"
+					(change)="onProductChange($event)" placeholder="{{'LostFound.Qty' | translate}}" matInput
+					oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+					autocomplete="off">
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<div class="app-btn-row-left" style="width: 100%;">
+				<button type="button" color="accent" (click)="addSKUIssue($event)" mat-raised-button tabindex="7">
+					{{'btn_addgrid' | translate}}
+				</button>
+				<!-- <button type="button" (click)="clearSKUIssue($event)" mat-raised-button tabindex="8">
+					{{'btn_exit' | translate}}
+				</button> -->
+			</div>
+			<!-- <label class="app-label p-5-10"><span>Barcode:</span></label>
+			<label class="app-label-content">{{ProductIssue.BarcodeIssue}}</label> -->
+		</mat-grid-tile>
+		<mat-grid-tile>
+			
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<div>
+		<app-edit-table class="app-table" #appTable [configs]="tableConfig"></app-edit-table>
+	</div>
+
+	<div class="app-btn-row" style="width: 100%; padding-top: 20px;">
+		<button type="button" color="accent" (click)="createIssue($event)" mat-raised-button tabindex="5" [disabled]="!IsEnableSave">
+			{{'btn_save' | translate}}
+		</button>
+		<button type="button" (click)="onClickExit($event)" mat-raised-button tabindex="6">
+			{{'btn_exit' | translate}}
+		</button>
+	</div>
+</ng-template>
+
+<ng-template #headerContent>
+	<div #form layout="column">
+		<mat-grid-list cols="2" rowHeight="40px" gutterSize="5px" flex-gt-sm="100">
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'client' | translate}}:</span></label>
+				<app-combo #client class="app-combo" tabindex="1" title="{{'client' | translate}}"
+					[configs]="clientConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'LostFound.LostLocation' | translate}}:</label>
+				<mat-form-field appearance="outline" class="app-input">
+					<input #lostLocationLabel name="IssueLocationLabel" tabindex="1" [ngModel]="data.IssueLocationLabel" placeholder="{{ 'LostFound.LostLocation' | translate}}" matInput
+					(change)="onLocationChange($event)" autocomplete="off">
+				</mat-form-field>
+			</mat-grid-tile>
+
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'DCSite' | translate}}:</span></label>
+				<app-combo #whBranch class="app-combo" tabindex="3" title="{{'DCSite' | translate}}"
+					[configs]="whBranchConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10"><span>{{'LostFound.FoundReason' | translate}}:</span></label>
+				<app-combo #issueType class="app-combo" tabindex="-1" title="{{'LostFound.FoundReason' | translate}}"
+					[configs]="losttypeConfig">
+				</app-combo>
+			</mat-grid-tile>
+			<mat-grid-tile>
+				<label class="app-label p-5-10">{{'LostFound.Note' | translate}}:</label>
+				<mat-form-field appearance="outline">
+					<textarea #note tabindex="3" name="Note" [ngModel]="data.Note"
+						placeholder="{{'LostFound.Note' | translate}}" matInput autocomplete="off" (change)="onNoteChange($event)"></textarea>
+				</mat-form-field>
+			</mat-grid-tile>
+
+		</mat-grid-list>
+	</div>
+</ng-template>

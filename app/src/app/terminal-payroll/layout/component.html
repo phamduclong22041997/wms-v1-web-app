@@ -1,0 +1,15 @@
+<div #sidebar class="main-container" [dir]="dir"
+    [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark, 'eyellow': eyellow }">
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+        [ngClass]="{'minisidebar': minisidebar}">
+        <mat-sidenav-content class="page-wrapper" [ngStyle]="{'margin-left': !toggleActive ? '47.5px' : '240px' }">
+            <div class="page-content">
+                <router-outlet>
+                    <!-- <app-spinner></app-spinner> -->
+                </router-outlet>
+                
+            </div>
+            
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

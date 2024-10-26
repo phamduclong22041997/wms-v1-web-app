@@ -1,0 +1,32 @@
+<h4 style="margin: 0 0 10px 0;">{{ 'ImportStore.CreateCode' | translate | uppercase }}</h4>
+<mat-dialog-content class="mat-typography" color='accent'>
+	<table>
+		<tr>
+			<td>
+				<div class="import-file">
+					<input style="display:none" #uploadsto id="uploadsto" type="file" (change)="uploadSTOFile($event)">
+					<input type="text" style="padding-left: 5px;" readonly matInput [value]="nameFile">
+					<label for="uploadsto">
+						<span class="span-input-upload">Import File</span>
+					</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p style="text-align: right;">
+				   <a (click)='exportStoreExcel()' style="color: #249AFF;cursor: pointer;">
+					<mat-icon style="position: relative;top: 9px;transform: scale(0.9);">file_download</mat-icon>
+					{{'Download Sample File' | translate}}
+				   </a>
+				</p>
+			</td>
+		</tr>
+	</table>
+	<div class="app-btn-row" style="text-align: center;margin-top: 10px;">
+		<button style="width: 120px;" color="accent" (click)="confirm($event)" [disabled]="isConfirm" mat-dialog-close mat-raised-button>{{'btn_confirm' |
+			translate}}</button>
+		<button style="width: 120px;" color="accent" mat-dialog-close mat-raised-button>{{'btn_close' |
+			translate}}</button>
+	</div>
+</mat-dialog-content>

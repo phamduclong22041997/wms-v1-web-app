@@ -1,0 +1,12 @@
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+.app-label {
+    width: 320px;
+}
+.app-input {
+    width: 150px;
+}
+.mat-grid-tile .mat-figure {
+    justify-content: left;
+}
